@@ -21,15 +21,19 @@
     </div>
 
     <div class="col-xs-2">
-      <% if user_signed_in? %>
-        <p>Hey there <%= current_user.username %>.</p>
-        <p><%= link_to('your blog', blog_url(current_user)) %>.</p>
-        <p><%= link_to('dashboard', root_url) %>.</p>
-        <p><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>
-      <% else %>
-        <p><%= link_to('Login', new_user_session_path)  %></p>
-        <p><%= link_to('Sign up', new_user_registration_path)  %>  </p>
-      <% end %>
+      <div class="panel">
+        <div class="panel-body">
+          <% if user_signed_in? %>
+            <p>Hey there, <%= current_user.username %>.</p>
+            <p><%= link_to('your blog', blog_url(current_user.username)) %>.</p>
+            <p><%= link_to('dashboard', root_url) %>.</p>
+            <p><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>
+          <% else %>
+            <p><%= link_to('Login', new_user_session_path)  %></p>
+            <p><%= link_to('Sign up', new_user_registration_path)  %>  </p>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 </div>

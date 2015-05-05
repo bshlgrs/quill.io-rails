@@ -1,8 +1,5 @@
 class PostsController < ApplicationController
-  def index
-    @posts = TextPost.all.order(created_at: :desc)
-    render :index
-  end
+  before_action :authenticate_user!, :only => [:create]
 
   def show
     @post = TextPost.find(params[:id])
@@ -15,6 +12,4 @@ class PostsController < ApplicationController
     @post.save!
     redirect_to "/"
   end
-
-
 end
