@@ -6,5 +6,10 @@
 
     <hr>
     <%= markdown.render(@post.body).html_safe %>
+
+    <span class="pull-right">
+      <a class="btn btn-sm">like</a>
+      <a class="btn btn-sm">reblog</a>
+    </span>
   </div>
 </div>

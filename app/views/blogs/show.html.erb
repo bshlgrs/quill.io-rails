@@ -3,9 +3,13 @@
 <% @posts.each do |post| %>
   <div class="panel panel-default">
     <div class="panel-body">
-      <h2><%= link_to post.title, blog_post_url(post.user, post) %></h2>
-      <hr>
+      <h3><%= link_to post.title, blog_post_url(post.user, post) %></h3>
       <%= markdown.render(post.body).html_safe %>
+
+      <span class="pull-right">
+        <a class="btn btn-sm">like</a>
+        <a class="btn btn-sm">reblog</a>
+      </span>
     </div>
   </div>
 <% end %>

@@ -29,15 +29,18 @@
   <% @posts.each do |post| %>
     <div class="panel panel-default">
       <div class="panel-body">
-        <h2><%= link_to post.title, blog_post_url(post.user, post) %></h2>
-        <strong>by <%= link_to post.user.username, blog_url(post.user) %></strong>
-                <span class="pull-right">
-          <a>like</a>
-          <a>reblog</a>
-        </span>
-        <hr>
+        <strong><%= link_to post.user.username, blog_url(post.user) %></strong> 
+        <h3>
+          <%= link_to post.title, blog_post_url(post.user, post) %>
+        </h3>
+
+
         <%= markdown.render(post.body).html_safe %>
 
+        <span class="pull-right">
+          <a class="btn btn-sm">like</a>
+          <a class="btn btn-sm">reblog</a>
+        </span>
       </div>
     </div>
   <% end %>
