@@ -2,18 +2,20 @@
 
 <div class="panel panel-default">
   <div class="panel-body">
-    <h2>new text post</h2>
+    <h4><a data-toggle="collapse" data-target="#newTextPost">new text post</a></h4>
 
-    <form action="posts" method="post">
-      <div class="form-group">
-        <label for="title">Title</label>
-        <input class="form-control" id="title" placeholder="Title (optional)" name="post[title]">
-      </div>
-      
-      <textarea class="form-control" rows="3" name="post[body]"></textarea>
+    <div class="collapse" id="newTextPost">
+      <form action="posts" method="post">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input class="form-control" id="title" placeholder="Title (optional)" name="post[title]">
+        </div>
+        
+        <textarea class="form-control" rows="3" name="post[body]"></textarea>
 
-      <%= button_to "Post", posts_url, {action: :new, class: 'btn pull-right btn-primary'} %>
-    </form>
+        <%= button_to "Post", posts_url, {action: :new, class: 'btn pull-right btn-primary'} %>
+      </form>
+    </div>
   </div>
 </div>
 
