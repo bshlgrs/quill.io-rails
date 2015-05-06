@@ -9,7 +9,7 @@ class PostsController < ApplicationController
   def create
     case params[:post_type]
     when "text_post"
-      @post = TextPost.new(params.require(:post).permit(:title, :body))
+      @post = TextPost.new(params.require(:post).permit(:title, :body, :rebloggable))
     when "reblog"
       @post = Reblog.new(params.require(:post).permit(:title, :body))
       @post.rebloggable_id = params[:parent_id]

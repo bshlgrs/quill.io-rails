@@ -17,6 +17,14 @@
         
         <textarea class="form-control" rows="3" name="post[body]"></textarea>
 
+        <span>
+          <label for="rebloggable">rebloggable</label>
+          <input type="checkbox" name="rebloggable" data-size="mini" checked>
+          <script>
+            $("[name='rebloggable']").bootstrapSwitch();
+          </script>
+        </span>
+
         <%= button_to "Post", posts_url, {action: :new, class: 'btn pull-right btn-primary'} %>
       </form>
     </div>
