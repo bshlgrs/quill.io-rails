@@ -8,5 +8,4 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :text_posts
   has_many :reblogs
-
 end
