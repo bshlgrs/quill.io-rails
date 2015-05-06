@@ -10,6 +10,8 @@ gem 'redcarpet'
 
 gem 'devise'
 
+gem 'react-rails'
+
 gem 'friendly_id', '~> 5.1.0'
 
 # Use SCSS for stylesheets
@@ -48,5 +50,7 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  
 end
 

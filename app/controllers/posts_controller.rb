@@ -7,9 +7,19 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = TextPost.new(params.require(:post).permit(:title, :body))
+    case params[:post_type]
+    when "text_post"
+      @post = TextPost.new(params.require(:post).permit(:title, :body))
+    when "reblog"
+      @post = Reblog.new(params.require(:post).permit(:title, :body))
+      @post.rebloggable_id = params[:parent_id]
+      @post.rebloggable_type = params[:parent_type]
+    else
+      fail
+    end
+    
     @post.user = current_user
     @post.save!
-    redirect_to "/"
+    redirect_to "/" 
   end
 end

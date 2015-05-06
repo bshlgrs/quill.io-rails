@@ -1,0 +1,24 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+      <h4>
+        <%= reblogged_post.title %>
+      </h4>
+    <div id="new-reblog">
+      <form action="posts" method="post">
+        <input type="hidden" name="parent_id" value="<%= parent_id %>">
+        <input type="hidden" name="parent_type" value="<%= parent_type %>">
+        <input type="hidden" name="post_type" value="reblog">
+        <input type="hidden" name="post[title]" value="<%= reblogged_post.title %>">
+        
+        <textarea class="form-control" rows="3" name="post[body]">
+[<%= reblogged_post.user.username %>](<%= blog_url(reblogged_post.user) %>)
+<%= quote(reblogged_post.body) %>
+
+
+</textarea>
+
+        <%= button_to "Post", posts_url, {action: :new, class: 'btn pull-right btn-primary'} %>
+      </form>
+    </div>
+  </div>
+</div>

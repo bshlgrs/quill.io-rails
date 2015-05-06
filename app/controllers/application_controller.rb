@@ -11,4 +11,16 @@ class ApplicationController < ActionController::Base
       Redcarpet::Markdown.new(renderer, extensions = {})
     end
   end
+
+  helper_method :reblog_link
+
+  def reblog_link(post, classes)
+    "<a href=\"#{root_url}?reblog=#{post.id}&reblog_type=#{post.class.name}\" class=\"#{classes}\">reblog</a>".html_safe
+  end
+
+  helper_method :quote
+
+  def quote(string)
+    string.split("\n").map { |x| "> #{x}"}.join("\n").html_safe
+  end
 end

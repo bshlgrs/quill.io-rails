@@ -1,15 +1,7 @@
+<% content_for :title do %>TumblrClone: <%= @user.username %><% end %>
+
 <h1><%= link_to @user.username, blog_url(@user) %>'s blog!!!</h1>
 
 <% @posts.each do |post| %>
-  <div class="panel panel-default">
-    <div class="panel-body">
-      <h3><%= link_to post.title, blog_post_url(post.user, post) %></h3>
-      <%= markdown.render(post.body).html_safe %>
-
-      <span class="pull-right">
-        <a class="btn btn-sm">like</a>
-        <a class="btn btn-sm">reblog</a>
-      </span>
-    </div>
-  </div>
+  <%= render partial: "posts/text_post_show", locals: { post: post, display_author: false, big_title: false} %>
 <% end %>

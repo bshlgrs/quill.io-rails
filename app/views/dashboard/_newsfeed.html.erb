@@ -1,0 +1,7 @@
+<% if posts.empty? %>
+  <p>no posts are on this shitty website yet apparently</p>
+<% else %>
+  <% posts.each do |post| %>
+    <%= render partial: "posts/polymorphic_show", locals: { post: post } %>
+  <% end %>
+<% end %>
