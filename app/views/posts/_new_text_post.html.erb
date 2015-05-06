@@ -25,6 +25,14 @@
           </script>
         </span>
 
+        <span>
+          <label for="private">private</label>
+          <input type="checkbox" name="private" data-size="mini">
+          <script>
+            $("[name='private']").bootstrapSwitch();
+          </script>
+        </span>
+
         <%= button_to "Post", posts_url, {action: :new, class: 'btn pull-right btn-primary'} %>
       </form>
     </div>

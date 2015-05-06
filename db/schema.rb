@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150506055025) do
+ActiveRecord::Schema.define(version: 20150506061510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,10 @@ ActiveRecord::Schema.define(version: 20150506055025) do
     t.string   "title"
   end
 
+  add_index "reblogs", ["rebloggable_id"], name: "index_reblogs_on_rebloggable_id", using: :btree
+  add_index "reblogs", ["rebloggable_type"], name: "index_reblogs_on_rebloggable_type", using: :btree
+  add_index "reblogs", ["user_id"], name: "index_reblogs_on_user_id", using: :btree
+
   create_table "tags", force: :cascade do |t|
     t.string   "tag",              null: false
     t.integer  "rebloggable_id",   null: false
@@ -48,13 +52,27 @@ ActiveRecord::Schema.define(version: 20150506055025) do
   end
 
   create_table "text_posts", force: :cascade do |t|
-    t.string   "body",        null: false
-    t.integer  "user_id",     null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "body",                        null: false
+    t.integer  "user_id",                     null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.string   "title"
     t.boolean  "rebloggable"
+    t.boolean  "private",     default: false, null: false
   end
+
+  add_index "text_posts", ["user_id"], name: "index_text_posts_on_user_id", using: :btree
+
+  create_table "user_relationships", force: :cascade do |t|
+    t.integer  "from_user"
+    t.integer  "to_user"
+    t.string   "relationship_type"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "user_relationships", ["from_user"], name: "index_user_relationships_on_from_user", using: :btree
+  add_index "user_relationships", ["to_user"], name: "index_user_relationships_on_to_user", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at",                          null: false
@@ -74,5 +92,6 @@ ActiveRecord::Schema.define(version: 20150506055025) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
 end
