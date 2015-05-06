@@ -1,3 +1,5 @@
-<%= render partial: "posts/new_text_post", locals: { collapsible: true } %>
+<% if current_user %>
+  <%= render partial: "posts/new_text_post", locals: { collapsible: true } %>
+<% end %>
 
 <%= render partial: "newsfeed", locals: { posts: @posts } %>
