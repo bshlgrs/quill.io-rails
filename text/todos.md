@@ -1,3 +1,14 @@
+# todos
+
+These are all things that we should eventually support.
+
+If someone didn't know much rails or web development, I'd probably most want them to work on the React.js views. It's pretty easy to use React.js incremetally.
+
+Alternatively, adding messages should be pretty easy.
+
+Adding an API would also be pretty valuable and pretty easy.
+
+
 ## Following users
 
 you should be able to. Once we have this, the dashboard should be changed to privilege posts by the people you're following.
@@ -17,6 +28,14 @@ This makes more sense long term. Particular priorities: the "new text post" view
 ## Rewrite some of the queries to be more efficient
 
 the dashboard is an ugly, inefficient clusterfuck right now, this should be fixed.
+
+## tags
+
+posts should have tags. So should reblogs. tbh I'm not sure what tags are for. I should get Kelsey to explain them.
+
+## likes
+
+you should be able to like posts.
 
 ## User preferences
 
@@ -53,4 +72,7 @@ Supporting quotes just involves duplicating TextPost and changing the view.
 ## Displaying comment threads from reblogs
 
 We want to display reddit-style threaded comments from reblogs. I think the easiest way of doing this is to run a diff between `add_quotes(parent_post)` and `current_post`, and then display the bits of the diff which are adds.
+
+
+
 

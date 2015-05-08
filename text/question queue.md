@@ -1,0 +1,1 @@
+Should we do anything to make it easier to see if people change quotes or links in reblogs?
