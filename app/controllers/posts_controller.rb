@@ -8,7 +8,7 @@ class PostsController < ApplicationController
 
   def create
     @post = TextPost.new(params.require(:post).permit(:title, :body, :rebloggable, :private))
-    
+    @post.rebloggable ||= true
     @post.user = current_user
     @post.save!
     redirect_to "/" 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150506063913) do
+ActiveRecord::Schema.define(version: 20150509015148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,16 +58,16 @@ ActiveRecord::Schema.define(version: 20150506063913) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.string   "title"
-    t.boolean  "rebloggable"
+    t.boolean  "rebloggable",                 null: false
     t.boolean  "private",     default: false, null: false
   end
 
   add_index "text_posts", ["user_id"], name: "index_text_posts_on_user_id", using: :btree
 
   create_table "user_relationships", force: :cascade do |t|
-    t.integer  "from_user"
-    t.integer  "to_user"
-    t.string   "relationship_type"
+    t.integer  "from_user",         null: false
+    t.integer  "to_user",           null: false
+    t.string   "relationship_type", null: false
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
   end
