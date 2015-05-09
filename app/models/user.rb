@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   has_many :text_posts
   has_many :reblogs
 
-  def is_following(other_user)
+  def is_following?(other_user)
     UserRelationship.where(:to_user.id => other_user, :from_user => self.id, :relationship_type => "following").count == 1
   end
 
