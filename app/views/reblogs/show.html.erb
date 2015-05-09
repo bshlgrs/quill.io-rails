@@ -2,8 +2,8 @@
 
 <h1><%= link_to @post.user.username, blog_url(@post.user) %>'s blog!!!</h1>
 
-<%= render partial: "posts/text_post_show", locals: {post: @post, big_title: false, display_author: false } %>
+<%= render partial: "reblog_show", locals: {post: @post, big_title: false, display_author: false } %>
 
 <% @post.reblogs.each do |reblog| %>
-  <%= render partial: "reblogs/condensed_reblog", locals: { reblog: reblog } %>
+  <%= render partial: "condensed_reblog", locals: { reblog: reblog } %>
 <% end %>

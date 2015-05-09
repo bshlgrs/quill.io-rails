@@ -3,5 +3,5 @@
 <h1><%= link_to @user.username, blog_url(@user) %>'s blog!!!</h1>
 
 <% @posts.each do |post| %>
-  <%= render partial: "posts/text_post_show", locals: { post: post, display_author: false, big_title: false} %>
+  <%= render partial: "posts/polymorphic_show", locals: { post: post, display_author: false, big_title: false} %>
 <% end %>

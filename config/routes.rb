@@ -4,7 +4,9 @@ Rails.application.routes.draw do
 
   resources :blogs, :only => [:show] do
     resources :posts, :only => [:show]
+    resources :reblogs, :only => [:show]
   end
 
   resources :posts, :only => [:create]
+  resources :reblogs, :only => [:create]
 end

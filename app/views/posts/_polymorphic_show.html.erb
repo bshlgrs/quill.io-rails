@@ -2,5 +2,5 @@
 <% when TextPost %>
   <%= render partial: "posts/text_post_show", locals: { post: post, display_author: true, big_title: false} %>
 <% when Reblog %>
-  <%= render partial: "posts/text_post_show", locals: { post: post, display_author: true, big_title: false} %>
+  <%= render partial: "reblogs/reblog_show", locals: { post: post, display_author: true, big_title: false} %>
 <% end %>

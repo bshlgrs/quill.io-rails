@@ -10,7 +10,7 @@ class Reblog < ActiveRecord::Base
   def get_condensed_body
     # Remove all quotes at the start. Replace quotes in the middle with [...].
 
-    condense(body.split("\n"))
+    condense(body.split("\n")).join("\n\n")
   end
 
   def condense(lines)
@@ -46,6 +46,6 @@ class Reblog < ActiveRecord::Base
       end
     end
 
-    output.join("\n")
+    output
   end
 end

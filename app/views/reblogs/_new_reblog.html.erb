@@ -4,7 +4,7 @@
         <%= reblogged_post.title %>
       </h4>
     <div id="new-reblog">
-      <form action="posts" method="post">
+      <form action="reblogs" method="post">
         <input type="hidden" name="parent_id" value="<%= parent_id %>">
         <input type="hidden" name="parent_type" value="<%= parent_type %>">
         <input type="hidden" name="post_type" value="reblog">
