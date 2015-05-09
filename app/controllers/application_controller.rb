@@ -12,10 +12,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  helper_method :reblog_url
+
+  def reblog_url(post)
+    "#{root_url}?reblog=#{post.id}&reblog_type=#{post.class.name}"
+  end
+
   helper_method :reblog_link
 
   def reblog_link(post, classes)
-    "<a href=\"#{root_url}?reblog=#{post.id}&reblog_type=#{post.class.name}\" class=\"#{classes}\">reblog</a>".html_safe
+    "<a href=\"#{reblog_url(post)}\" class=\"#{classes}\">reblog</a>".html_safe
   end
 
   helper_method :quote
