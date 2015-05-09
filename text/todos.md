@@ -68,6 +68,8 @@ Users should be able to comment on posts in a non-reblogging way. This isn't thr
 
 ## Multiple blogs
 
+## Add reblogs inline on a post, reddit-style
+
 ## Different post types
 
 To start with, we need to support image posts. This is just another "rebloggable" model. I hear Paperclip and AWS C3 are the best way of making this work?
