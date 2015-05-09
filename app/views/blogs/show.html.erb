@@ -2,6 +2,14 @@
 
 <h1><%= link_to @user.username, blog_url(@user) %>'s blog!!!</h1>
 
+<% if current_user %>
+  <% if current_user.is_following?(@user) %>
+    <%= button_to "unfollow", unfollow_url(@user) %>
+  <% else %>
+    <%= button_to "follow", follow_url(@user) %>
+  <% end %>
+<% end %>
+
 <% if @posts.empty? %>
   <p>nothing to see here...</p>
 <% else %>
