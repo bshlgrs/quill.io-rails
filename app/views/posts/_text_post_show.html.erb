@@ -10,7 +10,7 @@
       <h3><%= link_to post.title, blog_post_url(post.user, post) %></h3>
     <% end %>
     
-    <%= markdown.render(post.body).html_safe %>
+    <%= markdown.render(post.body.split("\n").join("\n\n")).html_safe %>
 
     <% if current_user %>
       <span class="pull-right">
