@@ -23,4 +23,15 @@ class ApplicationController < ActionController::Base
   def quote(string)
     string.split("\n").map { |x| "> #{x}"}.join("\n").html_safe
   end
+
+  helper_method :get_post_url
+
+  def get_post_url(thing)
+    case thing
+    when TextPost
+      blog_post_url(thing.user, thing)
+    when Reblog
+      blog_reblog_url(thing.user, thing)
+    end
+  end
 end

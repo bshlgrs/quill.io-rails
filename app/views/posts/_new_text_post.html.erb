@@ -18,7 +18,7 @@
         <textarea class="form-control" rows="3" name="post[body]"></textarea>
 
         <span>
-          <label for="rebloggable">rebloggable</label>
+          <label for="post[rebloggable]">rebloggable</label>
           <input type="checkbox" name="rebloggable" data-size="mini" checked>
           <script>
             $("[name='rebloggable']").bootstrapSwitch();
@@ -26,8 +26,8 @@
         </span>
 
         <span>
-          <label for="private">private</label>
-          <input type="checkbox" name="private" data-size="mini">
+          <label for="post[private]">private</label>
+          <input type="checkbox" name="post[private]" data-size="mini">
           <script>
             $("[name='private']").bootstrapSwitch();
           </script>

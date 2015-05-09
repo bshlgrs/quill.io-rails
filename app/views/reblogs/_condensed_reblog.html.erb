@@ -1,5 +1,5 @@
 <div class="panel panel-body">
-    <strong><%= link_to reblog.user.username, blog_url(reblog.user) %></strong>: 
+    <strong><%= link_to reblog.user.username, blog_reblog_url(reblog.user, reblog) %></strong>: 
 
     <%= markdown.render(reblog.get_condensed_body).html_safe %>
 

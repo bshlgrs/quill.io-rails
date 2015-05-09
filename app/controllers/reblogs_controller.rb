@@ -7,7 +7,7 @@ class ReblogsController < ApplicationController
   end
 
   def create
-    @reblog = Reblog.new(params.require(:post).permit(:title, :body))
+    @reblog = Reblog.new(params.require(:post).permit(:title, :body, :rebloggable, :private))
     @reblog.rebloggable_id = params[:parent_id]
     @reblog.rebloggable_type = params[:parent_type]
 

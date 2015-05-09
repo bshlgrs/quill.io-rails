@@ -2,6 +2,10 @@
 
 <h1><%= link_to @user.username, blog_url(@user) %>'s blog!!!</h1>
 
-<% @posts.each do |post| %>
-  <%= render partial: "posts/polymorphic_show", locals: { post: post, display_author: false, big_title: false} %>
+<% if @posts.empty? %>
+  <p>nothing to see here...</p>
+<% else %>
+  <% @posts.each do |post| %>
+    <%= render partial: "posts/polymorphic_show", locals: { post: post, display_author: false, big_title: false} %>
+  <% end %>
 <% end %>

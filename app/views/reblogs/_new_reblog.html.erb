@@ -1,8 +1,8 @@
 <div class="panel panel-default">
   <div class="panel-body">
-      <h4>
-        <%= reblogged_post.title %>
-      </h4>
+    <h4>
+      <%= reblogged_post.title %>
+    </h4>
     <div id="new-reblog">
       <form action="reblogs" method="post">
         <input type="hidden" name="parent_id" value="<%= parent_id %>">
@@ -11,7 +11,7 @@
         <input type="hidden" name="post[title]" value="<%= reblogged_post.title %>">
         
         <textarea class="form-control" rows="3" name="post[body]">
-[<%= reblogged_post.user.username %>](<%= blog_url(reblogged_post.user) %>)
+[<%= reblogged_post.user.username %>](<%= get_post_url(reblogged_post) %>)
 <%= quote(reblogged_post.body) %>
 
 
