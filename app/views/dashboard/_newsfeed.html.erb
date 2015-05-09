@@ -1,5 +1,15 @@
 <% if posts.empty? %>
-  <p>no posts are on this shitty website yet apparently</p>
+  <p>no posts are on this shitty website yet apparently.</p>
+
+  <p>here are the current users of this website. follow the ones with good pun names.</p>
+
+  <ul>
+    <% User.all.each do |user| %>
+      <li>
+        <%= link_to user.username, blog_url(user) %>
+      </li>
+    <% end %>
+  </ul>
 <% else %>
   <% posts.each do |post| %>
     <%= render partial: "posts/polymorphic_show", locals: { post: post } %>

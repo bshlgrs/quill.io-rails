@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => { :registrations => "registrations" }
+  
   root to: 'dashboard#dashboard'
 
   resources :blogs, :only => [:show] do
@@ -7,8 +8,8 @@ Rails.application.routes.draw do
     resources :reblogs, :only => [:show]
   end
 
-  post "users/:user_id/follow", :to => "UserRelationships#follow", :as => "follow"
-  post "users/:user_id/unfollow", :to => "UserRelationships#unfollow", :as => "unfollow"
+  post "users/:user_id/follow", :to => "relationships#follow", :as => "follow"
+  post "users/:user_id/unfollow", :to => "relationships#unfollow", :as => "unfollow"
 
   resources :posts, :only => [:create]
   resources :reblogs, :only => [:create]
