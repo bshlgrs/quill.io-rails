@@ -82,5 +82,5 @@ Supporting quotes just involves duplicating TextPost and changing the view.
 We want to display reddit-style threaded comments from reblogs. I think the easiest way of doing this is to run a diff between `add_quotes(parent_post)` and `current_post`, and then display the bits of the diff which are adds.
 
 
-
+## Queue
 

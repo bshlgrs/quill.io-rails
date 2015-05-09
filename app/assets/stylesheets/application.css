@@ -19,3 +19,10 @@
 blockquote {
   font-size: 14px;
 }
+
+.child-reblogs {
+  border-left: dashed thin;
+  border-color: lightgrey;
+}
+
+ @import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css");

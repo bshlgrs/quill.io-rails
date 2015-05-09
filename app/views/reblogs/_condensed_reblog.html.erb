@@ -1,13 +1,17 @@
-<div style="margin-left: 15px;">
+<div style="margin-left: 25px;">
     <strong><%= link_to reblog.user.username, blog_reblog_url(reblog.user, reblog) %></strong> 
     <% if current_user %>
-      (<%= reblog_link(reblog, "") %>)
+      <a href=<%= reblog_url(reblog) %>><span class="glyphicon glyphicon-comment"></span></a>
     <% end %>
     : 
 
     <%= markdown.render(reblog.get_condensed_body).html_safe %>
 
-    <% reblog.reblogs.each do |reblog| %>
-      <%= render partial: "reblogs/condensed_reblog", locals: { reblog: reblog } %>
+    <% if reblog.reblogs.length > 0 %>
+      <div class="child-reblogs">
+        <% reblog.reblogs.each do |reblog| %>
+          <%= render partial: "reblogs/condensed_reblog", locals: { reblog: reblog } %>
+        <% end %>
+      </div>
     <% end %>
 </div>
