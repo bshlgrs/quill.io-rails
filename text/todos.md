@@ -60,7 +60,15 @@ I need to figure out what "asks" are, and how to implement those.
 
 ## Comments
 
-Users should be able to comment on posts in a non-reblogging way. This isn't threaded and is mostly used on non-reblog posts.
+Users should be able to comment on posts in a non-reblogging way. This isn't threaded and is mostly used on non-reblog posts. Maybe you should be able to comment or post but not both
+
+## Archive view for blogs
+
+## Blogs should allow custom formatting
+
+## Multiple blogs
+
+## Add reblogs inline on a post, reddit-style
 
 ## Different post types
 
