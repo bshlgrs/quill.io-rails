@@ -12,14 +12,15 @@
     
     <%= markdown.render(post.body.split("\n").join("\n\n")).html_safe %>
 
-    <% if current_user %>
-      <span class="pull-right">
-        <!-- <a class="btn btn-sm">like</a> -->
-        <% if post.rebloggable %>
-          <%= post.reblog_descendents %> notes.
+    <span class="pull-right">
+      <!-- <a class="btn btn-sm">like</a> -->
+      <% if post.rebloggable %>
+        <%= post.reblog_descendents %> notes.
+        <% if current_user %>
           <%= reblog_link(post, "btn btn-sm") %>
         <% end %>
-      </span>
-    <% end %>
+      <% end %>
+    </span>
+    
   </div>
 </div>

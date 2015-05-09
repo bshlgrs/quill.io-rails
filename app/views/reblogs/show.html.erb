@@ -4,6 +4,9 @@
 
 <%= render partial: "reblog_show", locals: {post: @post, big_title: false, display_author: false } %>
 
-<% @post.reblogs.each do |reblog| %>
-  <%= render partial: "condensed_reblog", locals: { reblog: reblog } %>
+<% unless @post.reblogs.empty? %>
+  <h4>reblogs:</h4>
+  <% @post.reblogs.each do |reblog| %>
+    <%= render partial: "condensed_reblog", locals: { reblog: reblog } %>
+  <% end %>
 <% end %>

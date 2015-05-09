@@ -20,7 +20,7 @@ class Reblog < ActiveRecord::Base
     lines.each do |line|
       case state
       when :initial
-        if line.strip[0] == ">"
+        if line.strip[0] == ">" || line =~ /\[.*\]\(.*\)/
           # do nothing
           state = :initial
         else
