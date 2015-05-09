@@ -7,8 +7,8 @@ Rails.application.routes.draw do
     resources :reblogs, :only => [:show]
   end
 
-  post "users/:user_id/follow", :to => "UserRelationships#follow", as "follow"
-  post "users/:user_id/unfollow", :to => "UserRelationships#unfollow", as "unfollow"
+  post "users/:user_id/follow", :to => "UserRelationships#follow", :as => "follow"
+  post "users/:user_id/unfollow", :to => "UserRelationships#unfollow", :as => "unfollow"
 
   resources :posts, :only => [:create]
   resources :reblogs, :only => [:create]
