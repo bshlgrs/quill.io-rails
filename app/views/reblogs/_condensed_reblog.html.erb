@@ -1,19 +1,13 @@
-<div class="panel panel-body">
-    <strong><%= link_to reblog.user.username, blog_reblog_url(reblog.user, reblog) %></strong>: 
+<div style="margin-left: 15px;">
+    <strong><%= link_to reblog.user.username, blog_reblog_url(reblog.user, reblog) %></strong> 
+    <% if current_user %>
+      (<%= reblog_link(reblog, "") %>)
+    <% end %>
+    : 
 
     <%= markdown.render(reblog.get_condensed_body).html_safe %>
 
-    <% if current_user %>
-      <span class="pull-right">
-        <!-- <a class="btn btn-sm">like</a> -->
-        <% if reblog.rebloggable %>
-          <%= reblog.reblog_descendents %> notes.
-          <%= reblog_link(reblog, "btn btn-sm") %>
-        <% end %>
-      </span>
-    <% end %>
-
     <% reblog.reblogs.each do |reblog| %>
-      <%= render partial: "condensed_reblog", locals: { reblog: reblog } %>
+      <%= render partial: "reblogs/condensed_reblog", locals: { reblog: reblog } %>
     <% end %>
 </div>
