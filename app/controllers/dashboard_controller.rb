@@ -1,6 +1,6 @@
 class DashboardController < ApplicationController
   def dashboard
-    @posts = (TextPost.all + Reblog.all).sort_by { |x| -1 * x.created_at.to_i }
+    @posts = current_user.interesting_posts
 
     if params[:reblog]
       parent_class = { "TextPost" => TextPost, "Reblog" => Reblog }[params[:reblog_type]]

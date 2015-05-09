@@ -6,4 +6,6 @@ class TextPost < ActiveRecord::Base
   def reblog_descendents
     reblogs.length + reblogs.map(&:reblog_descendents).sum
   end
+
+  
 end

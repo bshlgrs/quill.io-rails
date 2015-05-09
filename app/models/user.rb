@@ -9,23 +9,39 @@ class User < ActiveRecord::Base
   has_many :text_posts
   has_many :reblogs
 
+  def interesting_posts
+    interesting = (self.text_posts + 
+                  self.reblogs +
+                  users_followed.flat_map(&:text_posts) + 
+                  users_followed.flat_map(&:reblogs))
+
+    interesting.sort_by { |x| -1 * x.created_at.to_i }
+  end
+
   def is_following?(other_user)
-    UserRelationship.where(:to_user.id => other_user, :from_user => self.id, :relationship_type => "following").count == 1
+    UserRelationship.where(:to_user_id => other_user.id, :from_user_id => self.id, :relationship_type => "following").count == 1
   end
 
   def follow(other_user)
-    UserRelationship.create!(:to_user.id => other_user, :from_user => self.id, :relationship_type => "following")
+    UserRelationship.create!(:to_user_id => other_user.id, :from_user_id => self.id, :relationship_type => "following")
   end
 
   def unfollow(other_user)
-    UserRelationship.where(:to_user.id => other_user, :from_user => self.id, :relationship_type => "following").delete_all
+    UserRelationship.where(:to_user_id => other_user.id, :from_user_id => self.id, :relationship_type => "following").delete_all
   end
 
   def block(other_user)
-    UserRelationship.create!(:to_user.id => other_user, :from_user => self.id, :relationship_type => "blocking")
+    UserRelationship.create!(:to_user_id => other_user.id, :from_user_id => self.id, :relationship_type => "blocking")
   end
 
   def unblock(other_user)
-    UserRelationship.where(:to_user.id => other_user, :from_user => self.id, :relationship_type => "following").delete_all
+    UserRelationship.where(:to_user_id => other_user.id, :from_user_id => self.id, :relationship_type => "following").delete_all
+  end
+
+  def users_followed
+    UserRelationship.where(
+      :from_user_id => self.id,
+      :relationship_type => "following"
+    ).map { |x| x.to_user }
   end
 end
