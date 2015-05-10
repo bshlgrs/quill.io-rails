@@ -20,4 +20,6 @@ Rails.application.routes.draw do
 
   resources :posts, :only => [:create]
   resources :reblogs, :only => [:create]
+
+  resource "preferences", :only => [:show, :update]
 end

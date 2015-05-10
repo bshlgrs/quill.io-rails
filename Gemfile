@@ -7,18 +7,11 @@ gem 'rails_12factor'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
-# Use sqlite3 as the database for Active Record
 gem 'pg'
-
 gem 'redcarpet'
-
 gem 'devise'
-
 gem 'react-rails'
-
 gem 'friendly_id', '~> 5.1.0'
-
-gem 'diffy'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
