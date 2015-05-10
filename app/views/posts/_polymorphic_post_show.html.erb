@@ -18,7 +18,14 @@
     <% end %>
 
     <% if post.rebloggable %>
-      <%= post.reblog_descendents %> notes, <%= Like.likes_count(post) %> likes.
+      <% if collapsible_reblogs %>
+        <a data-toggle="collapse" data-target="#comments-on-<%= post.id %>-<%= post.class.name %>">
+          <%= post.reblog_descendents %> notes
+        </a>
+      <% else %>
+        <%= post.reblog_descendents %> notes
+      <% end %>
+      , <%= Like.likes_count(post) %> likes.
     <% end %>
 
     <% if current_user %>
@@ -37,6 +44,16 @@
             method: :post %>
         <% end %>
       </span>
+    <% end %>
+
+    <% if collapsible_reblogs && post.reblogs.length > 0 %>
+      <div class="collapse" id="comments-on-<%= post.id %>-<%= post.class.name %>">
+        <hr>
+
+        <% post.reblogs.each do |reblog| %>
+          <%= render partial: "reblogs/condensed_reblog", locals: { reblog: reblog } %>
+        <% end %>
+      </div>
     <% end %>
   </div>
 </div>
