@@ -16,5 +16,7 @@ class DashboardController < ApplicationController
     else
       render :dashboard
     end
+
+    p "goodbye buck"
   end
 end
