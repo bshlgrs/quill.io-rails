@@ -18,7 +18,7 @@
     <% end %>
 
     <% if post.rebloggable %>
-      <%= post.reblog_descendents %> notes.
+      <%= post.reblog_descendents %> notes, <%= Like.likes_count(post) %> likes.
     <% end %>
 
     <% if current_user %>
