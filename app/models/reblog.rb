@@ -5,12 +5,11 @@ class Reblog < ActiveRecord::Base
 
   belongs_to :user
 
+  belongs_to :rebloggable, polymorphic: true
+
   def reblog_descendents
     reblogs.length + reblogs.map(&:reblog_descendents).sum
   end
-
-
-  belongs_to :rebloggable, polymorphic: true
 
   def get_condensed_body
     # Remove all quotes at the start. Replace quotes in the middle with [...].

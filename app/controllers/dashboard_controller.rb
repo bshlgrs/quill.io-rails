@@ -1,9 +1,9 @@
 class DashboardController < ApplicationController
   def dashboard
     if current_user
-      @posts = current_user.interesting_posts
+      @posts = current_user.interesting_posts.take(30)
     else
-      @posts = TextPost.all.sort_by { |x| -1 * x.created_at.to_i }
+      @posts = TextPost.order("created_at ASC").limit(30)
     end
 
     if params[:reblog]
