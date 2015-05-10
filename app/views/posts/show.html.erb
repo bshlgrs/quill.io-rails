@@ -8,8 +8,12 @@
   big_title: false,
   display_author: false, 
   collapsible_reblogs: true } %>
-<hr>
 
-<% @post.reblogs.each do |reblog| %>
-  <%= render partial: "reblogs/condensed_reblog", locals: { reblog: reblog } %>
+<% if ! @post.reblogs.empty? %>
+
+  <hr>
+
+  <% @post.reblogs.each do |reblog| %>
+    <%= render partial: "reblogs/condensed_reblog", locals: { reblog: reblog } %>
+  <% end %>
 <% end %>
