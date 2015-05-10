@@ -1,7 +1,5 @@
 class DashboardController < ApplicationController
   def dashboard
-    p "hello buck"
-
     if current_user
       @posts = current_user.interesting_posts
     else
@@ -16,7 +14,5 @@ class DashboardController < ApplicationController
     else
       render :dashboard
     end
-
-    p "goodbye buck"
   end
 end
