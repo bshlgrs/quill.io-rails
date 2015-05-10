@@ -9,6 +9,16 @@ class User < ActiveRecord::Base
   has_many :text_posts
   has_many :reblogs
 
+  validates_uniqueness_of :username
+  validates_uniqueness_of :email
+  validate :name_is_acceptable
+
+  def name_is_acceptable
+    if self.username.include?(".")
+      errors.add(:username, "Not allowed periods in usernames")
+    end
+  end
+
   def block_regexes
     @block_regexes ||= self.blocked_words.split(" ").map { |word| /\b#{Regexp.quote(word)}\b/ }
   end
