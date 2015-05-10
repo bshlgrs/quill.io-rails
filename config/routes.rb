@@ -8,6 +8,10 @@ Rails.application.routes.draw do
     resources :reblogs, :only => [:show]
   end
 
+  namespace :admin do
+    resources :users, :only => [:index]
+  end
+
   post "users/:user_id/follow", :to => "relationships#follow", :as => "follow"
   post "users/:user_id/unfollow", :to => "relationships#unfollow", :as => "unfollow"
 
