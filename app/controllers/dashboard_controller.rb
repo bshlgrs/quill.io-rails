@@ -1,5 +1,7 @@
 class DashboardController < ApplicationController
   def dashboard
+    p "hello buck"
+
     if current_user
       @posts = current_user.interesting_posts
     else
