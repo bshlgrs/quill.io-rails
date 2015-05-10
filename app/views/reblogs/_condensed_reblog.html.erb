@@ -1,9 +1,9 @@
 <div style="margin-left: 25px;">
-    <strong><%= link_to reblog.user.username, blog_reblog_url(reblog.user, reblog) %></strong> 
+    <strong><%= link_to reblog.user.username, blog_reblog_url(reblog.user, reblog) %></strong>
     <% if current_user %>
-      <a href=<%= reblog_url(reblog) %>><span class="glyphicon glyphicon-comment"></span></a>
+      <a href=<%= reblog_url(reblog) %>><span class="glyphicon glyphicon-retweet"></span></a>
     <% end %>
-    : 
+    :
 
     <%= markdown.render(reblog.get_condensed_body).html_safe %>
 
