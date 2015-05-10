@@ -25,4 +25,18 @@ blockquote {
   border-color: lightgrey;
 }
 
- @import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css");
+@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css");
+
+.profile-picture {
+  margin: 0;
+  position: relative;
+  float: right;
+}
+
+.relative {
+  position: relative;
+}
+
+.profile-picture img {
+  border-radius: 3px;
+}
