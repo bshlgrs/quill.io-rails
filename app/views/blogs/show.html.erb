@@ -1,6 +1,8 @@
-<% content_for :title do %>TumblrClone: <%= @user.username %><% end %>
+<% content_for :title do %>quill.io: <%= @user.username %><% end %>
 
 <h1><%= link_to @user.username, blog_url(@user) %>'s blog!!!</h1>
+
+<p class="lead"><%= @user.description %></p>
 
 <%= render partial: "relationships/follow_unfollow_buttons", locals: { user: @user } %>
 
