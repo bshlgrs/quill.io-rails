@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   end
 
   def is_following?(other_user)
-    UserRelationship.where(:to_user_id => other_user.id, :from_user_id => self.id, :relationship_type => "following").count == 1
+    UserRelationship.where(:to_user_id => other_user.id, :from_user_id => self.id, :relationship_type => "following").exists?
   end
 
   def follow(other_user)
@@ -43,5 +43,13 @@ class User < ActiveRecord::Base
       :from_user_id => self.id,
       :relationship_type => "following"
     ).map { |x| x.to_user }
+  end
+
+  def likes?(post)
+    Like.where(:user_id => self.id, :rebloggable_type => post.class.name, :rebloggable_id => post.id).exists?
+  end
+
+  def like!(post)
+    Like.create!(:user_id => self.id, :rebloggable_type => post.class.name, :rebloggable_id => post.id)
   end
 end

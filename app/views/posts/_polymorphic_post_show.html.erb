@@ -1,6 +1,42 @@
-<% case post %>
-<% when TextPost %>
-  <%= render partial: "posts/text_post_show", locals: { post: post, display_author: true, big_title: false} %>
-<% when Reblog %>
-  <%= render partial: "reblogs/reblog_show", locals: { post: post, display_author: true, big_title: false} %>
-<% end %>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <% if display_author %>
+      <strong><%= link_to post.user.username, blog_url(post.user) %></strong>
+    <% end %>
+
+    <% if big_title %>
+      <h2><%= link_to post.title, blog_post_url(post.user, post) %></h2>
+    <% else %>
+      <h3><%= link_to post.title, blog_post_url(post.user, post) %></h3>
+    <% end %>
+
+    <% case post %>
+    <% when TextPost %>
+      <%= render partial: "text_posts/text_post_show", locals: { post: post, display_author: true, big_title: false} %>
+    <% when Reblog %>
+      <%= render partial: "reblogs/reblog_show", locals: { post: post, display_author: true, big_title: false} %>
+    <% end %>
+
+    <% if post.rebloggable %>
+      <%= post.reblog_descendents %> notes.
+    <% end %>
+
+    <% if current_user %>
+      <span class="pull-right">
+        <% if post.rebloggable %>
+          <%= reblog_link(post, "btn btn-sm") %>
+        <% end %>
+
+        <% if current_user.likes?(post) %>
+          <%= link_to '<span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: red;"></span>'.html_safe,
+            unlike_url(post.class.name, post.id),
+            method: :post %>
+        <% else %>
+          <%= link_to '<span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: white;"></span>'.html_safe,
+            like_url(post.class.name, post.id),
+            method: :post %>
+        <% end %>
+      </span>
+    <% end %>
+  </div>
+</div>

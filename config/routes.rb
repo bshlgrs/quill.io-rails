@@ -15,6 +15,9 @@ Rails.application.routes.draw do
   post "users/:user_id/follow", :to => "relationships#follow", :as => "follow"
   post "users/:user_id/unfollow", :to => "relationships#unfollow", :as => "unfollow"
 
+  post "posts/:post_type/:post_id/like", :to => "likes#like", :as => "like"
+  post "posts/:post_type/:post_id/unlike", :to => "likes#unlike", :as => "unlike"
+
   resources :posts, :only => [:create]
   resources :reblogs, :only => [:create]
 end

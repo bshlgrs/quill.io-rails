@@ -12,6 +12,6 @@
   </ul>
 <% else %>
   <% posts.each do |post| %>
-    <%= render partial: "posts/polymorphic_post_show", locals: { post: post } %>
+    <%= render partial: "posts/polymorphic_post_show", locals: { post: post, display_author: true, big_title: false } %>
   <% end %>
 <% end %>
