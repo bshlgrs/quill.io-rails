@@ -12,6 +12,13 @@ Rails.application.routes.draw do
     resources :users, :only => [:index]
   end
 
+  namespace :api do
+    resources :text_posts, :only => [:show]
+    resources :reblogs, :only => [:show]
+    resources :blogs, :only => [:show]
+    get "dashboard", to: "dashboard#dashboard", as: "dashboard"
+  end
+
   post "users/:user_id/follow", :to => "relationships#follow", :as => "follow"
   post "users/:user_id/unfollow", :to => "relationships#unfollow", :as => "unfollow"
 
