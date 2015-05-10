@@ -14,7 +14,7 @@
 
     <% if current_user %>
       <span class="pull-right">
-        <!-- <a class="btn btn-sm">like</a> -->
+        <a class="btn btn-sm"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></a> 
         <% if post.rebloggable %>
           <%= post.reblog_descendents %> notes.
           <%= reblog_link(post, "btn btn-sm") %>
