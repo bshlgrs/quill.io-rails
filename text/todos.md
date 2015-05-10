@@ -33,9 +33,9 @@ the dashboard is an ugly, inefficient clusterfuck right now, this should be fixe
 
 posts should have tags. So should reblogs. tbh I'm not sure what tags are for. I should get Kelsey to explain them.
 
-## likes
+## ~~likes~~
 
-you should be able to like posts.
+~~you should be able to like posts.~~
 
 ## User preferences
 
