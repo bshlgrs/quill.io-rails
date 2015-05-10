@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
     interesting.sort_by { |x| -1 * x.created_at.to_i }
   end
 
+  def all_posts
+    self.text_posts + self.reblogs
+  end
+
   def is_following?(other_user)
     UserRelationship.where(:to_user_id => other_user.id, :from_user_id => self.id, :relationship_type => "following").exists?
   end

@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, :only => [:create]
+  before_action :authenticate_user!, :only => [:create, :index]
 
   def show
     @post = TextPost.find(params[:id])
@@ -13,5 +13,10 @@ class PostsController < ApplicationController
     @post.user = current_user
     @post.save!
     redirect_to "/" 
+  end
+
+  def index
+    @posts = current_user.all_posts
+    render :index
   end
 end

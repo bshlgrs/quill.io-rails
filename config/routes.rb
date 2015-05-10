@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   post "posts/:post_type/:post_id/like", :to => "likes#like", :as => "like"
   post "posts/:post_type/:post_id/unlike", :to => "likes#unlike", :as => "unlike"
 
-  resources :posts, :only => [:create]
+  resources :posts, :only => [:create, :index]
   resources :reblogs, :only => [:create]
 
   resource "preferences", :only => [:show, :update]

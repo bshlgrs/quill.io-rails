@@ -8,10 +8,20 @@
     <% end %>
 
     <% if big_title %>
-      <h2><%= link_to post.title, blog_post_url(post.user, post) %></h2>
+      <h2><%= link_to post.title, blog_post_url(post.user, post) %>
+        <% if post.is_private %>
+          <span class="label label-default">Private</span>
+        <% end %>
+      </h2>
     <% else %>
-      <h3><%= link_to post.title, blog_post_url(post.user, post) %></h3>
+      <h3>
+        <%= link_to post.title, blog_post_url(post.user, post) %>
+        <% if post.is_private %>
+          <span class="label label-default">Private</span>
+        <% end %>
+      </h3>
     <% end %>
+
 
     <% case post %>
     <% when TextPost %>
