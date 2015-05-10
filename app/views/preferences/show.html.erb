@@ -11,7 +11,9 @@
 
   <div class="form-group">
     <label for="profile-pic-url">Profile picture</label>
-    <p class="help-block">link to the image you want to be your profile pic</p>
+    <p class="help-block">link to the image you want to be your profile pic. Here's your current profile picture:</p>
+    <img height="200" width="200" src="<%= @user.profile_pic_url || 
+        "http://robohash.org/#{@user.username}.png?size=200x200" %>">
     <input class="form-control" id="profile-pic-url" name="user[profile_pic_url]" value="<%= @user.profile_pic_url %>">
   </div>
 

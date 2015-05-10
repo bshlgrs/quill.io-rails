@@ -2,7 +2,8 @@
 
 <div class="blog-heading">
   <div class="big-profile-pic">
-    <img height="200" width="200" src="<%= @user.profile_pic_url || "http://placehold.it/200x200" %>">
+    <img height="200" width="200" src="<%= @user.profile_pic_url || 
+        "http://robohash.org/#{@user.username}.png?size=200x200" %>">
   </div>
 
   <h1><%= link_to @user.username, blog_url(@user) %>'s blog</h1>

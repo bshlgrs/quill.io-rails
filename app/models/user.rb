@@ -5,9 +5,19 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable
   has_many :text_posts
   has_many :reblogs
+
+  validates_uniqueness_of :username
+  validates_uniqueness_of :email
+  validate :name_is_acceptable
+
+  def name_is_acceptable
+    if self.username.include?(".")
+      errors.add(:username, "Not allowed periods in usernames")
+    end
+  end
 
   def block_regexes
     @block_regexes ||= self.blocked_words.split(" ").map { |word| /\b#{Regexp.quote(word)}\b/ }
