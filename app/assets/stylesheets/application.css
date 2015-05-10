@@ -29,7 +29,6 @@ blockquote {
 
 .profile-picture {
   margin: 0;
-  position: relative;
   float: right;
 }
 
@@ -39,4 +38,17 @@ blockquote {
 
 .profile-picture img {
   border-radius: 3px;
+}
+
+.big-profile-pic {
+  float: right;
+}
+
+.blog-heading {
+  clear: both;
+  overflow:hidden;
+}
+
+.big-profile-pic img {
+  border-radius: 20px;
 }
