@@ -33,10 +33,6 @@ the dashboard is an ugly, inefficient clusterfuck right now, this should be fixe
 
 posts should have tags. So should reblogs. tbh I'm not sure what tags are for. I should get Kelsey to explain them.
 
-## ~~likes~~
-
-~~you should be able to like posts.~~
-
 ## User preferences
 
 Users should have and be able to edit:
@@ -47,7 +43,6 @@ Users should have and be able to edit:
 - whether they only accept messages from people they're following
 - a list of words (like "torture, meat") that they have blocked.
 - a list of tags that they've blocked
-
 
 ## Messaging
 
@@ -68,19 +63,11 @@ Users should be able to comment on posts in a non-reblogging way. This isn't thr
 
 ## Multiple blogs
 
-## Add reblogs inline on a post, reddit-style
-
 ## Different post types
 
 To start with, we need to support image posts. This is just another "rebloggable" model. I hear Paperclip and AWS C3 are the best way of making this work?
 
 Supporting quotes just involves duplicating TextPost and changing the view.
-
-
-## Displaying comment threads from reblogs
-
-We want to display reddit-style threaded comments from reblogs. I think the easiest way of doing this is to run a diff between `add_quotes(parent_post)` and `current_post`, and then display the bits of the diff which are adds.
-
 
 ## Queue
 
