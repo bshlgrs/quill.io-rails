@@ -12,8 +12,8 @@ class User < ActiveRecord::Base
   def interesting_posts
     interesting = (self.text_posts + 
                   self.reblogs +
-                  users_followed.flat_map(&:text_posts) + 
-                  users_followed.flat_map(&:reblogs))
+                  users_followed.flat_map { |x| x.text_posts.where(:private => false) } + 
+                  users_followed.flat_map { |x| x.reblogs.where(:private => false) })
 
     interesting.sort_by { |x| -1 * x.created_at.to_i }
   end
