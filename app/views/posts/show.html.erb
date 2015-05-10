@@ -2,7 +2,9 @@
 
 <h1><%= link_to @post.user.username, blog_url(@post.user) %>'s blog!!!</h1>
 
-<%= render partial: "posts/text_post_show", locals: {post: @post, big_title: false, display_author: false } %>
+<%= render partial: "relationships/follow_unfollow_buttons", locals: { user: @post.user } %>
+
+<%= render partial: "posts/polymorphic_post_show", locals: {post: @post, big_title: false, display_author: false } %>
 
 <hr>
 
