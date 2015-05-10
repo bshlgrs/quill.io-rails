@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   end
 
   def all_posts
-    self.text_posts + self.reblogs
+    (self.text_posts + self.reblogs).sort_by(&:created_at)
   end
 
   def is_following?(other_user)
