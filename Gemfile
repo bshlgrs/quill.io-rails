@@ -13,6 +13,8 @@ gem 'devise'
 gem 'react-rails'
 gem 'friendly_id', '~> 5.1.0'
 
+gem 'faker'
+
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
