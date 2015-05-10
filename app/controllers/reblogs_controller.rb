@@ -3,16 +3,16 @@ class ReblogsController < ApplicationController
 
   def show
     @post = Reblog.find(params[:id])
-    render :show
+    render "posts/show"
   end
 
   def create
-    @reblog = Reblog.new(params.require(:post).permit(:title, :body, :rebloggable, :private))
-    @reblog.rebloggable_id = params[:parent_id]
-    @reblog.rebloggable_type = params[:parent_type]
+    @post = Reblog.new(params.require(:post).permit(:title, :body, :rebloggable, :private))
+    @post.rebloggable_id = params[:parent_id]
+    @post.rebloggable_type = params[:parent_type]
 
-    @reblog.user = current_user
-    @reblog.save!
+    @post.user = current_user
+    @post.save!
     redirect_to "/" 
   end
 end
