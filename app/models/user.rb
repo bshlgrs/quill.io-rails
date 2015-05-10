@@ -9,11 +9,22 @@ class User < ActiveRecord::Base
   has_many :text_posts
   has_many :reblogs
 
+  def block_regexes
+    @block_regexes ||= self.blocked_words.split(" ").map { |word| /\b#{Regexp.quote(word)}\b/ }
+  end
+
+  def block_post?(post)
+    self.block_regexes.any? { |regex| regex =~ post.body }
+  end
+
   def interesting_posts
-    interesting = (self.text_posts + 
-                  self.reblogs +
-                  users_followed.flat_map { |x| x.text_posts.where(:is_private => false) } + 
-                  users_followed.flat_map { |x| x.reblogs.where(:is_private => false) })
+    my_interesting = self.all_posts
+
+    other_interesting = users_followed.flat_map(&:all_posts).reject do |post|
+      post.is_private || self.block_post?(post)
+    end
+
+    interesting = my_interesting + other_interesting
 
     interesting.sort_by { |x| -1 * x.created_at.to_i }
   end
