@@ -2,6 +2,9 @@
   <div class="panel-body">
     <% if display_author %>
       <strong><%= link_to post.user.username, blog_url(post.user) %></strong>
+      <div class="profile-picture">
+        <img height="80" width="80" src="<%= post.user.profile_pic_url || "http://placehold.it/80x80" %>">
+      </div>
     <% end %>
 
     <% if big_title %>
