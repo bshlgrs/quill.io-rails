@@ -76,6 +76,10 @@ To start with, we need to support image posts. This is just another "rebloggable
 
 Supporting quotes just involves duplicating TextPost and changing the view.
 
+Audio and video posts might be okay to do through embedding from soundcloud/youtube rather than through direct uploads. this also might make our lives easier re: copyright.
+
+'chat' posts are used for writing a back-and-forth between participants, it'd be cool to have pretty formatting for that. not a priority though.
+
 
 ## Displaying comment threads from reblogs
 
@@ -84,3 +88,18 @@ We want to display reddit-style threaded comments from reblogs. I think the easi
 
 ## Queue
 
+posts can be added to queue, the queue staggers scheduling of posts, you can set how many times a day you want your queue to publish. you can shuffle and/or rearrange your queue.
+
+## Drafts
+
+posts can be saved as a draft, there's a drafts folder, posts in the draft folder can be published
+
+## notifications
+
+you should have a page where you can view all interactions with your posts (on tumblr this means 'all posts originating from you and all posts reblogged directly from you' - 'all posts descended from you (to which you added things) might be better. alternately you could toggle by-post whether you want notifications about that post). notifications also show up in-line in the dashboard.
+
+## problems
+
+the url of a reblogger appears above the post title sometimes
+clicking on the post title doesn't bring you to that posts' original page like you'd intuitively expect
+dates should probably be above the title text
