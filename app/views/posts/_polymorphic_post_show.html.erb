@@ -1,10 +1,14 @@
 <div class="panel panel-default">
+<!--   <div style="position: relative;">
+    <div style="position: absolute; top: -80;">
+     
+    </div>
+  </div> -->
   <div class="panel-body">
     <% if display_author %>
       <strong><%= link_to post.user.username, blog_url(post.user) %></strong>
       <div class="profile-picture">
-        <img height="80" width="80" src="<%= post.user.profile_pic_url ||
-           "http://robohash.org/#{post.user.username}.png?size=80x80" %>">
+         <img height="80" width="80" src="<%= post.user.profile_pic_url || "http://robohash.org/#{post.user.username}.png?size=80x80" %>">
       </div>
     <% end %>
 
@@ -23,6 +27,7 @@
       </h3>
     <% end %>
 
+    <span><small><%= post.created_at %></small></span>
 
     <% case post %>
     <% when TextPost %>
@@ -32,7 +37,7 @@
     <% end %>
 
     <% if post.is_rebloggable %>
-      <% if collapsible_reblogs %>
+      <% if collapsible_reblogs and ! post.reblogs.empty? %>
         <a data-toggle="collapse" data-target="#comments-on-<%= post.id %>-<%= post.class.name %>">
           <%= post.reblog_descendents %> notes
         </a>
