@@ -13,6 +13,6 @@ class ReblogsController < ApplicationController
 
     @reblog.user = current_user
     @reblog.save!
-    redirect_to "/" 
+    redirect_to "/"
   end
 end

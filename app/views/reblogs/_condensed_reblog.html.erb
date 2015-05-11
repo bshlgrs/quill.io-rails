@@ -1,7 +1,7 @@
 <div style="margin-left: 25px;">
     <strong><%= link_to reblog.user.username, blog_reblog_url(reblog.user, reblog) %></strong>
     <% if current_user %>
-      <a href=<%= reblog_url(reblog) %>><span class="glyphicon glyphicon-retweet"></span></a>
+      <a href=<%= reblog_url(reblog) %>><span style="padding-left:10px;" class="glyphicon glyphicon-retweet"></span></a>
     <% end %>
     :
 

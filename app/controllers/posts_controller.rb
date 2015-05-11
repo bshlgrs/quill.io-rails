@@ -11,6 +11,6 @@ class PostsController < ApplicationController
     @post.rebloggable ||= true
     @post.user = current_user
     @post.save!
-    redirect_to "/" 
+    redirect_to "/"
   end
 end
