@@ -70,5 +70,24 @@ To start with, we need to support image posts. This is just another "rebloggable
 
 Supporting quotes just involves duplicating TextPost and changing the view.
 
+Audio and video posts can probably be done by embedding from soundcloud and youtube.
+
+Chat posts are formatted like a tv script, ideally? no one really uses this feature on tumblr and it's probably not a priority.
+
+Link posts also probably aren't a priority.
+
 ## Queue
 
+posts should be possible to add to queue. queue should be a page from which you can shuffle and reorder queued posts. you should be able to set how often a day your queue posts (1-50 times)
+
+## Drafts
+
+posts should be possible to save as drafts. drafts should be a page from which you can edit and post drafted posts.
+
+## Activity/notifications
+
+when someone interacts with a post of yours, you should get a notification. notifications appear in-line in the dashboard. you should also have an activity page from which you can see all your notifications.
+
+## followers
+
+you should be able to see all of the people who are following you. you should get a notification when someone follows you.
