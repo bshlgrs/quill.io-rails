@@ -1,0 +1,78 @@
+<div class="panel panel-default">
+<!--   <div style="position: relative;">
+    <div style="position: absolute; top: -80;">
+     
+    </div>
+  </div> -->
+  <div class="panel-body">
+    <% if display_author %>
+      <strong><%= link_to post.user.username, blog_url(post.user) %></strong>
+      <div class="profile-picture">
+         <img height="80" width="80" src="<%= post.user.profile_pic_url || "http://robohash.org/#{post.user.username}.png?size=80x80" %>">
+      </div>
+    <% end %>
+
+    <% if big_title %>
+      <h2><%= link_to post.title, blog_post_url(post.user, post) %>
+        <% if post.is_private %>
+          <span class="label label-default">Private</span>
+        <% end %>
+      </h2>
+    <% else %>
+      <h3>
+        <%= link_to post.title, blog_post_url(post.user, post) %>
+        <% if post.is_private %>
+          <span class="label label-default">Private</span>
+        <% end %>
+      </h3>
+    <% end %>
+
+    <span><small><%= post.created_at %></small></span>
+
+    <% case post %>
+    <% when TextPost %>
+      <%= render partial: "text_posts/text_post_show", locals: { post: post, display_author: true, big_title: false} %>
+    <% when Reblog %>
+      <%= render partial: "reblogs/reblog_show", locals: { post: post, display_author: true, big_title: false} %>
+    <% end %>
+
+    <% if post.is_rebloggable %>
+      <% if collapsible_reblogs and ! post.reblogs.empty? %>
+        <a data-toggle="collapse" data-target="#comments-on-<%= post.id %>-<%= post.class.name %>">
+          <%= post.reblog_descendents %> notes
+        </a>
+      <% else %>
+        <%= post.reblog_descendents %> notes
+      <% end %>
+      , <%= Like.likes_count(post) %> likes.
+    <% end %>
+
+    <% if current_user %>
+      <span class="pull-right">
+        <% if post.is_rebloggable %>
+          <%= reblog_link(post, "btn btn-sm") %>
+        <% end %>
+
+        <% if current_user.likes?(post) %>
+          <%= link_to '<span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: red;"></span>'.html_safe,
+            unlike_url(post.class.name, post.id),
+            method: :post %>
+        <% else %>
+          <%= link_to '<span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: white;"></span>'.html_safe,
+            like_url(post.class.name, post.id),
+            method: :post %>
+        <% end %>
+      </span>
+    <% end %>
+
+    <% if collapsible_reblogs && post.reblogs.length > 0 %>
+      <div class="collapse" id="comments-on-<%= post.id %>-<%= post.class.name %>">
+        <hr>
+
+        <% post.reblogs.each do |reblog| %>
+          <%= render partial: "reblogs/condensed_reblog", locals: { reblog: reblog } %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

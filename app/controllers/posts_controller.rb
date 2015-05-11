@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, :only => [:create]
+  before_action :authenticate_user!, :only => [:create, :index]
 
   def show
     @post = TextPost.find(params[:id])
@@ -7,10 +7,16 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = TextPost.new(params.require(:post).permit(:title, :body, :rebloggable, :private))
-    @post.rebloggable ||= true
+    @post = TextPost.new(params.require(:post).permit(:title, :body))
+    @post.is_rebloggable = params[:post][:is_private] == "on"
+    @post.is_private = params[:post][:is_private] == "on"
     @post.user = current_user
     @post.save!
     redirect_to "/"
+  end
+
+  def index
+    @posts = current_user.all_posts
+    render :index
   end
 end

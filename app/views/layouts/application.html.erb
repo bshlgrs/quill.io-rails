@@ -2,10 +2,7 @@
 <html>
 <head>
   <% title = yield :title %>
-  <title><%= title.length > 0 ? title : "TumblrClone" %></title>
-
-  <!-- I am doing this horribly wrong. Sorry. -->
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <title><%= title.length > 0 ? title : "quill.io" %></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -29,9 +26,11 @@
       <div class="panel">
         <div class="panel-body">
           <% if user_signed_in? %>
-            <p>Hey there, <%= current_user.username %>.</p>
-            <p><%= link_to('your blog', blog_url(current_user.username)) %>.</p>
-            <p><%= link_to('dashboard', root_url) %>.</p>
+            <p>Hey there, <%= current_user.username %></p>
+            <p><%= link_to('your blog', blog_url(current_user.username)) %></p>
+            <p><%= link_to('your posts', posts_url) %>  <span class="badge"><%= current_user.all_posts.count %></span></p>
+            <p><%= link_to('dashboard', root_url) %></p>
+            <p><%= link_to('preferences', preferences_url) %></p>
             <p><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>
           <% else %>
             <p><%= link_to('Login', new_user_session_path)  %></p>

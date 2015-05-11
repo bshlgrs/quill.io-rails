@@ -1,7 +1,12 @@
 class BlogsController < ApplicationController
   def show
     @user = User.friendly.find(params[:id])
-    @posts = (@user.text_posts + @user.reblogs).sort_by { |x| -1 * x.created_at.to_i }
+    if current_user
+      @posts = @user.all_posts.reject { |x| current_user.block_post?(x) }
+    else
+      @posts = @user.all_posts
+    end
+    
     render :show
   end
 end

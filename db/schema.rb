@@ -11,23 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150510031433) do
+ActiveRecord::Schema.define(version: 20150510140425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "friendly_id_slugs", force: :cascade do |t|
-    t.string   "slug",                      null: false
-    t.integer  "sluggable_id",              null: false
-    t.string   "sluggable_type", limit: 50
-    t.string   "scope"
-    t.datetime "created_at"
+  create_table "likes", force: :cascade do |t|
+    t.integer  "user_id",          null: false
+    t.integer  "rebloggable_id",   null: false
+    t.string   "rebloggable_type", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
-  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
-  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
-  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
-  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
+  add_index "likes", ["rebloggable_id"], name: "index_likes_on_rebloggable_id", using: :btree
+  add_index "likes", ["user_id"], name: "index_likes_on_user_id", using: :btree
 
   create_table "reblogs", force: :cascade do |t|
     t.integer  "user_id",                          null: false
@@ -37,7 +35,8 @@ ActiveRecord::Schema.define(version: 20150510031433) do
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.string   "title"
-    t.boolean  "private",          default: false, null: false
+    t.boolean  "is_private",       default: false, null: false
+    t.boolean  "is_rebloggable",   default: true,  null: false
   end
 
   add_index "reblogs", ["rebloggable_id"], name: "index_reblogs_on_rebloggable_id", using: :btree
@@ -53,13 +52,13 @@ ActiveRecord::Schema.define(version: 20150510031433) do
   end
 
   create_table "text_posts", force: :cascade do |t|
-    t.string   "body",                        null: false
-    t.integer  "user_id",                     null: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.string   "body",                           null: false
+    t.integer  "user_id",                        null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "title"
-    t.boolean  "rebloggable",                 null: false
-    t.boolean  "private",     default: false, null: false
+    t.boolean  "is_rebloggable",                 null: false
+    t.boolean  "is_private",     default: false, null: false
   end
 
   add_index "text_posts", ["user_id"], name: "index_text_posts_on_user_id", using: :btree
@@ -76,20 +75,24 @@ ActiveRecord::Schema.define(version: 20150510031433) do
   add_index "user_relationships", ["to_user_id"], name: "index_user_relationships_on_to_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.string   "username",               default: "",    null: false
-    t.string   "email",                  default: "",    null: false
-    t.string   "encrypted_password",     default: "",    null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.string   "username",                     default: "",    null: false
+    t.string   "email",                        default: "",    null: false
+    t.string   "encrypted_password",           default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,     null: false
+    t.integer  "sign_in_count",                default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.boolean  "is_admin",               default: false, null: false
+    t.boolean  "is_admin",                     default: false, null: false
+    t.string   "blocked_words",                default: "",    null: false
+    t.string   "profile_pic_url"
+    t.string   "description",                  default: "",    null: false
+    t.boolean  "require_permission_to_follow", default: false, null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

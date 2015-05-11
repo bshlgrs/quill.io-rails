@@ -1,0 +1,42 @@
+<h2>Preferences</h2>
+
+<form action="preferences" method="POST">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+
+  <div class="form-group">
+    <label for="description">Description</label>
+    <p class="help-block">Appears on your blog.</p>
+    <input class="form-control" id="description"  name="user[description]" value="<%= @user.description %>">
+  </div>
+
+  <div class="form-group">
+    <label for="profile-pic-url">Profile picture</label>
+    <p class="help-block">link to the image you want to be your profile pic. Here's your current profile picture:</p>
+    <img height="200" width="200" src="<%= @user.profile_pic_url || 
+        "http://robohash.org/#{@user.username}.png?size=200x200" %>">
+    <input class="form-control" id="profile-pic-url" name="user[profile_pic_url]" value="<%= @user.profile_pic_url %>">
+  </div>
+
+  <div>
+    <label for="require_permission_to_follow">require permission to follow</label>
+    <p class="help-block">If selected, people can't follow you without you approving their request.</p>
+    <input type="checkbox" id="require_permission_to_follow" name="user[require_permission_to_follow]" data-size="mini" 
+      <%= "checked" if @user.require_permission_to_follow %>
+    >
+    <script>
+      $("[name='user[require_permission_to_follow]']").bootstrapSwitch();
+    </script>
+  </div>
+
+  <div class="form-group">
+    <label for="blocked-words">Blocked words</label>
+    <p class="help-block">Any posts with words included in this list will be hidden from your dashboard or when you're 
+    on people's blogs.</p>
+    <input class="form-control" id="blocked-words" name="user[blocked_words]" value="<%= @user.blocked_words %>">
+  </div>
+
+
+  <input name="_method" type="hidden" value="patch" />
+
+  <input class="btn btn-primary" type="submit" value="Save changes">
+</form>

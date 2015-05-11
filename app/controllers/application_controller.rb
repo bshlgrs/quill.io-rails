@@ -7,8 +7,8 @@ class ApplicationController < ActionController::Base
 
   def markdown
     @markdown ||= begin
-      renderer = Redcarpet::Render::HTML.new
-      Redcarpet::Markdown.new(renderer, :lax_spacing => true)
+      renderer = Redcarpet::Render::HTML.new(:filter_html => true)
+      Redcarpet::Markdown.new(renderer, :lax_spacing => true, :hard_wrap => true)
     end
   end
 
