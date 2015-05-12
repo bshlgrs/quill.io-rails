@@ -36,7 +36,7 @@ Rails.application.configure do
   config.assets.digest = true
 
   # FIXME
-  config.action_mailer.default_url_options = { host: 'tumblr-clone.com' }
+  config.action_mailer.default_url_options = { host: 'quill.io' }
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
