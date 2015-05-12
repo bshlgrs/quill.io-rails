@@ -3,7 +3,7 @@ class DashboardController < ApplicationController
     if current_user
       @posts = current_user.interesting_posts.take(30)
     else
-      @posts = TextPost.order("created_at ASC").limit(30)
+      @posts = TextPost.order("created_at DESC").limit(30)
     end
 
     if params[:reblog]
