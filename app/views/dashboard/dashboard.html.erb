@@ -3,3 +3,7 @@
 <% end %>
 
 <%= render partial: "newsfeed", locals: { posts: @posts } %>
+
+<script>
+  window.crazy_json_shit = <%= render "api/dashboard/dashboard.json", locals: { posts: @posts } %>;
+</script>
