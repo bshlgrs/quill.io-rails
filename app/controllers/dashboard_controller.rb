@@ -3,16 +3,7 @@ class DashboardController < ApplicationController
     if current_user
       @posts = current_user.interesting_posts
     else
-      @posts = TextPost.all.sort_by { |x| -1 * x.created_at.to_i }
-    end
-
-    if params[:reblog]
-      parent_class = { "TextPost" => TextPost, "Reblog" => Reblog }[params[:reblog_type]]
-      @reblogged_post = parent_class.find(params[:reblog])
-      @reblog_type = params[:reblog_type]
-      render :dashboard_new_reblog
-    else
-      render :dashboard
+      @posts = Post.order(created_at: :desc)
     end
   end
 end

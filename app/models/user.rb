@@ -6,24 +6,30 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  has_many :text_posts
-  has_many :reblogs
+  has_many :posts
+
+  has_many :outgoing_user_relationships, class_name: "UserRelationship", foreign_key: "from_user_id"
+  has_many :outgoing_follows,
+              -> { where relationship_type: "following" },
+              class_name: "UserRelationship",
+              foreign_key: "from_user_id"
+  has_many :followed_users, through: :outgoing_follows, source: :to_user
 
   def interesting_posts
-    interesting = (self.text_posts + 
-                  self.reblogs +
-                  users_followed.flat_map(&:text_posts) + 
-                  users_followed.flat_map(&:reblogs))
-
-    interesting.sort_by { |x| -1 * x.created_at.to_i }
+    # todo: fix this monstrosity
+    interesting = (followed_users.joins(:posts) + self.posts).sort_by { |x| 0 - x.created_at }
   end
 
   def is_following?(other_user)
-    UserRelationship.where(:to_user_id => other_user.id, :from_user_id => self.id, :relationship_type => "following").count == 1
+    followed_users.where(:id => other_user.id).present?
   end
 
   def follow(other_user)
-    UserRelationship.create!(:to_user_id => other_user.id, :from_user_id => self.id, :relationship_type => "following")
+    unless self.is_following? other_user
+      UserRelationship.create!(:to_user_id => other_user.id,
+                               :from_user_id => self.id,
+                               :relationship_type => "following")
+    end
   end
 
   def unfollow(other_user)
@@ -36,12 +42,5 @@ class User < ActiveRecord::Base
 
   def unblock(other_user)
     UserRelationship.where(:to_user_id => other_user.id, :from_user_id => self.id, :relationship_type => "following").delete_all
-  end
-
-  def users_followed
-    UserRelationship.where(
-      :from_user_id => self.id,
-      :relationship_type => "following"
-    ).map { |x| x.to_user }
   end
 end

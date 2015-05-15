@@ -1,3 +1,3 @@
 class Tag < ActiveRecord::Base
-  belongs_to :rebloggable, polymorphic: true
+  belongs_to :post
 end
