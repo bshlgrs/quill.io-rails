@@ -7,6 +7,8 @@ class Post < ActiveRecord::Base
 
   has_many :image_postings # only if this is an image
 
+  has_many :likes
+
   has_many :tags
 
   def add_tags_from_array(array)

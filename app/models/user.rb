@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
               foreign_key: "from_user_id"
   has_many :followed_users, through: :outgoing_follows, source: :to_user
 
+  has_many :likes
+  has_many :liked_posts, through: :likes, source: :post
 
   validates_uniqueness_of :username
   validates_uniqueness_of :email
@@ -71,7 +73,7 @@ class User < ActiveRecord::Base
   end
 
   def likes?(post)
-    Like.where(:user_id => self.id, :rebloggable_type => post.class.name, :rebloggable_id => post.id).exists?
+    liked_posts.include? post
   end
 
   def like!(post)

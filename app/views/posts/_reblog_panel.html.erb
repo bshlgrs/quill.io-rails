@@ -1,7 +1,15 @@
 <span class="pull-right">
-  <a href="#"><span class="glyphicon glyphicon-like</a>
   <% if post.is_rebloggable %>
-    <%= post.reblog_descendents %> notes.
     <%= reblog_link(post, "btn btn-sm") %>
+  <% end %>
+
+  <% if current_user.likes?(post) %>
+    <%= link_to '<span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: red;"></span>'.html_safe,
+      unlike_url(post.class.name, post.id),
+      method: :post %>
+  <% else %>
+    <%= link_to '<span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: white;"></span>'.html_safe,
+      like_url(post.class.name, post.id),
+      method: :post %>
   <% end %>
 </span>
