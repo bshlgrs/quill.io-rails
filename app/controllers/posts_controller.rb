@@ -24,7 +24,7 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = current_user.all_posts
+    @posts = current_user.posts
     render :index
   end
 
