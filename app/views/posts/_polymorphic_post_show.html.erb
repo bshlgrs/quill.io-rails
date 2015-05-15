@@ -8,7 +8,7 @@
     <% if display_author %>
       <strong><%= link_to post.user.username, blog_url(post.user) %></strong>
       <div class="profile-picture">
-         <img height="80" width="80" src="<%= post.user.profile_pic_url || "http://robohash.org/#{post.user.username}.png?size=80x80" %>">
+         <img height="80" width="80" src="<%= post.user.guaranteed_profile_pic_url %>">
       </div>
     <% end %>
 

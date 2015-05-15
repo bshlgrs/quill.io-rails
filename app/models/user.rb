@@ -79,4 +79,8 @@ class User < ActiveRecord::Base
   def like!(post)
     Like.create!(:user_id => self.id, :rebloggable_type => post.class.name, :rebloggable_id => post.id)
   end
+
+  def guaranteed_profile_pic_url
+    profile_pic_url && profile_pic_url != "" || "http://robohash.org/#{self.username}.png?size=200x200"
+  end
 end
