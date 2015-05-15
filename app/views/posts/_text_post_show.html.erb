@@ -12,14 +12,14 @@
     
     <%= markdown.render(post.body.split("\n").join("\n\n")).html_safe %>
 
+    <p>
+      <% post.tags.each do |tag| %>
+        <span class="label label-default">#<%= tag.tag %></span>
+      <% end %>
+    </p>
+
     <% if current_user %>
-      <span class="pull-right">
-        <!-- <a class="btn btn-sm">like</a> -->
-        <% if post.is_rebloggable %>
-          <%= post.reblog_descendents %> notes.
-          <%= reblog_link(post, "btn btn-sm") %>
-        <% end %>
-      </span>
+      <%= render partial: "posts/reblog_panel", locals: { post: post } %>
     <% end %>
   </div>
 </div>

@@ -1,11 +1,13 @@
 <% content_for :title do %>Quill: <%= @post.user.username %><% end %>
 
-<h1><%= link_to @post.user.username, blog_url(@post.user) %>'s blog!!!</h1>
+<h1><%= link_to @post.user.username, blog_url(@post.user) %>'s blog</h1>
 
 <%= render partial: "posts/text_post_show", locals: {post: @post, big_title: false, display_author: false } %>
 
-<hr>
+<% if @post.reblogs.length > 0 %>
+  <hr>
 
-<% @post.reblogs.each do |reblog| %>
-  <%= render partial: "reblogs/condensed_reblog", locals: { reblog: reblog } %>
+  <% @post.reblogs.each do |reblog| %>
+    <%= render partial: "reblogs/condensed_reblog", locals: { reblog: reblog } %>
+  <% end %>
 <% end %>

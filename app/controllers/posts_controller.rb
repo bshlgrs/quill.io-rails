@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, :only => [:create]
 
   def show
-    @post = TextPost.find(params[:id])
+    @post = Post.find(params[:id])
     render :show
   end
 
