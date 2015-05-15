@@ -1,6 +1,6 @@
-<% case post %>
-<% when TextPost %>
+<% case post.post_type %>
+<% when "text_post" %>
   <%= render partial: "posts/text_post_show", locals: { post: post, display_author: true, big_title: false} %>
-<% when Reblog %>
+<% when "reblog" %>
   <%= render partial: "reblogs/reblog_show", locals: { post: post, display_author: true, big_title: false} %>
 <% end %>

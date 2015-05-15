@@ -22,6 +22,6 @@ class PostsController < ApplicationController
 
   private
     def text_post_params
-      params.require(:post).permit(:title, :body, :is_rebloggable, :is_private)
+      params.require(:post).permit(:title, :body, :is_rebloggable, :is_private, :post_type)
     end
 end

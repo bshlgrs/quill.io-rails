@@ -15,7 +15,7 @@
     <% if current_user %>
       <span class="pull-right">
         <!-- <a class="btn btn-sm">like</a> -->
-        <% if post.rebloggable %>
+        <% if post.is_rebloggable %>
           <%= post.reblog_descendents %> notes.
           <%= reblog_link(post, "btn btn-sm") %>
         <% end %>

@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
 
   def interesting_posts
     # todo: fix this monstrosity
-    interesting = (followed_users.joins(:posts) + self.posts).sort_by { |x| 0 - x.created_at }
+    interesting = (followed_users.joins(:posts) + self.posts).sort_by { |x| 0 - x.created_at.to_i }
   end
 
   def is_following?(other_user)

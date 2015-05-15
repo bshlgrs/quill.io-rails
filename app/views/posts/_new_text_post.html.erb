@@ -9,7 +9,7 @@
       </h4>
     <div class="<%= collapse_class %>" id="newTextPost">
       <form action="posts" method="post">
-        <input type="hidden" name="post[type]" value="text_post">
+        <input type="hidden" name="post[post_type]" value="text_post">
         <div class="form-group">
           <label for="title">Title</label>
           <input class="form-control" id="title" placeholder="Title (optional)" name="post[title]">
@@ -24,18 +24,18 @@
         </div>
 
         <span>
-          <label for="post[rebloggable]">rebloggable</label>
-          <input type="checkbox" name="rebloggable" data-size="mini" checked>
+          <label for="post[is_rebloggable]">rebloggable</label>
+          <input type="checkbox" name="post[is_rebloggable]" data-size="mini" checked>
           <script>
-            $("[name='rebloggable']").bootstrapSwitch();
+            $("[name='post[is_rebloggable]']").bootstrapSwitch();
           </script>
         </span>
 
         <span>
-          <label for="post[private]">private</label>
-          <input type="checkbox" name="post[private]" data-size="mini">
+          <label for="post[is_private]">private</label>
+          <input type="checkbox" name="post[is_private]" data-size="mini">
           <script>
-            $("[name='private']").bootstrapSwitch();
+            $("[name='post[is_private]']").bootstrapSwitch();
           </script>
         </span>
 
