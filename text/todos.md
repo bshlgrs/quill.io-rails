@@ -33,10 +33,6 @@ the dashboard is an ugly, inefficient clusterfuck right now, this should be fixe
 
 posts should have tags. So should reblogs. tbh I'm not sure what tags are for. I should get Kelsey to explain them.
 
-## likes
-
-you should be able to like posts.
-
 ## User preferences
 
 Users should have and be able to edit:
@@ -48,7 +44,6 @@ Users should have and be able to edit:
 - a list of words (like "torture, meat") that they have blocked.
 - a list of tags that they've blocked
 
-
 ## Messaging
 
 Users should be able to send each other messages.
@@ -57,6 +52,7 @@ There should be an inbox, an outbox, and messages threaded by user.
 
 I need to figure out what "asks" are, and how to implement those.
 
+## Submit
 
 ## Comments
 
@@ -68,19 +64,30 @@ Users should be able to comment on posts in a non-reblogging way. This isn't thr
 
 ## Multiple blogs
 
-## Add reblogs inline on a post, reddit-style
-
 ## Different post types
 
 To start with, we need to support image posts. This is just another "rebloggable" model. I hear Paperclip and AWS C3 are the best way of making this work?
 
 Supporting quotes just involves duplicating TextPost and changing the view.
 
+Audio and video posts can probably be done by embedding from soundcloud and youtube.
 
-## Displaying comment threads from reblogs
+Chat posts are formatted like a tv script, ideally? no one really uses this feature on tumblr and it's probably not a priority.
 
-We want to display reddit-style threaded comments from reblogs. I think the easiest way of doing this is to run a diff between `add_quotes(parent_post)` and `current_post`, and then display the bits of the diff which are adds.
-
+Link posts also probably aren't a priority.
 
 ## Queue
 
+posts should be possible to add to queue. queue should be a page from which you can shuffle and reorder queued posts. you should be able to set how often a day your queue posts (1-50 times)
+
+## Drafts
+
+posts should be possible to save as drafts. drafts should be a page from which you can edit and post drafted posts.
+
+## Activity/notifications
+
+when someone interacts with a post of yours, you should get a notification. notifications appear in-line in the dashboard. you should also have an activity page from which you can see all your notifications.
+
+## followers
+
+you should be able to see all of the people who are following you. you should get a notification when someone follows you.

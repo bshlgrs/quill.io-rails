@@ -1,7 +1,11 @@
 <% if posts.empty? %>
-  <p>no posts are on this shitty website yet apparently.</p>
+  <% if current_user %>
+    <p>Apparently no-one that you're following has posted anything yet. :(</p>
+  <% else %>
+    <p>No posts are visible right now.</p>
+  <% end %>
 
-  <p>here are the current users of this website. follow the ones with good pun names.</p>
+  <p>Here are the current users of this website. Follow the ones with good pun names.</p>
 
   <ul>
     <% User.all.each do |user| %>
@@ -12,6 +16,7 @@
   </ul>
 <% else %>
   <% posts.each do |post| %>
-    <%= render partial: "posts/polymorphic_show", locals: { post: post } %>
+    <%= render partial: "posts/polymorphic_post_show", 
+      locals: { post: post, display_author: true, big_title: false, collapsible_reblogs: true } %>
   <% end %>
 <% end %>

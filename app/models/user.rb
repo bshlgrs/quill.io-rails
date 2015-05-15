@@ -15,9 +15,28 @@ class User < ActiveRecord::Base
               foreign_key: "from_user_id"
   has_many :followed_users, through: :outgoing_follows, source: :to_user
 
+
+  validates_uniqueness_of :username
+  validates_uniqueness_of :email
+  validate :name_is_acceptable
+
+  def name_is_acceptable
+    if self.username.include?(".")
+      errors.add(:username, "Not allowed periods in usernames")
+    end
+  end
+
   def interesting_posts
     # todo: fix this monstrosity
     interesting = (followed_users.joins(:posts) + self.posts).sort_by { |x| 0 - x.created_at.to_i }
+  end
+
+  def block_regexes
+    @block_regexes ||= self.blocked_words.split(" ").map { |word| /\b#{Regexp.quote(word)}\b/ }
+  end
+
+  def block_post?(post)
+    self.block_regexes.any? { |regex| regex =~ post.body }
   end
 
   def is_following?(other_user)
@@ -42,5 +61,20 @@ class User < ActiveRecord::Base
 
   def unblock(other_user)
     UserRelationship.where(:to_user_id => other_user.id, :from_user_id => self.id, :relationship_type => "following").delete_all
+  end
+
+  def users_followed
+    UserRelationship.where(
+      :from_user_id => self.id,
+      :relationship_type => "following"
+    ).map { |x| x.to_user }
+  end
+
+  def likes?(post)
+    Like.where(:user_id => self.id, :rebloggable_type => post.class.name, :rebloggable_id => post.id).exists?
+  end
+
+  def like!(post)
+    Like.create!(:user_id => self.id, :rebloggable_type => post.class.name, :rebloggable_id => post.id)
   end
 end

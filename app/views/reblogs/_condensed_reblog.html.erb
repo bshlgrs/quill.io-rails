@@ -1,9 +1,10 @@
-<div style="margin-left: 25px;">
-    <strong><%= link_to reblog.user.username, blog_reblog_url(reblog.user, reblog) %></strong> 
+<% if reblog.get_condensed_body != "" %>
+  <div style="margin-left: 25px;">
+    <strong><%= link_to reblog.user.username, blog_reblog_url(reblog.user, reblog) %></strong>
     <% if current_user %>
-      <a href=<%= reblog_url(reblog) %>><span class="glyphicon glyphicon-comment"></span></a>
+      <a href=<%= reblog_url(reblog) %>><span style="padding-left:10px;" class="glyphicon glyphicon-retweet"></span></a>
     <% end %>
-    : 
+    :
 
     <%= markdown.render(reblog.get_condensed_body).html_safe %>
 
@@ -14,4 +15,9 @@
         <% end %>
       </div>
     <% end %>
-</div>
+  </div>
+<% else %>
+  <% reblog.reblogs.each do |reblog| %>
+    <%= render partial: "reblogs/condensed_reblog", locals: { reblog: reblog } %>
+  <% end %>
+<% end %>
