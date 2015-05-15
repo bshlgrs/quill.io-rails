@@ -13,10 +13,5 @@ class CreateUserRelationships < ActiveRecord::Migration
 
     add_index(:users, :username, unique: true)
 
-    add_index(:text_posts, :user_id)
-    add_index(:reblogs, :user_id)
-
-    add_index(:reblogs, :rebloggable_id)
-    add_index(:reblogs, :rebloggable_type)
   end
 end
