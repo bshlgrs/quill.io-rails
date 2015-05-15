@@ -12,6 +12,5 @@ class CreateUserRelationships < ActiveRecord::Migration
     add_index(:user_relationships, :to_user)
 
     add_index(:users, :username, unique: true)
-
   end
 end
