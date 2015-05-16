@@ -6,6 +6,14 @@ var Post = React.createClass({
 
     var private_tag = props.is_private && <span className="label label-default">Private</span>;
 
+    var body;
+
+    if (props.post_type == "text_post") {
+      body = props.body;
+    } else {
+      throw "unrecognised post type: " + props.post_type;
+    }
+
     return (
       <div className="panel panel-default">
         <div className="panel-body">
@@ -19,16 +27,25 @@ var Post = React.createClass({
           <div><small>{props.created_at}</small></div>
 
           <div>
-            {props.body}
+            {body}
           </div>
 
-          <ReblogAndLikeButtons 
-            collapsible_reblogs={false}
+          <ReblogAndLikeCounters 
+            collapsible_reblogs={props.collapsible_reblogs}
             reblogs={props.reblogs}
             is_rebloggable={props.is_rebloggable}
             reblogs={props.reblogs}
             number_of_likes={props.number_of_likes}
+            current_user={props.current_user}
             post_id={props.id}/>
+
+          { props.current_user &&
+            <ReblogAndLikeButtons
+              current_user_likes_this={props.current_user_likes_this}
+              post_id={props.post_id}
+              toggleLike={props.toggleLike}
+            />
+          }
         </div>
       </div>
     );

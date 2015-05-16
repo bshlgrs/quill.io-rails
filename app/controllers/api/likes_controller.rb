@@ -3,13 +3,11 @@ class Api::LikesController < ApplicationController
 
   def like
     Like.create!(:user_id => current_user.id, :post_id => params[:post_id])
-
-    respond_with head: :ok
+    render nothing: true, status: 200
   end
 
   def unlike
     Like.where(:user_id => current_user.id, :post_id => params[:post_id]).delete_all
-
-    respond_with head: :ok
+    render nothing: true, status: 200
   end
 end

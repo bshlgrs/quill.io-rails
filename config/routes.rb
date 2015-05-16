@@ -13,9 +13,12 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
-    resources :text_posts, :only => [:show]
-    resources :reblogs, :only => [:show]
+    resources :post, :only => [:show] do
+      post "like", to: "likes#like", as: "like"
+      post "unlike", to: "likes#unlike", as: "unlike"
+    end
     resources :blogs, :only => [:show]
+
     get "dashboard", to: "dashboard#dashboard", as: "dashboard"
   end
 

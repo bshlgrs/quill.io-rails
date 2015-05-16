@@ -1,24 +1,22 @@
 /** @jsx React.DOM */
 
 var ReblogAndLikeButtons = React.createClass({
+  handleClick () {
+    this.props.toggleLike(this.props.post_id);
+  },
   render () {
     var props = this.props;
 
-    if (props.collapsible_reblogs && props.reblogs) {
-      var reblog_stuff = <a data-toggle="collapse" 
-                          data-target={"#comments-on-" + props.post_id}>
-                        {reblog_descendents + " notes, "}
-                      </a>
-  
-    } else {
-      var reblog_stuff = <span>{props.reblogs.length + " notes, "}</span>
-    }
-    
+    var color = props.current_user_likes_this ? "red" : "white";
 
     return (
-      <span>
-        {props.is_rebloggable && reblog_stuff}
-        {props.number_of_likes + " likes."}
+      <span className="pull-right">
+        <span
+          className="glyphicon glyphicon-heart"
+          aria-hidden="true"
+          style={{"color": color}}
+          onClick={this.handleClick}>
+        </span>
       </span>
     )
   }

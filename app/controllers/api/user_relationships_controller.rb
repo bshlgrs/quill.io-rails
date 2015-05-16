@@ -3,11 +3,11 @@ class Api::UserRelationshipsController < ApplicationController
 
   def follow
     current_user.follow(User.find_by_username(params[:user_id]))
-    respond_with head: :ok
+    render nothing: true, status: 200
   end
 
   def unfollow
     current_user.unfollow(User.find_by_username(params[:user_id]))
-    respond_with head: :ok
+    render nothing: true, status: 200
   end
 end

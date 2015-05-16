@@ -7,6 +7,10 @@ json.created_at post.created_at
 
 json.user post.user, :id, :username, :description, :require_permission_to_follow, :guaranteed_profile_pic_url
 
+if current_user
+  json.current_user_likes_this current_user.likes? post
+end
+
 case post.post_type
 when "text_post"
   json.body post.body
