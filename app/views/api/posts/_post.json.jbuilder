@@ -5,11 +5,11 @@ json.is_private post.is_private
 json.is_rebloggable post.is_rebloggable
 json.created_at post.created_at
 
-case post
-when TextPost
+case post.post_type
+when "text_post"
   json.body post.body
   json.title post.title
-when Reblog 
+when "reblog"
   json.body post.body
   json.title post.title
   json.rebloggable_id post.rebloggable_id

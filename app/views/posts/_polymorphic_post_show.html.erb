@@ -36,16 +36,19 @@
       <%= render partial: "reblogs/reblog_show", locals: { post: post, display_author: true, big_title: false} %>
     <% end %>
 
-    <% if post.is_rebloggable %>
-      <% if collapsible_reblogs and ! post.reblogs.empty? %>
-        <a data-toggle="collapse" data-target="#comments-on-<%= post.id %>-<%= post.class.name %>">
+    <span>
+      <% if post.is_rebloggable %>
+        <% if collapsible_reblogs and ! post.reblogs.empty? %>
+          <a data-toggle="collapse" data-target="#comments-on-<%= post.id %>-<%= post.class.name %>">
+            <%= post.reblog_descendents %> notes
+          </a>
+        <% else %>
           <%= post.reblog_descendents %> notes
-        </a>
-      <% else %>
-        <%= post.reblog_descendents %> notes
+        <% end %>
+        ,
       <% end %>
-      , <%= Like.likes_count(post) %> likes.
-    <% end %>
+      <%= post.likes.count %> likes.
+    </span>
 
     <% if current_user %>
       <%= render partial: "posts/reblog_panel", locals: { post: post } %>

@@ -15,7 +15,7 @@ class PostsController < ApplicationController
       fail
     end
 
-    @post.is_rebloggable = params[:post][:is_private] == "on"
+    @post.is_rebloggable = params[:post][:is_rebloggable] == "on"
     @post.is_private = params[:post][:is_private] == "on"
     @post.user = current_user
     @post.save!
