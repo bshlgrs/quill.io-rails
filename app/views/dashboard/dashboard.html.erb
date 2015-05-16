@@ -2,4 +2,6 @@
   <%= render partial: "text_posts/new_text_post", locals: { collapsible: true } %>
 <% end %>
 
+<%= react_component('Newsfeed', posts: @posts) %>
+
 <%= render partial: "newsfeed", locals: { posts: @posts } %>

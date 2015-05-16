@@ -1,5 +1,5 @@
 json.id post.id
-json.type post.class.name
+json.post_type post.post_type
 json.number_of_likes post.likes.count
 json.is_private post.is_private
 json.is_rebloggable post.is_rebloggable
