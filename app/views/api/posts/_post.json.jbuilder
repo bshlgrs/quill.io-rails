@@ -5,6 +5,8 @@ json.is_private post.is_private
 json.is_rebloggable post.is_rebloggable
 json.created_at post.created_at
 
+json.user post.user, :id, :username, :description, :require_permission_to_follow, :guaranteed_profile_pic_url
+
 case post.post_type
 when "text_post"
   json.body post.body
