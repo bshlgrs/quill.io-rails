@@ -1,13 +1,12 @@
 /** @jsx React.DOM */
 
-var Newsfeed = React.createClass({
+var PostList = React.createClass({
   getInitialState () {
-    return initial_state;
+    return this.props.initial_state;
   },
   toggleLike (post_id) {
     var postIndex = _.findIndex(this.state.posts, function (x) { return x.id == post_id; });
     var post = this.state.posts[postIndex];
-    debugger;
 
     if (post) {
       var newPosts = this.state.posts;
@@ -31,7 +30,8 @@ var Newsfeed = React.createClass({
     var that = this;
     var props = this.props;
     var state = this.state;
-    return (
+
+    var all_posts = (
       <div>
         {this.state.posts.map( function (post, n) {
           return <Post 
@@ -40,20 +40,23 @@ var Newsfeed = React.createClass({
             key={post.id}
             post_id={post.id}
             created_at={post.created_at}
+            tags={post.tags}
             number_of_likes={post.number_of_likes}
             user={post.user}
             post_type={post.post_type}
             is_private={post.is_private}
             is_rebloggable={post.is_rebloggable}
-            big_title={false}
-            collapsible_reblogs={true}
+            big_title={props.big_title}
+            collapsible_reblogs={props.collapsible_reblogs}
             reblogs={post.reblogs}
             current_user_likes_this={post.current_user_likes_this}
             current_user={state.current_user}
             toggleLike={that.toggleLike}
-            display_author={true}/>;
+            display_author={props.display_author}/>;
         })}
       </div>
     );
+
+    return this.state.posts.length > 0 ? all_posts : <div><p>Nothing to show here</p></div>
   }
 });

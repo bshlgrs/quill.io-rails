@@ -15,19 +15,8 @@
 
 <%= render partial: "relationships/follow_unfollow_buttons", locals: { user: @user } %>
 
-<% if current_user && @user != current_user %>
-  <% if current_user.is_following?(@user) %>
-    <%= button_to "unfollow", unfollow_url(@user), class: "btn btn-default" %>
-  <% else %>
-    <%= button_to "follow", follow_url(@user), class: "btn btn-default" %>
-  <% end %>
-<% end %>
-
-<% if @posts.empty? %>
-  <p>nothing to see here...</p>
-<% else %>
-  <% @posts.each do |post| %>
-    <%= render partial: "posts/polymorphic_post_show", 
-      locals: { post: post, display_author: false, big_title: false, collapsible_reblogs: true } %>
-  <% end %>
-<% end %>
+<%= react_component('PostList', 
+  initial_state: JSON.parse(render partial: "api/dashboard/dashboard.json", locals: { posts: @posts }),
+  big_title: false,
+  collapsible_reblogs: true,
+  display_author: false) %>

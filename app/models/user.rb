@@ -14,6 +14,9 @@ class User < ActiveRecord::Base
               class_name: "UserRelationship",
               foreign_key: "from_user_id"
   has_many :followed_users, through: :outgoing_follows, source: :to_user
+  has_many :posts_by_followed_users, -> { where is_private: false },
+              through: :followed_users,
+              source: :posts
 
   has_many :likes
   has_many :liked_posts, through: :likes, source: :post
@@ -30,7 +33,7 @@ class User < ActiveRecord::Base
 
   def interesting_posts
     # todo: fix this monstrosity
-    interesting = (followed_users.joins(:posts) + self.posts).sort_by { |x| 0 - x.created_at.to_i }
+    interesting = (posts_by_followed_users + self.posts).sort_by { |x| 0 - x.created_at.to_i }
   end
 
   def block_regexes

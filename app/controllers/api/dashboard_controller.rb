@@ -5,7 +5,7 @@ class Api::DashboardController < ApplicationController
     else
       @posts = Post.order(created_at: :desc).limit(30)
     end
-
+    p @posts
     render "api/dashboard/dashboard.json.jbuilder"
   end
 end

@@ -14,15 +14,22 @@ var Post = React.createClass({
       throw "unrecognised post type: " + props.post_type;
     }
 
+    var tags = props.tags.map(function(tag, n) {
+      return <Tag tag={tag} key={tag}/>;
+    })
+
     return (
       <div className="panel panel-default">
         <div className="panel-body">
           { props.display_author && 
             <UserNameAndProfilePic user={props.user}/> }
-          { props.big_title 
-            ? <h2>{props.title} {private_tag}</h2>
-            : <h3>{props.title} {private_tag}</h3>
-          }
+
+          <a href={"/blogs/" + props.user.username + "/posts/" + props.post_id}>
+            { props.big_title 
+              ? <h2>{props.title} {private_tag}</h2>
+              : <h3>{props.title} {private_tag}</h3>
+            }
+          </a>
 
           <div><small>{props.created_at}</small></div>
 
@@ -44,8 +51,10 @@ var Post = React.createClass({
               current_user_likes_this={props.current_user_likes_this}
               post_id={props.post_id}
               toggleLike={props.toggleLike}
-            />
+              is_rebloggable={props.is_rebloggable}/>
           }
+
+          { tags }
         </div>
       </div>
     );

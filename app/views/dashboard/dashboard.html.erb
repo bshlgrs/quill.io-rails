@@ -2,13 +2,8 @@
   <%= render partial: "text_posts/new_text_post", locals: { collapsible: true } %>
 <% end %>
 
-<script type="application/javascript">
-  var initial_state = <%= (render partial: "api/dashboard/dashboard.json", locals: { posts: @posts }).html_safe %>
-</script>
-
-<%= react_component('Newsfeed') %>
-
-<hr>
-<h3>tiny newsfeed</h3>
-
-<%= (render partial: "newsfeed", locals: { posts: @posts }) %>
+<%= react_component('PostList', 
+  initial_state: JSON.parse(render partial: "api/dashboard/dashboard.json", locals: { posts: @posts }),
+  big_title: false,
+  collapsible_reblogs: true,
+  display_author: true) %>

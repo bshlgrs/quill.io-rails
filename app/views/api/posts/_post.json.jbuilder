@@ -25,3 +25,5 @@ end
 json.reblogs post.reblogs do |reblog|
   json.partial! 'api/posts/post', post: reblog
 end
+
+json.tags post.tags.map(&:tag)
