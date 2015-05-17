@@ -3,18 +3,19 @@
 var Post = React.createClass({
   render () {
     var props = this.props;
+    var post = props.post;
 
-    var private_tag = props.is_private && <span className="label label-default">Private</span>;
+    var private_tag = props.post.is_private && <span className="label label-default">Private</span>;
 
     var body;
 
-    if (props.post_type == "text_post") {
-      body = props.body;
+    if (post.post_type == "text_post") {
+      body = post.body;
     } else {
-      throw "unrecognised post type: " + props.post_type;
+      throw "unrecognised post type: " + post.post_type;
     }
 
-    var tags = props.tags.map(function(tag, n) {
+    var tags = post.tags.map(function(tag, n) {
       return <Tag tag={tag} key={tag}/>;
     })
 
@@ -22,16 +23,16 @@ var Post = React.createClass({
       <div className="panel panel-default">
         <div className="panel-body">
           { props.display_author && 
-            <UserNameAndProfilePic user={props.user}/> }
+            <UserNameAndProfilePic user={post.user}/> }
 
-          <a href={"/blogs/" + props.user.username + "/posts/" + props.post_id}>
-            { props.big_title 
-              ? <h2>{props.title} {private_tag}</h2>
-              : <h3>{props.title} {private_tag}</h3>
+          <a href={"/blogs/" + post.user.username + "/posts/" + post.id}>
+            { post.big_title 
+              ? <h2>{post.title} {private_tag}</h2>
+              : <h3>{post.title} {private_tag}</h3>
             }
           </a>
 
-          <div><small>{props.created_at}</small></div>
+          <div><small>{post.created_at}</small></div>
 
           <div>
             {body}
@@ -39,19 +40,19 @@ var Post = React.createClass({
 
           <ReblogAndLikeCounters 
             collapsible_reblogs={props.collapsible_reblogs}
-            reblogs={props.reblogs}
-            is_rebloggable={props.is_rebloggable}
-            reblogs={props.reblogs}
-            number_of_likes={props.number_of_likes}
+            reblogs={post.reblogs}
+            is_rebloggable={post.is_rebloggable}
+            reblogs={post.reblogs}
+            number_of_likes={post.number_of_likes}
             current_user={props.current_user}
-            post_id={props.id}/>
+            post_id={post.id}/>
 
           { props.current_user &&
             <ReblogAndLikeButtons
-              current_user_likes_this={props.current_user_likes_this}
-              post_id={props.post_id}
+              current_user_likes_this={post.current_user_likes_this}
+              post_id={post.id}
               toggleLike={props.toggleLike}
-              is_rebloggable={props.is_rebloggable}/>
+              is_rebloggable={post.is_rebloggable}/>
           }
 
           { tags }

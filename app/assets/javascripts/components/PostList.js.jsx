@@ -35,22 +35,9 @@ var PostList = React.createClass({
       <div>
         {this.state.posts.map( function (post, n) {
           return <Post 
-            title={post.title}
-            body={post.body}
+            post={post}
             key={post.id}
-            post_id={post.id}
-            created_at={post.created_at}
-            tags={post.tags}
-            number_of_likes={post.number_of_likes}
-            user={post.user}
-            post_type={post.post_type}
-            is_private={post.is_private}
-            is_rebloggable={post.is_rebloggable}
-            big_title={props.big_title}
-            collapsible_reblogs={props.collapsible_reblogs}
-            reblogs={post.reblogs}
-            current_user_likes_this={post.current_user_likes_this}
-            current_user={state.current_user}
+            current_user={props.current_user}
             toggleLike={that.toggleLike}
             display_author={props.display_author}/>;
         })}

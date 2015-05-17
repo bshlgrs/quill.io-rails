@@ -3,5 +3,6 @@
 <%= react_component('PostList', 
   initial_state: JSON.parse(render partial: "api/dashboard/dashboard.json", locals: { posts: @posts }),
   big_title: false,
+  current_user: current_user,
   collapsible_reblogs: true,
   display_author: false) %>

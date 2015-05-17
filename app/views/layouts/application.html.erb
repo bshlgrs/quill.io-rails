@@ -10,6 +10,12 @@
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 
+  <% if current_user %>
+    <script>
+      window.current_user = <%= current_user.to_json.html_safe %>;
+    </script>
+  <% end %>
+
 </head>
 <body>
 
