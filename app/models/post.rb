@@ -9,7 +9,7 @@ class Post < ActiveRecord::Base
 
   has_many :likes
 
-  has_many :tags
+  has_many :tags, dependent: :destroy
 
   def add_tags_from_array(array)
     self.tags.new(array.map { |x| {tag: x}})

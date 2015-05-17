@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     get "dashboard", to: "dashboard#dashboard", as: "dashboard"
   end
 
+  get "tags/:tag", to: "tags#show", as: "tag"
+
   post "users/:user_id/follow", :to => "relationships#follow", :as => "follow"
   post "users/:user_id/unfollow", :to => "relationships#unfollow", :as => "unfollow"
 
