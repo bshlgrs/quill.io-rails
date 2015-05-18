@@ -12,6 +12,16 @@ var PostButtons = React.createClass({
 
     var color = props.current_user_likes_this ? "red" : "white";
 
+    var like_button =
+      <a className="btn btn-sm">
+        <span
+          className="glyphicon glyphicon-heart"
+          aria-hidden="true"
+          style={{"color": color}}
+          onClick={this.handleLikeClick}>
+        </span>
+      </a>;
+
     var reblog_button = 
       <a href={"/?reblog=" + props.post_id}>
         <span
@@ -22,14 +32,7 @@ var PostButtons = React.createClass({
 
     return (
       <span className="pull-right">
-        <a className="btn btn-sm">
-          <span
-            className="glyphicon glyphicon-heart"
-            aria-hidden="true"
-            style={{"color": color}}
-            onClick={this.handleLikeClick}>
-          </span>
-        </a>
+        { props.user_id != current_user.id && like_button }
         { props.is_rebloggable && reblog_button }
         { props.user_id == current_user.id && 
           <a 

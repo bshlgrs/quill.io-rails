@@ -20,8 +20,21 @@ class Post < ActiveRecord::Base
   # Quote post: has quote in the body, quote_author, quote_source, url
   # Link post: has url, body
   # Image post: has_many PostImages 
+  # reblog: has body, has parent
 
   def reblog_descendents
     reblogs.length + reblogs.flat_map(&:reblog_descendants).length
+  end
+
+  def parent_chain
+    chain = []
+
+    post = self.parent
+    while post
+      chain << post
+      post = post.parent
+    end
+
+    chain.reverse
   end
 end

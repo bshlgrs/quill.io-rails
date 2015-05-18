@@ -1,9 +1,8 @@
-/** @jsx React.DOM */
-
 var Post = React.createClass({
   render () {
     var props = this.props;
     var post = props.post;
+    var that = this;
 
     var private_tag = props.post.is_private && <span className="label label-default">Private</span>;
 
@@ -11,6 +10,18 @@ var Post = React.createClass({
 
     if (post.post_type == "text_post") {
       body = post.body;
+    } else if (post.post_type == "reblog") {
+
+      body = <div>
+        {props.post.ancestors.map( function (post, n) {
+          return <AncestorPost 
+            post={post}
+            key={post.id}
+            toggleLike={that.toggleLike}
+            deletePost={that.deletePost} />;
+        })}
+        {post.body}
+      </div>;
     } else {
       throw "unrecognised post type: " + post.post_type;
     }

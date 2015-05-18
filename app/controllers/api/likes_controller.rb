@@ -2,8 +2,13 @@ class Api::LikesController < ApplicationController
   before_action :authenticate_user!
 
   def like
-    Like.create!(:user_id => current_user.id, :post_id => params[:post_id])
-    render nothing: true, status: 200
+    @post = Post.find(params[:post_id])
+    if @post and @post.user_id != current_user.id
+      Like.create!(:user_id => current_user.id, :post_id => params[:post_id])
+      render nothing: true, status: 200
+    else
+      render nothing: true, status: 404
+    end
   end
 
   def unlike

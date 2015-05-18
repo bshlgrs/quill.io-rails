@@ -18,12 +18,17 @@ when "text_post"
 when "reblog"
   json.body post.body
   json.title post.title
-  json.rebloggable_id post.rebloggable_id
-  json.rebloggable_type post.rebloggable_type
+  json.parent_id post.parent_id
+  json.ancestors post.parent_chain do |ancestor|
+    json.partial! 'api/posts/post.json.jbuilder', post: ancestor  
+  end
 end
 
 json.reblogs post.reblogs do |reblog|
-  json.partial! 'api/posts/post', post: reblog
+  json.body reblog.body
+  json.title reblog.title
+  json.id reblog.id
+  json.user reblog.user
 end
 
 json.tags post.tags.map(&:tag)

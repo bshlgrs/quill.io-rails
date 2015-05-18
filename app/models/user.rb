@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
 
   def interesting_posts
     # todo: fix this monstrosity
-    interesting = (posts_by_followed_users + self.posts).sort_by { |x| 0 - x.created_at.to_i }
+    interesting = (posts_by_followed_users + self.posts).sort_by { |x| x.created_at.to_i * -1}
   end
 
   def block_regexes
@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   end
 
   def block_post?(post)
-    self.block_regexes.any? { |regex| regex =~ post.body }
+    self.block_regexes.any? { |regex| regex =~ post.body } && post.user_id != self.id
   end
 
   def is_following?(other_user)
