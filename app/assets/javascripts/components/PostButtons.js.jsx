@@ -1,8 +1,11 @@
 /** @jsx React.DOM */
 
-var ReblogAndLikeButtons = React.createClass({
-  handleClick () {
+var PostButtons = React.createClass({
+  handleLikeClick () {
     this.props.toggleLike(this.props.post_id);
+  },
+  handleDeleteClick () {
+    this.props.deletePost(this.props.post_id);
   },
   render () {
     var props = this.props;
@@ -24,10 +27,20 @@ var ReblogAndLikeButtons = React.createClass({
             className="glyphicon glyphicon-heart"
             aria-hidden="true"
             style={{"color": color}}
-            onClick={this.handleClick}>
+            onClick={this.handleLikeClick}>
           </span>
         </a>
         { props.is_rebloggable && reblog_button }
+        { props.user_id == current_user.id && 
+          <a 
+            href="#" 
+            className="btn btn-sm"
+            onClick={this.handleDeleteClick}>
+            <span
+              className="glyphicon glyphicon-trash"
+              aria-hidden="true">
+            </span>
+          </a> }
       </span>
     )
   }

@@ -10,17 +10,17 @@ class Api::PostsController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
     @post = Post.find(params[:id])
     if @post
       if @post.user == current_user
         @post.delete
-        render status: 204
+        head 204
       else
-        render status: 403
+        head 403
       end
     else
-      render status: 404
+      head 404
     end
   end
 end

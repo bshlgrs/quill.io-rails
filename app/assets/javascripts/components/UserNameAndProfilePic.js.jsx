@@ -8,7 +8,7 @@ var UserNameAndProfilePic = React.createClass({
       <span>
         <strong>
           <a href={"/blogs/" + props.user.username }>
-            { props.user.username } { props.user.id == current_user.id && <p>that is you, motherfucker</p> }
+            { props.user.username }
           </a>
         </strong>
         <div className="profile-picture">

@@ -23,8 +23,12 @@ var PostList = React.createClass({
 
       this.setState({posts: newPosts});
 
-      $.ajax("/api/post/" + post_id + "/" + action, { method: "POST" });
+      $.ajax("/api/posts/" + post_id + "/" + action, { method: "POST" });
     }
+  },
+  deletePost (post_id) {
+    $.ajax("/api/posts/" + post_id, { method: "DELETE" });
+    this.setState({posts: _.reject(this.state.posts, function (x) { return x.id == post_id; })});
   },
   render () {
     var that = this;
@@ -39,6 +43,7 @@ var PostList = React.createClass({
             key={post.id}
             current_user={props.current_user}
             toggleLike={that.toggleLike}
+            deletePost={that.deletePost}
             display_author={props.display_author}/>;
         })}
       </div>

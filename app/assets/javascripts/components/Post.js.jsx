@@ -48,10 +48,12 @@ var Post = React.createClass({
             post_id={post.id}/>
 
           { props.current_user &&
-            <ReblogAndLikeButtons
+            <PostButtons
               current_user_likes_this={post.current_user_likes_this}
               post_id={post.id}
+              user_id={post.user.id}
               toggleLike={props.toggleLike}
+              deletePost={props.deletePost}
               is_rebloggable={post.is_rebloggable}/>
           }
 

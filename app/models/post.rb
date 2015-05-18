@@ -7,7 +7,7 @@ class Post < ActiveRecord::Base
 
   has_many :image_postings # only if this is an image
 
-  has_many :likes
+  has_many :likes, dependent: :destroy
 
   has_many :tags, dependent: :destroy
 
