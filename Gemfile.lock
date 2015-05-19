@@ -256,6 +256,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   database_cleaner
   devise
+  execjs
   faker
   friendly_id (~> 5.1.0)
   guard-rspec
