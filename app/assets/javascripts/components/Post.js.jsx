@@ -36,7 +36,7 @@ var Post = React.createClass({
       <div className="panel panel-default">
         { props.display_author && 
           <div style={{position: "relative"}}>
-            <div className="profile-picture-floater">
+            <div className="profile-picture profile-picture-floater">
               <img src={post.user.guaranteed_profile_pic_url}/>
             </div>
           </div>}
@@ -67,7 +67,7 @@ var Post = React.createClass({
             current_user={props.current_user}
             post_id={post.id}/>
 
-          { props.current_user &&
+          { current_user &&
             <PostButtons
               current_user_likes_this={post.current_user_likes_this}
               post_id={post.id}

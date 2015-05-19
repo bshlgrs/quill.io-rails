@@ -1,0 +1,16 @@
+<h2>users you are following:</h2>
+
+<% if @users.length > 0 %>
+  <div>
+    <% @users.each do |user| %>
+      <div>
+        <div class="profile-picture">
+          <%= image_tag(user.guaranteed_profile_pic_url) %>
+        </div>
+        <%= link_to user.username, blog_url(user) %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p>I guess you aren't following anyone.</p>
+<% end %>
