@@ -1,6 +1,6 @@
 <h2>users you are following:</h2>
 
-<% if @users %>
+<% if @users.length > 0 %>
   <ul>
     <% @users.each do |user| %>
       <li>
