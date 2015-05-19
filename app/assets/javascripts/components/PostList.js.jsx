@@ -41,7 +41,6 @@ var PostList = React.createClass({
           return <Post 
             post={post}
             key={post.id}
-            current_user={props.current_user}
             toggleLike={that.toggleLike}
             deletePost={that.deletePost}
             display_author={props.display_author}/>;
