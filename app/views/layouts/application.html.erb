@@ -55,6 +55,7 @@
             <p>Hey there, <%= current_user.username %></p>
             <p><%= link_to('your blog', blog_url(current_user.username)) %></p>
             <p><%= link_to('your posts', posts_url) %>  <span class="badge"><%= current_user.posts.count %></span></p>
+            <p><%= link_to('following', following_url) %>  <span class="badge"><%= current_user.followed_users.count %></span></p>
             <p><%= link_to('dashboard', root_url) %></p>
             <p><%= link_to('preferences', preferences_url) %></p>
             <p><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>
