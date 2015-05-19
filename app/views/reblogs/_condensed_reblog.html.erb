@@ -6,7 +6,7 @@
     <% end %>
     :
 
-    <%= markdown.render(reblog.get_condensed_body).html_safe %>
+    <%= markdown.render(reblog.body).html_safe %>
 
     <% if reblog.reblogs.length > 0 %>
       <div class="child-reblogs">

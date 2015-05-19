@@ -2,10 +2,19 @@
 <html>
 <head>
   <% title = yield :title %>
-  <title><%= title.length > 0 ? title : "quill.io" %></title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <title><%= title.length > 0 ? title : "Quill" %></title>
+
+  <!-- I am doing this horribly wrong. Sorry. -->
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
+
+  <% if current_user %>
+    <script>
+      window.current_user = <%= current_user.to_json.html_safe %>;
+    </script>
+  <% end %>
 
 </head>
 <body>
@@ -19,6 +28,23 @@
 
   <div class="row">
     <div class="col-xs-7 col-xs-offset-2">
+
+      <% if flash[:notice] %>
+        <div class="panel panel-info">
+          <div class="panel-body">
+            <%= flash[:notice] %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if flash[:alert] %>
+        <div class="panel panel-danger">
+          <div class="panel-body">
+            <%= flash[:alert] %>
+          </div>
+        </div>
+      <% end %>
+
       <%= yield %>
     </div>
 
@@ -28,7 +54,7 @@
           <% if user_signed_in? %>
             <p>Hey there, <%= current_user.username %></p>
             <p><%= link_to('your blog', blog_url(current_user.username)) %></p>
-            <p><%= link_to('your posts', posts_url) %>  <span class="badge"><%= current_user.all_posts.count %></span></p>
+            <p><%= link_to('your posts', posts_url) %>  <span class="badge"><%= current_user.posts.count %></span></p>
             <p><%= link_to('dashboard', root_url) %></p>
             <p><%= link_to('preferences', preferences_url) %></p>
             <p><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>

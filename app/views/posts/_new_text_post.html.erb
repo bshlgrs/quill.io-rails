@@ -1,0 +1,53 @@
+<% collapse_class = collapsible ? "collapse" : "" %>
+
+<div class="panel panel-default">
+  <div style="position:relative;">
+    <div class="profile-picture-floater">
+      <%= image_tag(current_user.guaranteed_profile_pic_url) %>
+    </div>
+  </div>
+  
+  <div class="panel-body">
+      <h4>
+        <a data-toggle="<%= collapse_class %>" data-target="#newTextPost">new text post
+          <!-- <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> -->
+        </a>
+      </h4>
+    <div class="<%= collapse_class %>" id="newTextPost">
+      <form action="posts" method="post">
+        <input type="hidden" name="post[post_type]" value="text_post">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input class="form-control" id="title" placeholder="Title (optional)" name="post[title]">
+        </div>
+        
+        <textarea class="form-control" rows="3" name="post[body]"></textarea>
+
+        <br>
+        <div class="form-group">
+          <label for="tags">tags</label>
+          <input name="tags">
+        </div>
+
+        <span>
+          <label for="post[is_rebloggable]">rebloggable</label>
+          <input type="checkbox" name="post[is_rebloggable]" data-size="mini" checked>
+          <script>
+            $("[name='post[is_rebloggable]']").bootstrapSwitch();
+          </script>
+        </span>
+
+        <span>
+          <label for="post[is_private]">private</label>
+          <input type="checkbox" name="post[is_private]" data-size="mini">
+          <script>
+            $("[name='post[is_private]']").bootstrapSwitch();
+          </script>
+        </span>
+
+
+        <%= button_to "Post", posts_url, {action: :new, class: 'btn pull-right btn-primary'} %>
+      </form>
+    </div>
+  </div>
+</div>

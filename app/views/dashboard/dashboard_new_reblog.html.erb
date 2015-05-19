@@ -1,8 +1,0 @@
-<%= render partial: "reblogs/new_reblog", 
-  locals: {
-    reblogged_post: @reblogged_post,
-    parent_id: @reblogged_post.id,
-    parent_type: @reblogged_post.class.name
-  } %>
-
-<%= render partial: "newsfeed", locals: { posts: @posts } %>

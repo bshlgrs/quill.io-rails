@@ -1,0 +1,13 @@
+<% content_for :title do %>Quill: <%= @post.user.username %><% end %>
+
+<%= react_component('BlogHeading',
+  user: @post.user,
+  profile_pic_url: @post.user.guaranteed_profile_pic_url
+) %>
+
+<%= react_component('Post', 
+  post: JSON.parse(render partial: "api/posts/post.json", locals: { post: @post }),
+  big_title: true,
+  current_user: current_user,
+  collapsible_reblogs: true,
+  display_author: false) %>

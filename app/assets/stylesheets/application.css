@@ -27,9 +27,17 @@ blockquote {
 
 @import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css");
 
-.profile-picture {
-  margin: 0;
-  float: right;
+.profile-picture-floater {
+  position: absolute;
+  left: -85px;
+}
+
+.profile-picture-floater img {
+  height: 80px;
+  width: 80px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: grey;
 }
 
 .relative {

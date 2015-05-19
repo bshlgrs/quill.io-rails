@@ -1,4 +1,4 @@
-class ApplicationController < ActionController::Base
+ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -15,13 +15,19 @@ class ApplicationController < ActionController::Base
   helper_method :reblog_url
 
   def reblog_url(post)
-    "#{root_url}?reblog=#{post.id}&reblog_type=#{post.class.name}"
+    "#{root_url}?reblog=#{post.id}"
   end
 
   helper_method :reblog_link
 
   def reblog_link(post, classes)
-    "<a href=\"#{reblog_url(post)}\" class=\"#{classes}\"><span class=\"glyphicon glyphicon-retweet\" aria-hidden=\"true\"></span></a>".html_safe
+    html = <<-HTML
+      <a href=\"#{reblog_url(post)}\" class=\"#{classes}\">
+        <span class=\"glyphicon glyphicon-retweet\" aria-hidden=\"true\">
+        </span>
+      </a>
+    HTML
+    html.html_safe
   end
 
   helper_method :quote

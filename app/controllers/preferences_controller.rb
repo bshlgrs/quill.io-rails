@@ -12,7 +12,6 @@ class PreferencesController < ApplicationController
     @user.description = params[:user][:description]
     @user.profile_pic_url = params[:user][:profile_pic_url]
 
-
     if params[:user][:require_permission_to_follow]
       @user.require_permission_to_follow = params[:user][:require_permission_to_follow]
     end

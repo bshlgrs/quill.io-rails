@@ -8,7 +8,7 @@
     <% if display_author %>
       <strong><%= link_to post.user.username, blog_url(post.user) %></strong>
       <div class="profile-picture">
-         <img height="80" width="80" src="<%= post.user.profile_pic_url || "http://robohash.org/#{post.user.username}.png?size=80x80" %>">
+         <img height="80" width="80" src="<%= post.user.guaranteed_profile_pic_url %>">
       </div>
     <% end %>
 
@@ -29,40 +29,29 @@
 
     <span><small><%= post.created_at %></small></span>
 
-    <% case post %>
-    <% when TextPost %>
+    <% case post.post_type %>
+    <% when "text_post" %>
       <%= render partial: "text_posts/text_post_show", locals: { post: post, display_author: true, big_title: false} %>
-    <% when Reblog %>
+    <% when "reblog" %>
       <%= render partial: "reblogs/reblog_show", locals: { post: post, display_author: true, big_title: false} %>
     <% end %>
 
-    <% if post.is_rebloggable %>
-      <% if collapsible_reblogs and ! post.reblogs.empty? %>
-        <a data-toggle="collapse" data-target="#comments-on-<%= post.id %>-<%= post.class.name %>">
+    <span>
+      <% if post.is_rebloggable %>
+        <% if collapsible_reblogs and ! post.reblogs.empty? %>
+          <a data-toggle="collapse" data-target="#comments-on-<%= post.id %>-<%= post.class.name %>">
+            <%= post.reblog_descendents %> notes
+          </a>
+        <% else %>
           <%= post.reblog_descendents %> notes
-        </a>
-      <% else %>
-        <%= post.reblog_descendents %> notes
+        <% end %>
+        ,
       <% end %>
-      , <%= Like.likes_count(post) %> likes.
-    <% end %>
+      <%= post.likes.count %> likes.
+    </span>
 
     <% if current_user %>
-      <span class="pull-right">
-        <% if post.is_rebloggable %>
-          <%= reblog_link(post, "btn btn-sm") %>
-        <% end %>
-
-        <% if current_user.likes?(post) %>
-          <%= link_to '<span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: red;"></span>'.html_safe,
-            unlike_url(post.class.name, post.id),
-            method: :post %>
-        <% else %>
-          <%= link_to '<span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: white;"></span>'.html_safe,
-            like_url(post.class.name, post.id),
-            method: :post %>
-        <% end %>
-      </span>
+      <%= render partial: "posts/reblog_panel", locals: { post: post } %>
     <% end %>
 
     <% if collapsible_reblogs && post.reblogs.length > 0 %>

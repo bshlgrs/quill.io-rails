@@ -1,5 +1,10 @@
 <% if current_user %>
-  <%= render partial: "text_posts/new_text_post", locals: { collapsible: true } %>
+  <%= render partial: "posts/new_text_post", locals: { collapsible: true } %>
 <% end %>
 
-<%= render partial: "newsfeed", locals: { posts: @posts } %>
+<%= react_component('PostList', 
+  initial_state: JSON.parse(render partial: "api/dashboard/dashboard.json", locals: { posts: @posts }),
+  current_user: current_user,
+  big_title: false,
+  collapsible_reblogs: true,
+  display_author: true) %>

@@ -6,8 +6,20 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  has_many :text_posts
-  has_many :reblogs
+  has_many :posts
+
+  has_many :outgoing_user_relationships, class_name: "UserRelationship", foreign_key: "from_user_id"
+  has_many :outgoing_follows,
+              -> { where relationship_type: "following" },
+              class_name: "UserRelationship",
+              foreign_key: "from_user_id"
+  has_many :followed_users, through: :outgoing_follows, source: :to_user
+  has_many :posts_by_followed_users, -> { where is_private: false },
+              through: :followed_users,
+              source: :posts
+
+  has_many :likes
+  has_many :liked_posts, through: :likes, source: :post
 
   validates_uniqueness_of :username
   validates_uniqueness_of :email
@@ -19,36 +31,29 @@ class User < ActiveRecord::Base
     end
   end
 
+  def interesting_posts
+    # todo: fix this monstrosity
+    interesting = (posts_by_followed_users + self.posts).sort_by { |x| x.created_at.to_i * -1}
+  end
+
   def block_regexes
     @block_regexes ||= self.blocked_words.split(" ").map { |word| /\b#{Regexp.quote(word)}\b/ }
   end
 
   def block_post?(post)
-    self.block_regexes.any? { |regex| regex =~ post.body }
-  end
-
-  def interesting_posts
-    my_interesting = self.all_posts
-
-    other_interesting = users_followed.flat_map(&:all_posts).reject do |post|
-      post.is_private || self.block_post?(post)
-    end
-
-    interesting = my_interesting + other_interesting
-
-    interesting.sort_by { |x| -1 * x.created_at.to_i }
-  end
-
-  def all_posts
-    (self.text_posts + self.reblogs).sort_by(&:created_at)
+    self.block_regexes.any? { |regex| regex =~ post.body } && post.user_id != self.id
   end
 
   def is_following?(other_user)
-    UserRelationship.where(:to_user_id => other_user.id, :from_user_id => self.id, :relationship_type => "following").exists?
+    followed_users.where(:id => other_user.id).present?
   end
 
   def follow(other_user)
-    UserRelationship.create!(:to_user_id => other_user.id, :from_user_id => self.id, :relationship_type => "following")
+    unless self.is_following? other_user
+      UserRelationship.create!(:to_user_id => other_user.id,
+                               :from_user_id => self.id,
+                               :relationship_type => "following")
+    end
   end
 
   def unfollow(other_user)
@@ -71,10 +76,14 @@ class User < ActiveRecord::Base
   end
 
   def likes?(post)
-    Like.where(:user_id => self.id, :rebloggable_type => post.class.name, :rebloggable_id => post.id).exists?
+    liked_posts.include? post
   end
 
   def like!(post)
     Like.create!(:user_id => self.id, :rebloggable_type => post.class.name, :rebloggable_id => post.id)
+  end
+
+  def guaranteed_profile_pic_url
+    profile_pic_url && profile_pic_url != "" || "http://robohash.org/#{self.username}.png?size=200x200"
   end
 end
