@@ -2,22 +2,15 @@
   Quill: <%= @user.username %>
 <% end %>
 
-<div class="blog-heading">
-  <div class="big-profile-pic">
-    <img height="200" width="200" src="<%= @user.profile_pic_url || 
-        "http://robohash.org/#{@user.username}.png?size=200x200" %>">
-  </div>
-
-  <h1><%= link_to @user.username, blog_url(@user) %>'s blog</h1>
-
-  <p class="lead"><%= @user.description %></p>
-</div>
+<%= react_component('BlogHeading',
+  user: @user,
+  profile_pic_url: @user.guaranteed_profile_pic_url
+) %>
 
 <%= render partial: "relationships/follow_unfollow_buttons", locals: { user: @user } %>
 
 <%= react_component('PostList', 
   initial_state: JSON.parse(render partial: "api/dashboard/dashboard.json", locals: { posts: @posts }),
   big_title: false,
-  current_user: current_user,
   collapsible_reblogs: true,
   display_author: false) %>

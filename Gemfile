@@ -11,8 +11,9 @@ gem 'pg'
 gem 'redcarpet'
 gem 'devise'
 gem 'react-rails'
-gem 'friendly_id', '~> 5.1.0'
+gem "bower-rails", "~> 0.9.2"
 
+gem 'friendly_id', '~> 5.1.0'
 gem 'faker'
 
 

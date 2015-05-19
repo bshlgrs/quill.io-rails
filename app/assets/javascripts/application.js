@@ -15,4 +15,5 @@
 //= require react
 //= require react_ujs
 //= require components
+//= require react-bootstrap/react-bootstrap
 //= require_tree .

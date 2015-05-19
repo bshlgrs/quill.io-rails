@@ -30,20 +30,29 @@ var Post = React.createClass({
       return <Tag tag={tag} key={tag}/>;
     })
 
+    var date = false && <div><small>{post.created_at}</small></div>;
+
     return (
       <div className="panel panel-default">
+        { props.display_author && 
+          <div style={{position: "relative"}}>
+            <div className="profile-picture-floater">
+              <img src={post.user.guaranteed_profile_pic_url}/>
+            </div>
+          </div>}
+
         <div className="panel-body">
           { props.display_author && 
-            <UserNameAndProfilePic user={post.user}/> }
+            <UserName user={post.user}/> }
 
           <a href={"/blogs/" + post.user.username + "/posts/" + post.id}>
-            { post.big_title 
+            { props.big_title 
               ? <h2>{post.title} {private_tag}</h2>
               : <h3>{post.title} {private_tag}</h3>
             }
           </a>
 
-          <div><small>{post.created_at}</small></div>
+          {date}
 
           <div>
             {body}

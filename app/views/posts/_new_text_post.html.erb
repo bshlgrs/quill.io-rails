@@ -1,6 +1,12 @@
 <% collapse_class = collapsible ? "collapse" : "" %>
 
 <div class="panel panel-default">
+  <div style="position:relative;">
+    <div class="profile-picture-floater">
+      <%= image_tag(current_user.guaranteed_profile_pic_url) %>
+    </div>
+  </div>
+  
   <div class="panel-body">
       <h4>
         <a data-toggle="<%= collapse_class %>" data-target="#newTextPost">new text post
