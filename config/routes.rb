@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     get "dashboard", to: "dashboard#dashboard", as: "dashboard"
   end
 
+  get "following", to: "following#index", as: "following"
+
   get "tags/:tag", to: "tags#show", as: "tag"
 
   post "users/:user_id/follow", :to => "relationships#follow", :as => "follow"
