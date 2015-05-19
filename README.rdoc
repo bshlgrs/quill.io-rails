@@ -4,3 +4,11 @@ some things:
 
 - installing postgres is hard
 - there are tests that you can run with `bundle exec rspec`
+
+Libraries/things used here:
+
+- Rails
+- Postgres
+- React.js
+- Bootstrap 3
+- Bower
