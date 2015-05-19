@@ -84,6 +84,6 @@ class User < ActiveRecord::Base
   end
 
   def guaranteed_profile_pic_url
-    profile_pic_url && profile_pic_url != "" || "http://robohash.org/#{self.username}.png?size=200x200"
+    profile_pic_url && profile_pic_url != "" || "//robohash.org/#{self.username}.png?size=200x200"
   end
 end
