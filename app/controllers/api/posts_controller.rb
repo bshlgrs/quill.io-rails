@@ -1,9 +1,13 @@
 class Api::PostsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:create, :destroy]
 
   def create
     @post = Post.new(post_params)
+    @post.user = current_user
+    @post.add_tags_from_array(params[:post][:tags].split(" "))
+
     if @post.save
+      @posts = current_user.interesting_posts
       render "api/dashboard/dashboard.json.jbuilder"
     else
       render json: @post.errors.full_messages, status: 400

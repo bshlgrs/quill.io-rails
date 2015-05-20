@@ -19,10 +19,16 @@ Rails.application.routes.draw do
     end
     resources :blogs, :only => [:show]
 
+    resources :users, :only => [] do
+      post "follow", to: "user_relationships#follow", as: "follow"
+      post "unfollow", to: "user_relationships#unfollow", as: "unfollow"
+    end
+
     get "dashboard", to: "dashboard#dashboard", as: "dashboard"
   end
 
   get "following", to: "following#index", as: "following"
+  get "followers", to: "followers#index", as: "followers"
 
   get "tags/:tag", to: "tags#show", as: "tag"
 

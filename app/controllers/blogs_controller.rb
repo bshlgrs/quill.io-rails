@@ -4,6 +4,7 @@ class BlogsController < ApplicationController
 
     if @user
       if current_user
+        @current_user_is_following = current_user.is_following?(@user)
         @posts = @user.posts.where(:is_private => false).order(created_at: :desc).reject { |x| current_user.block_post?(x) }
       else
         @posts = @user.posts.where(:is_private => false).order(created_at: :desc)

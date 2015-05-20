@@ -18,6 +18,12 @@ class User < ActiveRecord::Base
               through: :followed_users,
               source: :posts
 
+  has_many :incoming_follows,
+              -> { where relationship_type: "following" },
+              class_name: "UserRelationship",
+              foreign_key: "to_user_id"
+  has_many :followers, through: :incoming_follows, source: :from_user
+
   has_many :likes
   has_many :liked_posts, through: :likes, source: :post
 

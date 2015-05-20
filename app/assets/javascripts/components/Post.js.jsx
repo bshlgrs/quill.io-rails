@@ -35,11 +35,7 @@ var Post = React.createClass({
     return (
       <div className="panel panel-default">
         { props.display_author && 
-          <div style={{position: "relative"}}>
-            <div className="profile-picture profile-picture-floater">
-              <img src={post.user.guaranteed_profile_pic_url}/>
-            </div>
-          </div>}
+          <ProfilePicture src={post.user.guaranteed_profile_pic_url}/>}
 
         <div className="panel-body">
           { props.display_author && 

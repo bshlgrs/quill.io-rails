@@ -1,3 +1,4 @@
 class Tag < ActiveRecord::Base
-  belongs_to :post
+  validates :post, presence: true
+  belongs_to :post, dependent: :destroy
 end
