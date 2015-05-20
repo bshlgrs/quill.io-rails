@@ -21,12 +21,12 @@ var PostList = React.createClass({
         var action = "like";
       }
 
-      this.setState({posts: posts});
+      var that = this;
 
       $.ajax("/api/posts/" + post_id + "/" + action, {
         method: "POST",
         success: function () {
-          
+          that.setState({posts: posts});
         },
         error: function () {
           $.notify({
