@@ -16,4 +16,5 @@
 //= require react_ujs
 //= require bootstrap/bootstrap
 //= require react-bootstrap/react-bootstrap
+//= require remarkable-bootstrap-notify/bootstrap-notify
 //= require_tree .

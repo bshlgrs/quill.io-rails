@@ -1,7 +1,27 @@
 var NewTextPostForm = React.createClass({
   postForm (e) {
     e.preventDefault();
-    $.post("/api/posts", data, success);
+    var data = {
+      "post[post_type]": "text_post"
+    }
+    $.ajax("/api/posts", {
+      method: "POST",
+      data: data,
+      success: function (x) {
+        debugger;
+      },
+      error: function (x) {
+        x.responseJSON.map(function(error) {
+          $.notify({
+            // options
+            message: error
+          },{
+            // settings
+            type: 'danger'
+          });
+        })
+      }
+    });
   },
   render () {
     return (
