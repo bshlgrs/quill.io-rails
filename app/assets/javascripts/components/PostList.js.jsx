@@ -9,21 +9,33 @@ var PostList = React.createClass({
     var post = this.state.posts[postIndex];
 
     if (post) {
-      var newPosts = this.state.posts;
+      var posts = this.state.posts;
 
       if (post.current_user_likes_this) {
-        newPosts[postIndex].current_user_likes_this = false;
-        newPosts[postIndex].number_of_likes -= 1;
+        posts[postIndex].current_user_likes_this = false;
+        posts[postIndex].number_of_likes -= 1;
         var action = "unlike";
       } else {
-        newPosts[postIndex].current_user_likes_this = true;
-        newPosts[postIndex].number_of_likes += 1;
+        posts[postIndex].current_user_likes_this = true;
+        posts[postIndex].number_of_likes += 1;
         var action = "like";
       }
 
-      this.setState({posts: newPosts});
+      var that = this;
 
-      $.ajax("/api/posts/" + post_id + "/" + action, { method: "POST" });
+      $.ajax("/api/posts/" + post_id + "/" + action, {
+        method: "POST",
+        success: function () {
+          that.setState({posts: posts});
+        },
+        error: function () {
+          $.notify({
+            message: "the attempt to " + action + " that post was unsuccessful."
+          },{
+            type: 'danger'
+          });
+        }
+      });
     }
   },
   deletePost (post_id) {
@@ -41,7 +53,6 @@ var PostList = React.createClass({
           return <Post 
             post={post}
             key={post.id}
-            current_user={props.current_user}
             toggleLike={that.toggleLike}
             deletePost={that.deletePost}
             display_author={props.display_author}/>;
@@ -49,6 +60,7 @@ var PostList = React.createClass({
       </div>
     );
 
-    return this.state.posts.length > 0 ? all_posts : <div><p>Nothing to show here</p></div>
+    return this.state.posts.length > 0 ? all_posts : (
+      <div><p>{this.props.empty_message || "Nothing to show here"}</p></div>)
   }
 });

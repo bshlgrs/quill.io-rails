@@ -1,12 +1,25 @@
 class Api::PostsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:create, :destroy]
+
+  def create
+    @post = Post.new(post_params)
+    @post.user = current_user
+    @post.add_tags_from_array(params[:post][:tags].split(" "))
+
+    if @post.save
+      @posts = current_user.interesting_posts
+      render "api/dashboard/dashboard.json.jbuilder"
+    else
+      render json: @post.errors.full_messages, status: 400
+    end
+  end
 
   def show
     @post = Post.find(params[:id])
     if @post
       render "api/posts/post.json.jbuilder"
     else
-      render status: 404
+      head 404
     end
   end
 
@@ -23,4 +36,9 @@ class Api::PostsController < ApplicationController
       head 404
     end
   end
+
+  private
+    def post_params
+      params.require(:post).permit(:title, :body, :is_rebloggable, :is_private, :post_type)
+    end
 end

@@ -32,7 +32,7 @@ blockquote {
   left: -85px;
 }
 
-.profile-picture-floater img {
+.profile-picture img {
   height: 80px;
   width: 80px;
   border: 1px solid transparent;
@@ -40,23 +40,7 @@ blockquote {
   background-color: grey;
 }
 
-.relative {
-  position: relative;
-}
-
-.profile-picture img {
-  border-radius: 3px;
-}
-
-.big-profile-pic {
-  float: right;
-}
-
 .blog-heading {
   clear: both;
   overflow:hidden;
-}
-
-.big-profile-pic img {
-  border-radius: 20px;
 }

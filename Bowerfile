@@ -3,3 +3,4 @@
 
 asset 'bootstrap'
 asset 'react-bootstrap'
+asset 'remarkable-bootstrap-notify'

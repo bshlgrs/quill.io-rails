@@ -4,10 +4,9 @@
 
 <%= react_component('BlogHeading',
   user: @user,
-  profile_pic_url: @user.guaranteed_profile_pic_url
+  profile_pic_url: @user.guaranteed_profile_pic_url,
+  current_user_is_following: @current_user_is_following
 ) %>
-
-<%= render partial: "relationships/follow_unfollow_buttons", locals: { user: @user } %>
 
 <%= react_component('PostList', 
   initial_state: JSON.parse(render partial: "api/dashboard/dashboard.json", locals: { posts: @posts }),

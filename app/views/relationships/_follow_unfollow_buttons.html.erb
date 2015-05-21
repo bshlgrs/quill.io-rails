@@ -1,7 +1,0 @@
-<% if current_user && user != current_user %>
-  <% if current_user.is_following?(user) %>
-    <%= button_to "unfollow", unfollow_url(user), class: "btn btn-default" %>
-  <% else %>
-    <%= button_to "follow", follow_url(user), class: "btn btn-default" %>
-  <% end %>
-<% end %>
