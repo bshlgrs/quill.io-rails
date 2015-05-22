@@ -7,8 +7,7 @@ class Api::PostsController < ApplicationController
     @post.add_tags_from_array(params[:post][:tags].split(" "))
 
     if @post.save
-      @posts = current_user.interesting_posts
-      render "api/dashboard/dashboard.json.jbuilder"
+      render "api/posts/post.json.jbuilder"
     else
       render json: @post.errors.full_messages, status: 400
     end

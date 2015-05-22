@@ -1,16 +1,14 @@
-/** @jsx React.DOM */
-
 var PostButtons = React.createClass({
   handleLikeClick () {
-    this.props.toggleLike(this.props.post_id);
+    this.props.toggleLike(this.props.post.id);
   },
   handleDeleteClick () {
-    this.props.deletePost(this.props.post_id);
+    this.props.deletePost(this.props.post.id);
   },
   render () {
     var props = this.props;
 
-    var color = props.current_user_likes_this ? "red" : "white";
+    var color = props.post.current_user_likes_this ? "red" : "white";
 
     var like_button =
       <a className="btn btn-sm">
@@ -22,28 +20,14 @@ var PostButtons = React.createClass({
         </span>
       </a>;
 
-    var reblog_button = 
-      <a href={"/?reblog=" + props.post_id}>
-        <span
-          className="glyphicon glyphicon-retweet"
-          aria-hidden="true">
-        </span>
-      </a>
+    var reblog_button = <ReblogButton post={props.post}/>;
 
     return (
       <span className="pull-right">
         { props.user_id != current_user.id && like_button }
         { props.is_rebloggable && reblog_button }
         { props.user_id == current_user.id && 
-          <a 
-            href="#" 
-            className="btn btn-sm"
-            onClick={this.handleDeleteClick}>
-            <span
-              className="glyphicon glyphicon-trash"
-              aria-hidden="true">
-            </span>
-          </a> }
+          <PostModifyPopoverButtons post={props.post} handleDeleteClick={this.handleDeleteClick}/> }
       </span>
     )
   }

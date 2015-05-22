@@ -28,7 +28,7 @@ var Post = React.createClass({
 
     var tags = post.tags.map(function(tag, n) {
       return <Tag tag={tag} key={tag}/>;
-    })
+    });
 
     var date = false && <div><small>{post.created_at}</small></div>;
 
@@ -65,8 +65,7 @@ var Post = React.createClass({
 
           { current_user &&
             <PostButtons
-              current_user_likes_this={post.current_user_likes_this}
-              post_id={post.id}
+              post={post}
               user_id={post.user.id}
               toggleLike={props.toggleLike}
               deletePost={props.deletePost}

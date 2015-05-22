@@ -1,4 +1,4 @@
-var NewTextPostForm = React.createClass({
+const NewTextPostForm = React.createClass({
   getInitialState () {
     return {
       title: "",
@@ -18,12 +18,18 @@ var NewTextPostForm = React.createClass({
       "post[is_private]": this.state.is_private,
       "post[is_rebloggable]": this.state.is_rebloggable
     };
+
+    var that = this;
     
     $.ajax("/api/posts", {
       method: "POST",
       data: data,
-      success: function (x) {
-        location.reload();
+      success: function (newPost) {
+        var newPosts = DashboardPostListGetState().posts;
+        newPosts.unshift(newPost)
+        DashboardPostListSetState({posts: newPosts});
+        that.setState(that.getInitialState())
+        $("#newTextPost").collapse("hide");
       },
       error: function (x) {
         x.responseJSON.map(function(error) {
