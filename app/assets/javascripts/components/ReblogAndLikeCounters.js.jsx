@@ -3,24 +3,25 @@
 var ReblogAndLikeCounters = React.createClass({
   render () {
     var props = this.props;
+    var post = props.post;
 
-    if (props.collapsible_reblogs && props.reblogs.length) {
+    if (props.collapsible_reblogs && post.reblogs.length) {
       var reblog_stuff = <span>
         <a data-toggle="collapse" 
-            data-target={"#comments-on-" + props.post_id}>
-          {props.reblogs.length + " notes "}
+            data-target={"#comments-on-" + post.id}>
+          {post.number_of_reblog_descendants + " notes "}
         </a>
         <span>, </span>
       </span>;
   
     } else {
-      var reblog_stuff = <span>{props.reblogs.length + " notes, "}</span>
+      var reblog_stuff = <span>{post.number_of_reblog_descendants + " notes, "}</span>
     }
     
     return (
       <span>
-        {props.is_rebloggable && reblog_stuff}
-        {props.number_of_likes + " likes."}
+        {post.is_rebloggable && reblog_stuff}
+        {post.number_of_likes + " likes."}
       </span>
     )
   }

@@ -40,7 +40,42 @@ blockquote {
   background-color: grey;
 }
 
+.profile-picture-floater-sm {
+  position: absolute;
+  left: -65px;
+}
+
+.profile-picture-sm img {
+  height: 60px;
+  width: 60px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background-color: grey;
+}
+
 .blog-heading {
   clear: both;
   overflow:hidden;
+}
+
+.panel-footer {
+  background-color: #3A3A3A;
+}
+
+.example-enter {
+  opacity: 0.01;
+  transition: opacity .5s ease-in;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+}
+
+.example-leave {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
 }

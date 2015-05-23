@@ -14,6 +14,14 @@ class Post < ActiveRecord::Base
   validate :has_correct_fields
   validates :user, presence: true
 
+  def number_of_notes
+    self.likes.count + self.number_of_reblog_descendants
+  end
+
+  def number_of_reblog_descendants
+    reblogs.length + reblogs.map(&:number_of_reblog_descendants).sum
+  end
+
   def has_correct_fields
     def validate_presence_of(*fields)
       fields.each do |field|
@@ -43,10 +51,6 @@ class Post < ActiveRecord::Base
   # Link post: has url, body
   # Image post: has_many PostImages 
   # reblog: has body, has parent
-
-  def reblog_descendents
-    reblogs.length + reblogs.flat_map(&:reblog_descendants).length
-  end
 
   def parent_chain
     chain = []

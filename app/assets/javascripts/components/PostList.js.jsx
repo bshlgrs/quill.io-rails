@@ -2,6 +2,19 @@
 
 var PostList = React.createClass({
   getInitialState () {
+    var that = this;
+    
+    if (this.props.list_name) {
+      window[this.props.list_name + "SetState"] = function (newstate) {
+        that.setState(newstate);
+      };  
+    }
+    if (this.props.list_name) {
+      window[this.props.list_name + "GetState"] = function () {
+        return that.state;
+      };  
+    }
+
     return this.props.initial_state;
   },
   toggleLike (post_id) {
@@ -51,11 +64,11 @@ var PostList = React.createClass({
       <div>
         {this.state.posts.map( function (post, n) {
           return <Post 
-            post={post}
-            key={post.id}
-            toggleLike={that.toggleLike}
-            deletePost={that.deletePost}
-            display_author={props.display_author}/>;
+                    post={post}
+                    key={post.id}
+                    toggleLike={that.toggleLike}
+                    deletePost={that.deletePost}
+                    display_author={props.display_author}/>;
         })}
       </div>
     );
