@@ -60,7 +60,6 @@ const NewTextPostForm = React.createClass({
   render () {
     return (
       <form>
-        <input type="hidden" name="post[post_type]" value="text_post"/>
         <div className="form-group">
           <label htmlFor="title">Title</label>
           <input 

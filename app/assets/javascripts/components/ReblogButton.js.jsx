@@ -3,7 +3,7 @@ var ReblogButton = React.createClass({
     var props = this.props;
 
     return (
-      <a href={"/?reblog=" + props.post.id}>
+      <a onClick={props.handleClick}>
         <span
           className="glyphicon glyphicon-retweet"
           aria-hidden="true">

@@ -1,4 +1,10 @@
 var Post = React.createClass({
+  getInitialState () {
+    return { showingForm: false }
+  },
+  flip () {
+    this.setState({showingForm: ! this.state.showingForm});
+  },
   render () {
     var props = this.props;
     var post = props.post;
@@ -33,47 +39,56 @@ var Post = React.createClass({
     var date = false && <div><small>{post.created_at}</small></div>;
 
     return (
-      <div className="panel panel-default">
-        { props.display_author && 
-          <ProfilePicture src={post.user.guaranteed_profile_pic_url}/>}
-
-        <div className="panel-body">
+      <div>
+        <div className="panel panel-default">
           { props.display_author && 
-            <UserName user={post.user}/> }
-
-          <a href={"/blogs/" + post.user.username + "/posts/" + post.id}>
-            { props.big_title 
-              ? <h2>{post.title} {private_tag}</h2>
-              : <h3>{post.title} {private_tag}</h3>
-            }
-          </a>
-
-          {date}
-
-          <div>
-            {body}
-          </div>
-
-          <ReblogAndLikeCounters 
-            collapsible_reblogs={props.collapsible_reblogs}
-            reblogs={post.reblogs}
-            is_rebloggable={post.is_rebloggable}
-            reblogs={post.reblogs}
-            number_of_likes={post.number_of_likes}
-            current_user={props.current_user}
-            post_id={post.id}/>
-
-          { current_user &&
-            <PostButtons
-              post={post}
-              user_id={post.user.id}
-              toggleLike={props.toggleLike}
-              deletePost={props.deletePost}
-              is_rebloggable={post.is_rebloggable}/>
+            <a href={"/blogs/"+post.user.username}>
+              <ProfilePicture src={post.user.guaranteed_profile_pic_url}/>
+            </a>
           }
 
-          { tags }
+          <div className="panel-body">
+            { props.display_author && 
+              <UserName user={post.user}/> }
+
+            <a href={"/blogs/" + post.user.username + "/posts/" + post.id}>
+              { props.big_title 
+                ? <h2>{post.title} {private_tag}</h2>
+                : <h3>{post.title} {private_tag}</h3>
+              }
+            </a>
+
+            {date}
+
+            <div>
+              {body}
+            </div>
+          </div>
+
+          <div className="panel-footer">
+            <ReblogAndLikeCounters 
+              collapsible_reblogs={props.collapsible_reblogs}
+              post={post}/>
+
+            { current_user &&
+              <PostButtons
+                post={post}
+                user_id={post.user.id}
+                toggleLike={props.toggleLike}
+                deletePost={props.deletePost}
+                is_rebloggable={post.is_rebloggable}
+                reblog_toggle_buttons={this.flip}/>
+            }
+
+            { tags }
+          </div>
         </div>
+
+        <ReactCSSTransitionGroup transitionName="example">
+          { this.state.showingForm &&            
+            <NewReblogForm flip={this.flip} parent_id={post.id}/>
+          }
+        </ReactCSSTransitionGroup>
       </div>
     );
   }

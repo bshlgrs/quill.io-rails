@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require react
+//= require react_with_addons
 //= require react_ujs
 //= require bootstrap/bootstrap
 //= require react-bootstrap/react-bootstrap

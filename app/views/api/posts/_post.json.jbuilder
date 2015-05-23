@@ -4,6 +4,7 @@ json.number_of_likes post.likes.count
 json.is_private post.is_private
 json.is_rebloggable post.is_rebloggable
 json.created_at post.created_at
+json.number_of_reblog_descendants post.number_of_reblog_descendants
 
 json.user post.user, :id, :username, :description, :require_permission_to_follow, :guaranteed_profile_pic_url
 

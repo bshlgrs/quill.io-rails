@@ -20,7 +20,7 @@ var PostButtons = React.createClass({
         </span>
       </a>;
 
-    var reblog_button = <ReblogButton post={props.post}/>;
+    var reblog_button = <ReblogButton post={props.post} handleClick={props.reblog_toggle_buttons}/>;
 
     return (
       <span className="pull-right">

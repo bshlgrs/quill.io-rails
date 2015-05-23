@@ -3,6 +3,9 @@
   "dependencies": {
     "bootstrap": "latest",
     "react-bootstrap": "latest",
-    "remarkable-bootstrap-notify": "latest"
+    "remarkable-bootstrap-notify": "latest",
+    "react-with-addons": "latest"
+  },
+  "resolutions": {
   }
 }
