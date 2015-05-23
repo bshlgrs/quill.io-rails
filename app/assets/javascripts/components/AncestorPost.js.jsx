@@ -5,6 +5,7 @@ var AncestorPost = React.createClass({
     return (<div className="panel panel-default">
       <div className="panel-body">
         <UserNameLink username={props.post.user.username}/><br/>
+        { props.post.title && <h4>{props.post.title}</h4> }
         {props.post.body}
       </div>
     </div>);
