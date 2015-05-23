@@ -22,12 +22,17 @@ var PostButtons = React.createClass({
 
     var reblog_button = <ReblogButton post={props.post} handleClick={props.reblog_toggle_buttons}/>;
 
+    var post = props.post;
+
     return (
       <span className="pull-right">
         { props.user_id != current_user.id && like_button }
         { props.is_rebloggable && reblog_button }
         { props.user_id == current_user.id && 
           <PostModifyPopoverButtons post={props.post} handleDeleteClick={this.handleDeleteClick}/> }
+        { <a href={"/blogs/"+post.user.username+"/posts/"+post.id}>
+            <span className="glyphicon glyphicon-link" />
+          </a> }
       </span>
     )
   }
