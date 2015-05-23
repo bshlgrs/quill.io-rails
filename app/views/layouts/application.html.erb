@@ -13,8 +13,8 @@
 
   
   <script>
-    window.current_user = <%= (render partial: "api/users/user.json.jbuilder", 
-      locals: { user: current_user }).html_safe %>;
+    window.current_user = <%= current_user ? (render partial: "api/users/user.json.jbuilder", 
+      locals: { user: current_user }).html_safe : "undefined" %>;
   </script>
 
 </head>
