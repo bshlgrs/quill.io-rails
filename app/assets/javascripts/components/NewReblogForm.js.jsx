@@ -75,14 +75,12 @@ const NewReblogForm = React.createClass({
               onChange={this.handleBodyChange}/>
 
             <br/>
-            <div className="form-group">
-              <label htmlFor="tags">tags</label>
-              <input 
-                className="form-control" 
-                name="tags" 
-                value={this.state.tags} 
-                onChange={this.handleTagsChange}/>
-            </div>
+            <input
+              className="form-control input-sm" 
+              name="tags" 
+              value={this.state.tags} 
+              placeholder="tags"
+              onChange={this.handleTagsChange}/>
 
             <span>
               <label htmlFor="post[is_rebloggable]">rebloggable</label>
@@ -92,9 +90,9 @@ const NewReblogForm = React.createClass({
                 size="mini"
                 checked={this.state.is_rebloggable}
                 onChange={this.handleIsRebloggableChange}/>
-            </span>
 
-            <span>
+
+
               <label htmlFor="post[is_private]">private</label>
               <input 
                 type="checkbox" 
@@ -104,7 +102,7 @@ const NewReblogForm = React.createClass({
                 onChange={this.handleIsPrivateChange}/>
             </span>
 
-            <button className='btn pull-right btn-primary' onClick={this.postForm}>Post</button>
+            <button className='btn pull-right btn-primary btn-sm' onClick={this.postForm}>Post</button>
           </form>
         </div>
       </div>

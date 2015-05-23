@@ -49,7 +49,9 @@ var Post = React.createClass({
 
           <div className="panel-body">
             { props.display_author && 
-              <UserName user={post.user}/> }
+              <a href={"/blogs/" + post.user.username + "/posts/" + post.id}>
+                <strong>{post.user.username}</strong>
+              </a>}
 
             <a href={"/blogs/" + post.user.username + "/posts/" + post.id}>
               { props.big_title 
