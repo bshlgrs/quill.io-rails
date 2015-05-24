@@ -33,7 +33,7 @@ var Post = React.createClass({
     }
 
     var tags = post.tags.map(function(tag, n) {
-      return <Tag tag={tag} key={tag}/>;
+      return <Tag tag={tag} key={tag+"/"+n}/>;
     });
 
     var date = false && <div><small>{post.created_at}</small></div>;

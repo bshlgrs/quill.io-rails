@@ -24,11 +24,15 @@ const NewReblogForm = React.createClass({
       method: "POST",
       data: data,
       success: function (newPost) {
-        var newPosts = DashboardPostListGetState().posts;
-        newPosts.unshift(newPost)
-        DashboardPostListSetState({posts: newPosts});
-        that.setState(that.getInitialState())
-        that.props.flip()
+        if (location.pathname == "/") {
+          var newPosts = DashboardPostListGetState().posts;
+          newPosts.unshift(newPost)
+          DashboardPostListSetState({posts: newPosts});
+          that.setState(that.getInitialState());
+          that.props.flip();
+        } else {
+          location.pathname = "/";
+        }
       },
       error: function (x) {
         x.responseJSON.map(function(error) {
