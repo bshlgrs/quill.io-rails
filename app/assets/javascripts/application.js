@@ -18,5 +18,6 @@
 //= require marked.min.js
 //= require react-bootstrap/react-bootstrap
 //= require remarkable-bootstrap-notify/bootstrap-notify
+//= require katex
 //= require imports
 //= require_tree .

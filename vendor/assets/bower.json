@@ -4,7 +4,8 @@
     "bootstrap": "latest",
     "react-bootstrap": "latest",
     "remarkable-bootstrap-notify": "latest",
-    "marked": "latest"
+    "marked": "latest",
+    "katex": "latest"
   },
   "resolutions": {
   }
