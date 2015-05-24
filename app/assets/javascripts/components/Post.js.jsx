@@ -15,7 +15,7 @@ var Post = React.createClass({
     var body;
 
     if (post.post_type == "text_post") {
-      body = <div dangerouslySetInnerHTML={{__html: marked(post.body)}} />;
+      body = <div dangerouslySetInnerHTML={{__html: customRenderMarkdown(post.body)}} />;
     } else if (post.post_type == "reblog") {
 
       body = <div>
@@ -26,7 +26,7 @@ var Post = React.createClass({
             toggleLike={that.toggleLike}
             deletePost={that.deletePost} />;
         })}
-        <div dangerouslySetInnerHTML={{__html: marked(post.body)}} />
+        <div dangerouslySetInnerHTML={{__html: customRenderMarkdown(post.body)}} />
       </div>;
     } else {
       throw "unrecognised post type: " + post.post_type;

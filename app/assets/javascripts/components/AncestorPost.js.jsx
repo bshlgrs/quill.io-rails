@@ -6,7 +6,7 @@ var AncestorPost = React.createClass({
       <div className="panel-body">
         <UserNameLink username={props.post.user.username}/><br/>
         { props.post.title && <h4>{props.post.title}</h4> }
-        <div dangerouslySetInnerHTML={{__html: marked(props.post.body)}} />
+        <div dangerouslySetInnerHTML={{__html: customRenderMarkdown(props.post.body)}} />
       </div>
     </div>);
   }
