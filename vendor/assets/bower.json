@@ -4,7 +4,7 @@
     "bootstrap": "latest",
     "react-bootstrap": "latest",
     "remarkable-bootstrap-notify": "latest",
-    "react-with-addons": "latest"
+    "marked": "latest"
   },
   "resolutions": {
   }

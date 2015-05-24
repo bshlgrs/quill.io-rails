@@ -15,6 +15,7 @@
 //= require react_with_addons
 //= require react_ujs
 //= require bootstrap/bootstrap
+//= require marked.min.js
 //= require react-bootstrap/react-bootstrap
 //= require remarkable-bootstrap-notify/bootstrap-notify
 //= require imports

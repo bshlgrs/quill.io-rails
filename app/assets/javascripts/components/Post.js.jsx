@@ -15,7 +15,7 @@ var Post = React.createClass({
     var body;
 
     if (post.post_type == "text_post") {
-      body = post.body;
+      body = <div dangerouslySetInnerHTML={{__html: marked(post.body)}} />;
     } else if (post.post_type == "reblog") {
 
       body = <div>
@@ -26,11 +26,12 @@ var Post = React.createClass({
             toggleLike={that.toggleLike}
             deletePost={that.deletePost} />;
         })}
-        {post.body}
+        <div dangerouslySetInnerHTML={{__html: marked(post.body)}} />
       </div>;
     } else {
       throw "unrecognised post type: " + post.post_type;
     }
+
 
     var tags = post.tags.map(function(tag, n) {
       return <Tag tag={tag} key={tag+"/"+n}/>;
@@ -62,9 +63,7 @@ var Post = React.createClass({
 
             {date}
 
-            <div>
-              {body}
-            </div>
+            {body}
           </div>
 
           <div className="panel-footer">
