@@ -1,4 +1,4 @@
-<h2>posts tagged <%= @tag %></h2>
+<h2>posts tagged #<%= @tag %></h2>
 
 <%= react_component('PostList', 
   initial_state: JSON.parse(render partial: "api/dashboard/dashboard.json", locals: { posts: @posts }),

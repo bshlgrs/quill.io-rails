@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     end
 
     get "dashboard", to: "dashboard#dashboard", as: "dashboard"
+    get "top_posts", to: "dashboard#top_posts", as: "top_posts"
   end
 
   get "following", to: "following#index", as: "following"
