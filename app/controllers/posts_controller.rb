@@ -6,6 +6,12 @@ class PostsController < ApplicationController
     render :show
   end
 
+  def raw
+    @post = Post.find(params[:post_id])
+
+    render :text => @post.body
+  end
+
   def create
     case params[:post][:post_type]
     when "text_post"
