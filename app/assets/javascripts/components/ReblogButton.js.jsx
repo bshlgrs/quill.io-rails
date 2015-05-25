@@ -3,12 +3,11 @@ var ReblogButton = React.createClass({
     var props = this.props;
 
     return (
-      <a onClick={props.handleClick}>
-        <span
-          className="glyphicon glyphicon-retweet grow"
+        <span 
+          onClick={props.handleClick}
+          className="glyphicon glyphicon-retweet grow icon-button"
           aria-hidden="true">
         </span>
-      </a>
     );
   }
 });

@@ -6,7 +6,7 @@ var PostModifyPopoverButtons = React.createClass({
       <ReactBootstrap.Popover>
         <span
           onClick={props.handleDeleteClick}
-          className="btn btn-sm glyphicon glyphicon-trash"
+          className="glyphicon glyphicon-trash icon-button"
           aria-hidden="true">
         </span>
       </ReactBootstrap.Popover>);
@@ -17,7 +17,7 @@ var PostModifyPopoverButtons = React.createClass({
         placement='top'
         overlay={popover}>
         <span
-          className="glyphicon glyphicon-cog btn btn-md"
+          className="glyphicon glyphicon-cog icon-button"
           aria-hidden="true">
         </span>
       </ReactBootstrap.OverlayTrigger>);
