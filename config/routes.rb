@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   root to: 'dashboard#dashboard'
 
   resources :blogs, :only => [:show] do
-    resources :posts, :only => [:show]
+    resources :posts, :only => [:show] do
+      get "raw"
+    end
+
     resources :reblogs, :only => [:show]
   end
 
