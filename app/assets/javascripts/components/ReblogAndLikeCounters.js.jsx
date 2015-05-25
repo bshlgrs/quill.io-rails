@@ -7,8 +7,7 @@ var ReblogAndLikeCounters = React.createClass({
 
     if (props.collapsible_reblogs && post.reblogs.length) {
       var reblog_stuff = <span>
-        <a data-toggle="collapse" 
-            data-target={"#comments-on-" + post.id}>
+        <a onClick={props.showReblogs}>
           {post.number_of_reblog_descendants + " notes "}
         </a>
         <span>, </span>

@@ -134,15 +134,26 @@ blockquote {
   transform: rotateY( 0deg );
 }
 
-.comment-section {
+.comments-section {
   margin-left:20px;
 }
 
 .nested-reblog-post {
-  margin: 0px;
-  padding: 0px;
+  margin-bottom: 5px;
+  padding: 5px;/*
+  border-style: solid;
+  border-color: gray;
+  border-width: 2px;*/
+  background-color: #4e5d6c;
 }
 
 .nested-reblog-post:hover {
   background-color: rgba(105, 121, 137, 1);
+}
+
+.icon-button {
+  color: #df691a;
+  font-size: 18px;
+  margin-left: 10px;
+  margin-right: 10px;
 }

@@ -5,6 +5,15 @@ var Post = React.createClass({
   flip () {
     this.setState({showingForm: ! this.state.showingForm});
   },
+  parent_id () {
+    var post = this.props.post;
+
+    if (post.post_type == "reblog" && post.body.trim() == "") {
+      return post.parent_id;
+    } else {
+      return post.id;
+    }
+  },
   render () {
     var props = this.props;
     var post = props.post;
@@ -17,7 +26,6 @@ var Post = React.createClass({
     if (post.post_type == "text_post") {
       body = <div dangerouslySetInnerHTML={{__html: customRenderMarkdown(post.body)}} />;
     } else if (post.post_type == "reblog") {
-
       body = <div>
         <div className="ancestor-posts-container">
           {props.post.ancestors.map( function (post, n) {
@@ -65,15 +73,12 @@ var Post = React.createClass({
               }
             </a>
 
-            
-
             {body}
           </div>
 
           <div className="panel-footer">
             <ReblogAndLikeCounters 
-              collapsible_reblogs={props.collapsible_reblogs}
-              post={post}/>
+              post={post} />
 
             { current_user &&
               <PostButtons
@@ -91,19 +96,11 @@ var Post = React.createClass({
 
         <ReactCSSTransitionGroup transitionName="example">
           { this.state.showingForm &&            
-            <NewReblogForm flip={this.flip} parent_id={post.id}/>
+            <NewReblogForm flip={this.flip} parent_id={this.parent_id()}/>
           }
         </ReactCSSTransitionGroup>
 
-        {props.post.reblogs.length > 0 && 
-          <div className="comment-section">
-            <h4>notes</h4>
-            {props.post.reblogs.map( function (post, n) {
-              return <NestedReblogPost 
-                post={post}
-                key={post.id}/>;
-            })}
-          </div>}
+        <CommentsSection post={post} />
       </div>
     );
   }
