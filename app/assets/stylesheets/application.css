@@ -126,4 +126,23 @@ blockquote {
   background-color: rgba(105, 121, 137, 1);
 }
 
+.ancestor-post img {
+  transform: rotateY( -3deg );
+}
 
+.ancestor-post img:hover {
+  transform: rotateY( 0deg );
+}
+
+.comment-section {
+  margin-left:20px;
+}
+
+.nested-reblog-post {
+  margin: 0px;
+  padding: 0px;
+}
+
+.nested-reblog-post:hover {
+  background-color: rgba(105, 121, 137, 1);
+}

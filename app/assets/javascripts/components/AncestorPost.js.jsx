@@ -9,11 +9,7 @@ var AncestorPost = React.createClass({
 
     return (
       <div className="panel panel-default ancestor-post">
-        <div style={{position: "relative"}}>
-          <div className="profile-picture-sm profile-picture-floater-sm profile-picture">
-            <img src={current_user.guaranteed_profile_pic_url}/>
-          </div>
-        </div>
+        <SmallFloatingProfilePicture src={current_user.guaranteed_profile_pic_url}/>
         <div className="panel-body" onClick={this.goToPost}>
           {date}
           <UserNameLink username={props.post.user.username}/><br/>

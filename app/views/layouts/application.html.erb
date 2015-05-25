@@ -4,10 +4,7 @@
   <% title = yield :title %>
   <title><%= title.length > 0 ? title : "Quill" %></title>
 
-  <!-- I am doing this horribly wrong. Sorry. -->
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
-
-  <script src="node_modules/babel-core/browser.js"></script>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>

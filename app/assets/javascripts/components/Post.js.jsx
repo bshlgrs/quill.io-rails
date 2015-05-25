@@ -94,6 +94,16 @@ var Post = React.createClass({
             <NewReblogForm flip={this.flip} parent_id={post.id}/>
           }
         </ReactCSSTransitionGroup>
+
+        {props.post.reblogs.length > 0 && 
+          <div className="comment-section">
+            <h4>notes</h4>
+            {props.post.reblogs.map( function (post, n) {
+              return <NestedReblogPost 
+                post={post}
+                key={post.id}/>;
+            })}
+          </div>}
       </div>
     );
   }

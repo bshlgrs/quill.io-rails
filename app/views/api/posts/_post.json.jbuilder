@@ -30,6 +30,7 @@ json.reblogs post.reblogs do |reblog|
   json.title reblog.title
   json.id reblog.id
   json.user reblog.user
+  json.created_at reblog.created_at
 end
 
 json.tags post.tags.map(&:tag)
