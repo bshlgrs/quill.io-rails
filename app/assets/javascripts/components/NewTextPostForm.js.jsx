@@ -108,6 +108,12 @@ const NewTextPostForm = React.createClass({
             onChange={this.handleIsPrivateChange}/>
         </span>
 
+        <div
+          className="content"
+          dangerouslySetInnerHTML={{
+            __html: customRenderMarkdown(this.state.body)
+          }}/>
+
         <button className='btn pull-right btn-primary' onClick={this.postForm}>Post</button>
       </form>
     );
