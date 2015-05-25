@@ -1,6 +1,6 @@
 var Post = React.createClass({
   getInitialState () {
-    return { showingForm: false }
+    return { showingForm: false, showingComments: false };
   },
   flip () {
     this.setState({showingForm: ! this.state.showingForm});
@@ -13,6 +13,9 @@ var Post = React.createClass({
     } else {
       return post.id;
     }
+  },
+  toggleShowComments () {
+    this.setState({showingComments: ! this.state.showingComments});
   },
   render () {
     var props = this.props;
@@ -78,7 +81,9 @@ var Post = React.createClass({
 
           <div className="panel-footer">
             <ReblogAndLikeCounters 
-              post={post} />
+              post={post}
+              toggleShowComments={this.toggleShowComments} 
+              collapsible_reblogs={props.collapsible_reblogs} />
 
             { current_user &&
               <PostButtons
@@ -100,7 +105,7 @@ var Post = React.createClass({
           }
         </ReactCSSTransitionGroup>
 
-        <CommentsSection post={post} />
+        { this.state.showingComments && <CommentsSection post={post} />}
       </div>
     );
   }

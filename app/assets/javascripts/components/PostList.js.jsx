@@ -68,6 +68,7 @@ var PostList = React.createClass({
                     key={post.id}
                     toggleLike={that.toggleLike}
                     deletePost={that.deletePost}
+                    collapsible_reblogs={props.collapsible_reblogs}
                     display_author={props.display_author}/>;
         })}
       </div>

@@ -25,7 +25,7 @@ var BlogHeading = React.createClass({
   render () {
     var props = this.props;
 
-    var follow_button = (<button className="btn btn-sm" onClick={this.toggleFollow}>
+    var follow_button = (<button className="btn btn-sm btn-default" onClick={this.toggleFollow}>
       { this.state.current_user_is_following ? "unfollow" : "follow"}
     </button>);
 

@@ -22,6 +22,18 @@ class Post < ActiveRecord::Base
     reblogs.length + reblogs.map(&:number_of_reblog_descendants).sum
   end
 
+  def reblog_descendants(max_depth, max_branching)
+    if max_depth < 0
+      raise "invalid state exception"
+    elsif max_depth == 0
+      return [self]
+    else
+      self.reblogs.order(created_at: :asc).limit(max_branching).flat_map do |post|
+        post.reblog_descendants(max_depth - 1)
+      end
+    end
+  end
+
   def has_correct_fields
     def validate_presence_of(*fields)
       fields.each do |field|

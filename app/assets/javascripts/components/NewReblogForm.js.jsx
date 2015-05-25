@@ -62,53 +62,45 @@ const NewReblogForm = React.createClass({
   },
   render () {
     return (
-      <div className="panel panel-default" key="the-only-thing">
-        <div style={{position: "relative"}}>
-          <div className="profile-picture-sm profile-picture-floater-sm">
-            <img src={current_user.guaranteed_profile_pic_url}/>
-          </div>
-        </div>
+      <div className="nested-reblog-post">
+        <form>
+          <textarea
+            className="form-control"
+            rows="3"
+            name="post[body]"
+            value={this.state.body}
+            onChange={this.handleBodyChange}/>
+          
 
-        <div className="panel-body">
-          <form>
-            <textarea
-              className="form-control"
-              rows="3"
-              name="post[body]"
-              value={this.state.body}
-              onChange={this.handleBodyChange}/>
-
-            <br/>
+          <span>
+            <label htmlFor="post[is_rebloggable]">rebloggable</label>
             <input
-              className="form-control input-sm" 
-              name="tags" 
-              value={this.state.tags} 
-              placeholder="tags"
-              onChange={this.handleTagsChange}/>
+              type="checkbox"
+              name="post[is_rebloggable]" data
+              size="mini"
+              checked={this.state.is_rebloggable}
+              onChange={this.handleIsRebloggableChange}/>
 
-            <span>
-              <label htmlFor="post[is_rebloggable]">rebloggable</label>
-              <input
-                type="checkbox"
-                name="post[is_rebloggable]" data
-                size="mini"
-                checked={this.state.is_rebloggable}
-                onChange={this.handleIsRebloggableChange}/>
+            <label htmlFor="post[is_private]">private</label>
+            <input 
+              type="checkbox" 
+              name="post[is_private]" data-
+              size="mini" 
+              checked={this.state.is_private} 
+              onChange={this.handleIsPrivateChange}/>
 
-              <label htmlFor="post[is_private]">private</label>
-              <input 
-                type="checkbox" 
-                name="post[is_private]" data-
-                size="mini" 
-                checked={this.state.is_private} 
-                onChange={this.handleIsPrivateChange}/>
-            </span>
+            <input
+            className="form-control input-sm" 
+            name="tags" 
+            value={this.state.tags} 
+            placeholder="tags"
+            onChange={this.handleTagsChange}/>
+          </span>
 
-            <button className='btn pull-right btn-primary btn-sm' onClick={this.postForm}>Post</button>
+          <button className='btn pull-right btn-primary btn-sm' onClick={this.postForm}>Post</button>
 
-            <PreviewBox content={this.state.body} />
-          </form>
-        </div>
+          <PreviewBox content={this.state.body} />
+        </form>
       </div>
     );
   }
