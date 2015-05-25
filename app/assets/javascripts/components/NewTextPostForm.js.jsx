@@ -107,12 +107,9 @@ const NewTextPostForm = React.createClass({
             checked={this.state.is_private} 
             onChange={this.handleIsPrivateChange}/>
         </span>
+        <br />
 
-        <div
-          className="content"
-          dangerouslySetInnerHTML={{
-            __html: customRenderMarkdown(this.state.body)
-          }}/>
+        <PreviewBox content={this.state.body} />
 
         <button className='btn pull-right btn-primary' onClick={this.postForm}>Post</button>
       </form>
