@@ -4,15 +4,11 @@ var PostModifyPopoverButtons = React.createClass({
 
     var popover = (
       <ReactBootstrap.Popover>
-        <a 
-        href="#" 
-        className="btn btn-sm"
-        onClick={props.handleDeleteClick}>
-          <span
-            className="glyphicon glyphicon-trash"
-            aria-hidden="true">
-          </span>
-        </a>
+        <span
+          onClick={props.handleDeleteClick}
+          className="btn btn-sm glyphicon glyphicon-trash"
+          aria-hidden="true">
+        </span>
       </ReactBootstrap.Popover>);
 
     return (
@@ -20,12 +16,10 @@ var PostModifyPopoverButtons = React.createClass({
         trigger='click'
         placement='top'
         overlay={popover}>
-        <a href="#" className="btn btn-sm">
-          <span
-            className="glyphicon glyphicon-cog"
-            aria-hidden="true">
-          </span>
-        </a>
+        <span
+          className="glyphicon glyphicon-cog btn btn-md"
+          aria-hidden="true">
+        </span>
       </ReactBootstrap.OverlayTrigger>);
   }
 });
