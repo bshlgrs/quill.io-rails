@@ -39,7 +39,7 @@ var Post = React.createClass({
       return <Tag tag={tag} key={tag+"/"+n}/>;
     });
 
-    var date = false && <div><small>{post.created_at}</small></div>;
+    var date = <span className="pull-right"><small>{humaneDate(new Date(post.created_at))}</small></span>;
 
     return (
       <div>
@@ -56,6 +56,8 @@ var Post = React.createClass({
                 <strong>{post.user.username}</strong>
               </a>}
 
+              {date}
+
             <a href={"/blogs/" + post.user.username + "/posts/" + post.id}>
               { props.big_title 
                 ? <h2>{post.title} {private_tag}</h2>
@@ -63,7 +65,7 @@ var Post = React.createClass({
               }
             </a>
 
-            {date}
+            
 
             {body}
           </div>
@@ -92,6 +94,16 @@ var Post = React.createClass({
             <NewReblogForm flip={this.flip} parent_id={post.id}/>
           }
         </ReactCSSTransitionGroup>
+
+        {props.post.reblogs.length > 0 && 
+          <div className="comment-section">
+            <h4>notes</h4>
+            {props.post.reblogs.map( function (post, n) {
+              return <NestedReblogPost 
+                post={post}
+                key={post.id}/>;
+            })}
+          </div>}
       </div>
     );
   }

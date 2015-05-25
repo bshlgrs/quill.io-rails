@@ -14,7 +14,9 @@
  *= require_self
  */
 
-@import url("https://fonts.googleapis.com/css?family=Roboto:400,700");
+body {
+  font-family: Helvetica, Arial, sans-serif;
+}
 
 blockquote {
   font-size: 14px;
@@ -25,7 +27,6 @@ blockquote {
   border-color: lightgrey;
 }
 
-@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css");
 
 .profile-picture-floater-lg {
   position: absolute;
@@ -113,13 +114,35 @@ blockquote {
   border-style: solid;
   border-color: grey;
   box-shadow: 2px 4px 4px #666;
+  transition: all .2s ease-in-out;
 }
 
-.ancestor-post:nth-child(even) {
-  transform: rotateY( 3deg );
-}
-
-.ancestor-post:nth-child(odd) {
+.ancestor-post {
   transform: rotateY( -3deg );
 }
 
+.ancestor-post:hover {
+  transform: rotateY( 0deg );
+  background-color: rgba(105, 121, 137, 1);
+}
+
+.ancestor-post img {
+  transform: rotateY( -3deg );
+}
+
+.ancestor-post img:hover {
+  transform: rotateY( 0deg );
+}
+
+.comment-section {
+  margin-left:20px;
+}
+
+.nested-reblog-post {
+  margin: 0px;
+  padding: 0px;
+}
+
+.nested-reblog-post:hover {
+  background-color: rgba(105, 121, 137, 1);
+}

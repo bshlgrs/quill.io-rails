@@ -4,10 +4,7 @@
   <% title = yield :title %>
   <title><%= title.length > 0 ? title : "Quill" %></title>
 
-  <!-- I am doing this horribly wrong. Sorry. -->
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
-
-  <script src="node_modules/babel-core/browser.js"></script>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
@@ -50,7 +47,7 @@
     </div>
 
     <div class="col-sm-2">
-      <div class="panel">
+      <div class="panel user-info-box">
           
         <div class="panel-body">
           <% if user_signed_in? %>
@@ -74,11 +71,16 @@
             </p>
             <p><%= link_to('dashboard', root_url) %></p>
             <p><%= link_to('preferences', preferences_url) %></p>
-            <p><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>
+            <p><%= link_to('logout', destroy_user_session_path, :method => :delete) %></p>
           <% else %>
-            <p><%= link_to('Login', new_user_session_path)  %></p>
-            <p><%= link_to('Sign up', new_user_registration_path)  %>  </p>
+            <p><%= link_to('login', new_user_session_path)  %></p>
+            <p><%= link_to('sign up', new_user_registration_path)  %>  </p>
           <% end %>
+
+          <hr>
+
+          <p><a href="#">top users</a></p>
+          <p><a href="#">top posts</a></p>
         </div>
       </div>
     </div>
