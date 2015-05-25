@@ -61,7 +61,7 @@ var PostList = React.createClass({
     var state = this.state;
 
     var all_posts = (
-      <div>
+      <div className="post-list">
         {this.state.posts.map( function (post, n) {
           return <Post 
                     post={post}

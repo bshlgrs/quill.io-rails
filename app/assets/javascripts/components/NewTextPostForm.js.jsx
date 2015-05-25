@@ -107,11 +107,11 @@ const NewTextPostForm = React.createClass({
             checked={this.state.is_private} 
             onChange={this.handleIsPrivateChange}/>
         </span>
+
+        <button className='btn pull-right btn-primary' onClick={this.postForm}>Post</button>
         <br />
 
         <PreviewBox content={this.state.body} />
-
-        <button className='btn pull-right btn-primary' onClick={this.postForm}>Post</button>
       </form>
     );
   }

@@ -95,8 +95,6 @@ const NewReblogForm = React.createClass({
                 checked={this.state.is_rebloggable}
                 onChange={this.handleIsRebloggableChange}/>
 
-
-
               <label htmlFor="post[is_private]">private</label>
               <input 
                 type="checkbox" 
@@ -107,6 +105,8 @@ const NewReblogForm = React.createClass({
             </span>
 
             <button className='btn pull-right btn-primary btn-sm' onClick={this.postForm}>Post</button>
+
+            <PreviewBox content={this.state.body} />
           </form>
         </div>
       </div>

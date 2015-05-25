@@ -13,7 +13,7 @@ var PostButtons = React.createClass({
     var like_button =
       <a className="btn btn-sm">
         <span
-          className="glyphicon glyphicon-heart"
+          className="glyphicon glyphicon-heart grow"
           aria-hidden="true"
           style={{"color": color}}
           onClick={this.handleLikeClick}>
@@ -31,7 +31,7 @@ var PostButtons = React.createClass({
         { props.user_id == current_user.id && 
           <PostModifyPopoverButtons post={props.post} handleDeleteClick={this.handleDeleteClick}/> }
         { <a href={"/blogs/"+post.user.username+"/posts/"+post.id}>
-            <span className="glyphicon glyphicon-link" />
+            <span className="glyphicon glyphicon-link grow" />
           </a> }
       </span>
     )

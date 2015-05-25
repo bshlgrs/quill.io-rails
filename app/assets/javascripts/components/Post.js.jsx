@@ -19,13 +19,15 @@ var Post = React.createClass({
     } else if (post.post_type == "reblog") {
 
       body = <div>
-        {props.post.ancestors.map( function (post, n) {
-          return <AncestorPost 
-            post={post}
-            key={post.id}
-            toggleLike={that.toggleLike}
-            deletePost={that.deletePost} />;
-        })}
+        <div className="ancestor-posts-container">
+          {props.post.ancestors.map( function (post, n) {
+            return <AncestorPost 
+              post={post}
+              key={post.id}
+              toggleLike={that.toggleLike}
+              deletePost={that.deletePost} />;
+          })}
+        </div>
         <div dangerouslySetInnerHTML={{__html: customRenderMarkdown(post.body)}} />
       </div>;
     } else {
@@ -41,7 +43,7 @@ var Post = React.createClass({
 
     return (
       <div>
-        <div className="panel panel-default">
+        <div className="panel panel-default post">
           { props.display_author && 
             <a href={"/blogs/"+post.user.username}>
               <ProfilePicture src={post.user.guaranteed_profile_pic_url}/>
