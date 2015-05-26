@@ -36,6 +36,20 @@ class Api::PostsController < ApplicationController
     end
   end
 
+  def update
+    @post = Post.find(params[:id])
+    if @post
+      if @post.user == current_user
+        p params
+        head 204
+      else
+        head 403
+      end
+    else
+      head 404
+    end
+  end
+
   private
     def post_params
       params.require(:post).permit(:title, :body, :is_rebloggable, :is_private, :post_type, :parent_id)
