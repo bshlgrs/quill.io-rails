@@ -16,7 +16,8 @@ const NewTextPostForm = React.createClass({
       "post[body]": this.state.body,
       "post[tags]": this.state.tags,
       "post[is_private]": this.state.is_private,
-      "post[is_rebloggable]": this.state.is_rebloggable
+      "post[is_rebloggable]": this.state.is_rebloggable,
+      "post[post_status]": "active"
     };
 
     var that = this;
@@ -41,6 +42,9 @@ const NewTextPostForm = React.createClass({
         });
       }
     });
+  },
+  handleHintRequest () {
+    this.setState({body: this.state.body + "\n\nThis is text formatted using Markdown. Links look like [this](quill.io). You can type *italics* or **bold**. You can embed code like `this` or LaTeX like this: `$a^2 + b^2 = c^2$`."});
   },
   handleTitleChange (e) {
     this.setState({title: e.target.value});
@@ -108,10 +112,11 @@ const NewTextPostForm = React.createClass({
             onChange={this.handleIsPrivateChange}/>
         </span>
 
-        <button className='btn pull-right btn-primary' onClick={this.postForm}>Post</button>
+        <button className='btn pull-right btn-primary btn-md' onClick={this.postForm}>Post</button>
+        <button className='btn pull-right btn-success btn-md' onClick={this.saveToDrafts}>Save to drafts</button>
         <br />
 
-        <PreviewBox content={this.state.body} />
+        <PreviewBox content={this.state.body} handleHintRequest={this.handleHintRequest}/>
       </form>
     );
   }

@@ -3,7 +3,8 @@ class Post < ActiveRecord::Base
 
   # if it's a reblog
   belongs_to :parent, class_name: "Post"
-  has_many :reblogs, class_name: "Post", foreign_key: :parent_id
+  has_many :reblogs, -> { where is_private: false, post_status: "active" },
+          class_name: "Post", foreign_key: :parent_id
 
   has_many :image_postings, dependent: :destroy # only if this is an image
 
@@ -13,6 +14,7 @@ class Post < ActiveRecord::Base
 
   validate :has_correct_fields
   validates :user, presence: true
+  validates :post_status, presence: true
 
   def number_of_notes
     self.likes.count + self.number_of_reblog_descendants

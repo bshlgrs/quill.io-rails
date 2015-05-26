@@ -5,9 +5,10 @@
   profile_pic_url: @post.user.guaranteed_profile_pic_url
 ) %>
 
-<%= react_component('SinglePostWrapper', 
-  post: JSON.parse(render partial: "api/posts/post.json", locals: { post: @post }),
+<%= react_component('PostList', 
+  initial_state: {
+    posts: [JSON.parse(render partial: "api/posts/post.json", locals: { post: @post })]
+  },
   big_title: true,
-  current_user: current_user,
   collapsible_reblogs: true,
   display_author: false) %>

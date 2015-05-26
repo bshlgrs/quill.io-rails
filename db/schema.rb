@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150515065122) do
+ActiveRecord::Schema.define(version: 20150525225658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,20 +34,21 @@ ActiveRecord::Schema.define(version: 20150515065122) do
   add_index "likes", ["user_id"], name: "index_likes_on_user_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
-    t.string   "post_type",                      null: false
+    t.string   "post_type",                         null: false
     t.string   "title"
     t.string   "body"
     t.string   "quote_source"
     t.string   "quote_author"
     t.string   "url"
     t.integer  "parent_id"
-    t.integer  "user_id",                        null: false
+    t.integer  "user_id",                           null: false
     t.string   "blob"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.boolean  "is_private",     default: false, null: false
-    t.boolean  "is_rebloggable", default: false, null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.boolean  "is_private",     default: false,    null: false
+    t.boolean  "is_rebloggable", default: false,    null: false
     t.integer  "asker_id"
+    t.string   "post_status",    default: "active", null: false
   end
 
   add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
