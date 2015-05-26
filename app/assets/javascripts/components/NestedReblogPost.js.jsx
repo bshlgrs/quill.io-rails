@@ -17,7 +17,7 @@ var NestedReblogPost = React.createClass({
 
     var date = <span className="pull-right"><small>{humaneDate(new Date(post.created_at))}</small></span>;
 
-    return (
+    var nonEmptyVersion = (
       <div>
         <div className="nested-reblog-post">
           <div onClick={this.goToPost}>
@@ -38,5 +38,16 @@ var NestedReblogPost = React.createClass({
         </ReactCSSTransitionGroup>
       </div>
     );
+
+    var emptyVersion = (
+      <div className="nested-reblog-post">
+        {date}
+        <a href={"/blogs/" + post.user.username + "/posts/" + post.id}>
+          <strong>{post.user.username}</strong> reblogged this
+        </a>
+      </div>    
+      );
+
+    return post.body.trim().length ? nonEmptyVersion : emptyVersion;
   }
 });
