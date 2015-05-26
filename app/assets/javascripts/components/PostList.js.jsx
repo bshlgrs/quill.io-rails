@@ -51,6 +51,31 @@ var PostList = React.createClass({
       });
     }
   },
+  updatePostStatus (post_id, field, newValue) {
+    var postIndex = _.findIndex(this.state.posts, function (x) { return x.id == post_id; });
+    var post = this.state.posts[postIndex];
+    var that = this;
+
+    if (post) {
+      var posts = this.state.posts;
+      
+      $.ajax("/api/posts/" + post_id, {
+        data: { field: newValue },
+        method: "PATCH",
+        success: function () {
+          post[field] = newValue;
+          that.setState({posts: posts});
+        },
+        error: function () {
+          $.notify({
+            message: "that was unsuccessful."
+          },{
+            type: 'danger'
+          });
+        }
+      });
+    }
+  },
   deletePost (post_id) {
     $.ajax("/api/posts/" + post_id, { method: "DELETE" });
     this.setState({posts: _.reject(this.state.posts, function (x) { return x.id == post_id; })});
@@ -67,6 +92,7 @@ var PostList = React.createClass({
                     post={post}
                     key={post.id}
                     toggleLike={that.toggleLike}
+                    updatePostStatus={that.updatePostStatus}
                     deletePost={that.deletePost}
                     collapsible_reblogs={props.collapsible_reblogs}
                     display_author={props.display_author}/>;

@@ -9,6 +9,22 @@ var PostModifyPopoverButtons = React.createClass({
           className="glyphicon glyphicon-trash icon-button"
           aria-hidden="true">
         </span>
+        <span>
+          <label>rebloggable</label>
+          <input
+            type="checkbox"
+            size="mini"
+            checked={props.post.is_rebloggable}
+            onChange={props.handleToggleIsRebloggableClick}/>
+        </span>
+         <span>
+          <label>private</label>
+          <input
+            type="checkbox"
+            size="mini"
+            checked={props.post.is_private}
+            onChange={props.handleToggleIsPrivateClick}/>
+        </span>
       </ReactBootstrap.Popover>);
 
     return (

@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
-    resources :posts, :only => [:show, :destroy, :create] do
+    resources :posts, :only => [:show, :destroy, :create, :update] do
       post "like", to: "likes#like", as: "like"
       post "unlike", to: "likes#unlike", as: "unlike"
     end

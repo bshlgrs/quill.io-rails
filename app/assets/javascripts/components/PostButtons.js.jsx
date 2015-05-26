@@ -5,6 +5,16 @@ var PostButtons = React.createClass({
   handleDeleteClick () {
     this.props.deletePost(this.props.post.id);
   },
+  handleToggleIsPrivateClick () {
+    var post = this.props.post;
+
+    this.props.updatePostStatus(post.id, "is_private", !post.is_private)
+  },
+  handleToggleIsRebloggableClick () {
+    var post = this.props.post;
+
+    this.props.updatePostStatus(post.id, "is_rebloggable", !post.is_rebloggable)
+  },
   render () {
     var props = this.props;
 
@@ -27,7 +37,12 @@ var PostButtons = React.createClass({
         { props.user_id != current_user.id && like_button }
         { props.is_rebloggable && reblog_button }
         { props.user_id == current_user.id && 
-          <PostModifyPopoverButtons post={props.post} handleDeleteClick={this.handleDeleteClick}/> }
+          <PostModifyPopoverButtons 
+            post={props.post}
+            handleDeleteClick={this.handleDeleteClick}
+            handleToggleIsPrivateClick={this.handleToggleIsPrivateClick}
+            handleToggleIsRebloggableClick={this.handleToggleIsRebloggableClick}/>
+          }
         { <a href={"/blogs/"+post.user.username+"/posts/"+post.id}>
             <span className="glyphicon glyphicon-link grow icon-button" />
           </a> }

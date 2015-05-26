@@ -78,7 +78,6 @@ var Post = React.createClass({
 
             {body}
           </div>
-
           <div className="panel-footer">
             <ReblogAndLikeCounters 
               post={post}
@@ -92,6 +91,7 @@ var Post = React.createClass({
                 toggleLike={props.toggleLike}
                 deletePost={props.deletePost}
                 is_rebloggable={post.is_rebloggable}
+                updatePostStatus={props.updatePostStatus}
                 reblog_toggle_buttons={this.flip}/>
             }
 
