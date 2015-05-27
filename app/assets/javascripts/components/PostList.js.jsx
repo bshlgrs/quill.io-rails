@@ -59,8 +59,11 @@ var PostList = React.createClass({
     if (post) {
       var posts = this.state.posts;
       
+      var data = {}
+      data["post[" + field + "]"] = newValue;
+
       $.ajax("/api/posts/" + post_id, {
-        data: { field: newValue },
+        data: data,
         method: "PATCH",
         success: function () {
           post[field] = newValue;

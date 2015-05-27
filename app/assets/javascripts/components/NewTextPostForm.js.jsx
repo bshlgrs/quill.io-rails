@@ -8,8 +8,7 @@ const NewTextPostForm = React.createClass({
       is_rebloggable: true
     }
   },
-  postForm (e) {
-    e.preventDefault();
+  postForm (post_status) {
     var data = {
       "post[post_type]": "text_post",
       "post[title]": this.state.title,
@@ -26,9 +25,17 @@ const NewTextPostForm = React.createClass({
       method: "POST",
       data: data,
       success: function (newPost) {
-        var newPosts = DashboardPostListGetState().posts;
-        newPosts.unshift(newPost)
-        DashboardPostListSetState({posts: newPosts});
+        if (post_status == "active") {
+          var newPosts = DashboardPostListGetState().posts;
+          newPosts.unshift(newPost)
+          DashboardPostListSetState({posts: newPosts});          
+        } else {
+          $.notify({
+            message: "Successfully saved as draft"
+          },{
+            type: 'success'
+          });
+        }
         that.setState(that.getInitialState())
         $("#newTextPost").collapse("hide");
       },
@@ -42,6 +49,14 @@ const NewTextPostForm = React.createClass({
         });
       }
     });
+  },
+  handlePostClick (e) {
+    e.preventDefault();
+    this.postForm("active");
+  },
+  handleSaveToDraftsClick (e) {
+    e.preventDefault();
+    this.postForm("draft");
   },
   handleHintRequest () {
     this.setState({body: this.state.body + "\n\nThis is text formatted using Markdown. Links look like [this](quill.io). You can type *italics* or **bold**. You can embed code like `this` or LaTeX like this: `$a^2 + b^2 = c^2$`."});
@@ -112,8 +127,10 @@ const NewTextPostForm = React.createClass({
             onChange={this.handleIsPrivateChange}/>
         </span>
 
-        <button className='btn pull-right btn-primary btn-md' onClick={this.postForm}>Post</button>
-        <button className='btn pull-right btn-success btn-md' onClick={this.saveToDrafts}>Save to drafts</button>
+        <button className='btn pull-right btn-primary btn-md' onClick={this.handlePostClick}>Post</button>
+        <button className='btn pull-right btn-success btn-md' onClick={this.handleSaveToDraftsClick}>
+          Save to drafts
+        </button>
         <br />
 
         <PreviewBox content={this.state.body} handleHintRequest={this.handleHintRequest}/>

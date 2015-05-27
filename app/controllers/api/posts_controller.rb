@@ -40,7 +40,7 @@ class Api::PostsController < ApplicationController
     @post = Post.find(params[:id])
     if @post
       if @post.user == current_user
-        p params
+        @post.update!(post_params)
         head 204
       else
         head 403

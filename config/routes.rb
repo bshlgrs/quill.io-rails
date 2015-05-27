@@ -31,6 +31,8 @@ Rails.application.routes.draw do
     get "top_posts", to: "dashboard#top_posts", as: "top_posts"
   end
 
+  get "drafts", to: "drafts#index", as: "drafts"
+
   get "following", to: "following#index", as: "following"
   get "followers", to: "followers#index", as: "followers"
 
