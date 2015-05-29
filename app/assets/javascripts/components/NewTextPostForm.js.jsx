@@ -16,7 +16,7 @@ const NewTextPostForm = React.createClass({
       "post[tags]": this.state.tags,
       "post[is_private]": this.state.is_private,
       "post[is_rebloggable]": this.state.is_rebloggable,
-      "post[post_status]": "active"
+      "post[post_status]": post_status
     };
 
     var that = this;

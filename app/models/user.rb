@@ -6,15 +6,32 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  
   has_many :posts
+
+  has_many :active_posts,
+            -> { where post_status: "active" },
+            class_name: "Post",
+            foreign_key: "user_id"
+
+  has_many :publicly_visible_posts,
+            -> { where post_status: "active", is_private: false },
+            class_name: "Post",
+            foreign_key: "user_id"            
+
+  has_many :drafts,
+            -> { where post_status: "draft" },
+            class_name: "Post",
+            foreign_key: "user_id"
 
   has_many :outgoing_user_relationships, class_name: "UserRelationship", foreign_key: "from_user_id"
   has_many :outgoing_follows,
               -> { where relationship_type: "following" },
               class_name: "UserRelationship",
               foreign_key: "from_user_id"
+
   has_many :followed_users, through: :outgoing_follows, source: :to_user
-  has_many :posts_by_followed_users, -> { where is_private: false },
+  has_many :posts_by_followed_users, -> { where is_private: false, post_status: "active" },
               through: :followed_users,
               source: :posts
 
@@ -39,7 +56,7 @@ class User < ActiveRecord::Base
 
   def interesting_posts
     # todo: fix this monstrosity
-    interesting = (posts_by_followed_users + self.posts).sort_by { |x| x.created_at.to_i * -1}
+    interesting = (posts_by_followed_users + self.active_posts).sort_by { |x| x.created_at.to_i * -1}
   end
 
   def block_regexes

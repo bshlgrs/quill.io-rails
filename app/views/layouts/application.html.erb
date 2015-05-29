@@ -56,7 +56,8 @@
             </div>
             <p>Hey there, <%= current_user.username %></p>
             <p><%= link_to('your blog', blog_url(current_user.username)) %></p>
-            <p><%= link_to('your posts', posts_url) %>  <span class="badge"><%= current_user.posts.count %></span></p>
+            <p><%= link_to('your posts', posts_url) %>  <span class="badge"><%= current_user.active_posts.count %></span></p>
+            <p><%= link_to('your drafts', drafts_url) %>  <span class="badge"><%= current_user.drafts.count %></span></p>
             <p>
               <%= link_to('following', following_url) %>  
               <span class="badge">
