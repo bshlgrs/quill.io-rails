@@ -2,7 +2,7 @@ var Post = React.createClass({
   getInitialState () {
     return { showingForm: false, showingComments: false };
   },
-  flip () {
+  toggleReblogForm () {
     this.setState({showingForm: ! this.state.showingForm});
   },
   parent_id () {
@@ -92,7 +92,7 @@ var Post = React.createClass({
                 deletePost={props.deletePost}
                 is_rebloggable={post.is_rebloggable}
                 updatePostStatus={props.updatePostStatus}
-                reblog_toggle_buttons={this.flip}/>
+                reblog_toggle_buttons={this.toggleReblogForm}/>
             }
 
             { tags }
@@ -101,7 +101,7 @@ var Post = React.createClass({
 
         <ReactCSSTransitionGroup transitionName="example">
           { this.state.showingForm &&            
-            <NewReblogForm flip={this.flip} parent_id={this.parent_id()}/>
+            <NewReblogForm toggleReblogForm={this.toggleReblogForm} parent_id={this.parent_id()}/>
           }
         </ReactCSSTransitionGroup>
 

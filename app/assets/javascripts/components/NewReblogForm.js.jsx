@@ -100,6 +100,8 @@ const NewReblogForm = React.createClass({
           <button className='btn pull-right btn-primary btn-sm' onClick={this.postForm}>Post</button>
 
           <PreviewBox content={this.state.body} />
+
+          {this.state.tags && this.state.tags.split(" ").map(function(tag, n) { return <Tag tag={tag} key={n}/>})}
         </form>
       </div>
     );

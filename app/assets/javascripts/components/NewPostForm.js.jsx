@@ -1,33 +1,33 @@
-const NewTextPostForm = React.createClass({
+const NewPostForm = React.createClass({
   getInitialState () {
-    return {
-      title: "",
-      body: "",
+    return this.props.initialPostState && {
       tags: "",
       is_private: false,
       is_rebloggable: true
-    }
+    };
   },
   postForm (post_status) {
     var data = {
-      "post[post_type]": "text_post",
-      "post[title]": this.state.title,
-      "post[body]": this.state.body,
       "post[tags]": this.state.tags,
       "post[is_private]": this.state.is_private,
       "post[is_rebloggable]": this.state.is_rebloggable,
-      "post[post_status]": post_status
+      "post[post_status]": post_status,
+      "post[post_type]": this.props.post_type
     };
 
+    // merge the sub object
+
     var that = this;
+
+    var method = this.props.resource == "new" ? "post" : "put";
     
     $.ajax("/api/posts", {
-      method: "POST",
+      method: method,
       data: data,
       success: function (newPost) {
         if (post_status == "active") {
           var newPosts = DashboardPostListGetState().posts;
-          newPosts.unshift(newPost)
+          newPosts.unshift(newPost);
           DashboardPostListSetState({posts: newPosts});          
         } else {
           $.notify({
@@ -58,15 +58,6 @@ const NewTextPostForm = React.createClass({
     e.preventDefault();
     this.postForm("draft");
   },
-  handleHintRequest () {
-    this.setState({body: this.state.body + "\n\nThis is text formatted using Markdown. Links look like [this](quill.io). You can type *italics* or **bold**. You can embed code like `this` or LaTeX like this: `$a^2 + b^2 = c^2$`."});
-  },
-  handleTitleChange (e) {
-    this.setState({title: e.target.value});
-  },
-  handleBodyChange (e) {
-    this.setState({body: e.target.value});
-  },
   handleTagsChange (e) {
     this.setState({tags: e.target.value});
   },
@@ -77,25 +68,19 @@ const NewTextPostForm = React.createClass({
     this.setState({ is_private: ! this.state.is_private });
   },
   render () {
+    var specificStuff = undefined; // depends on post type
+
+    if (post.post_type == "text_post") {
+      specificStuff = <TextPostBodyForm />;
+    } else if (post.post_type == "reblog") {
+      // this shouldn't happen, I think?
+      throw "I don't think you should be able to make reblogs like this..."
+    } else {
+      throw "unrecognised post type: " + post.post_type;
+    }
     return (
       <form>
-        <div className="form-group">
-          <label htmlFor="title">Title</label>
-          <input 
-            className="form-control" 
-            id="title" 
-            placeholder="Title (optional)" 
-            name="post[title]" 
-            value={this.state.title}
-            onChange={this.handleTitleChange}/>
-        </div>
-        
-        <textarea
-          className="form-control"
-          rows="3"
-          name="post[body]"
-          value={this.state.body}
-          onChange={this.handleBodyChange}/>
+        {specificStuff}
 
         <br/>
         <div className="form-group">
@@ -132,8 +117,6 @@ const NewTextPostForm = React.createClass({
           Save to drafts
         </button>
         <br />
-
-        <PreviewBox content={this.state.body} handleHintRequest={this.handleHintRequest}/>
       </form>
     );
   }

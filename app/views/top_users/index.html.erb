@@ -1,0 +1,7 @@
+<h1>top users</h1>
+
+<% @users.each do |user| %>
+  <%= react_component('UserThing', 
+    user: JSON.parse(render partial: "api/users/user.json", locals: { user: user })) %>
+<% end %>
+

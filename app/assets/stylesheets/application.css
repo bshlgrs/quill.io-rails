@@ -16,10 +16,11 @@
 
 body {
   font-family: Helvetica, Arial, sans-serif;
+  font-size: 16px;
 }
 
 blockquote {
-  font-size: 14px;
+  font-size: 18px;
 }
 
 .child-reblogs {
@@ -157,4 +158,25 @@ blockquote {
   font-size: 18px;
   margin-left: 10px;
   margin-right: 10px;
+}
+
+.user-thing {
+  background-color: grey;
+  width: 200px;
+  float: left;
+  margin: 10px;
+  padding: 10px;
+}
+
+.user-thing-profile-pic {
+  width: 120px;
+}
+
+.user-thing-profile-pic img {
+  height: 100px;
+  width: 100px;
+}
+
+.user-thing-info {
+
 }

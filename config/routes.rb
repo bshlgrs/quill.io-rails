@@ -36,6 +36,9 @@ Rails.application.routes.draw do
   get "following", to: "following#index", as: "following"
   get "followers", to: "followers#index", as: "followers"
 
+  get "top_users", to: "top_users#top_users", as: "top_users"
+  get "top_posts", to: "top_posts#top_posts", as: "top_posts"
+
   get "tags/:tag", to: "tags#show", as: "tag"
 
   post "users/:user_id/follow", :to => "relationships#follow", :as => "follow"

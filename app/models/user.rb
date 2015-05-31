@@ -48,6 +48,10 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email
   validate :name_is_acceptable
 
+  def self.top_users
+    User.all.includes(:incoming_follows).sort_by { |x| - x.incoming_follows.count }
+  end
+
   def name_is_acceptable
     if self.username.include?(".")
       errors.add(:username, "Not allowed periods in usernames")
@@ -68,7 +72,8 @@ class User < ActiveRecord::Base
   end
 
   def is_following?(other_user)
-    followed_users.where(:id => other_user.id).present?
+    @following_cache ||= {}
+    @following_cache[other_user.id] ||= followed_users.where(:id => other_user.id).present?
   end
 
   def follow(other_user)

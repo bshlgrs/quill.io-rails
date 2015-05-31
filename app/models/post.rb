@@ -16,6 +16,12 @@ class Post < ActiveRecord::Base
   validates :user, presence: true
   validates :post_status, presence: true
 
+  def self.top_posts
+    Rails.cache.fetch("top posts", expires_in: 1.hour) do
+      Post.all.sort_by { |x| -x.number_of_notes }.take(20)
+    end    
+  end
+
   def number_of_notes
     self.likes.count + self.number_of_reblog_descendants
   end
