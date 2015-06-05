@@ -12,12 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require react_with_addons
+//= require lib/react_with_addons
 //= require react_ujs
 //= require bootstrap/bootstrap
-//= require marked.min.js
+//= require lib/marked.min.js
 //= require react-bootstrap/react-bootstrap
 //= require remarkable-bootstrap-notify/bootstrap-notify
-//= require katex
+//= require lib/katex
 //= require imports
+//= require_tree ./lib
 //= require_tree .

@@ -1,6 +1,6 @@
 const TextPostBodyForm = React.createClass({
   getInitialState () {
-    return this.props.currentPostContent && {
+    return this.props.post || {
       title: "",
       body: "",
       tags: "",

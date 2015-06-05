@@ -1,5 +1,5 @@
 <% if current_user %>
-  <%= render partial: "posts/new_text_post", locals: { collapsible: true } %>
+  <%= react_component('NewPostFormTabs', resource: "new") %>
 <% end %>
 
 <%= react_component('PostList', 

@@ -16,10 +16,14 @@ class Post < ActiveRecord::Base
   validates :user, presence: true
   validates :post_status, presence: true
 
+  def get_descendants
+    @descendants ||= Set.new([self] + reblogs.flat_map(&:get_descendants))
+  end
+
   def self.top_posts
     Rails.cache.fetch("top posts", expires_in: 1.hour) do
       Post.all.sort_by { |x| -x.number_of_notes }.take(20)
-    end    
+    end.sort_by { |x| -x.number_of_notes }
   end
 
   def number_of_notes
@@ -36,8 +40,8 @@ class Post < ActiveRecord::Base
     elsif max_depth == 0
       return [self]
     else
-      self.reblogs.order(created_at: :asc).limit(max_branching).flat_map do |post|
-        post.reblog_descendants(max_depth - 1)
+      [self] + self.reblogs.order(created_at: :asc).limit(max_branching).flat_map do |post|
+        post.reblog_descendants(max_depth - 1, max_branching)
       end
     end
   end
@@ -62,7 +66,7 @@ class Post < ActiveRecord::Base
   end
 
   def add_tags_from_array(array)
-    self.tags.new(array.map { |x| {tag: x}})
+    self.tags.new(array.uniq.map { |x| {tag: x}})
   end
 
   # Post types:
@@ -73,14 +77,16 @@ class Post < ActiveRecord::Base
   # reblog: has body, has parent
 
   def parent_chain
-    chain = []
+    @chain ||= begin
+      chain = []
 
-    post = self.parent
-    while post
-      chain << post
-      post = post.parent
+      post = self.parent
+      while post
+        chain << post
+        post = post.parent
+      end
+
+      chain.reverse
     end
-
-    chain.reverse
   end
 end

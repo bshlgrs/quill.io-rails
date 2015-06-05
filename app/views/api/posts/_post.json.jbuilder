@@ -6,10 +6,11 @@ json.is_rebloggable post.is_rebloggable
 json.created_at post.created_at
 json.number_of_reblog_descendants post.number_of_reblog_descendants
 
-json.user post.user, :id, :username, :description, :require_permission_to_follow, :guaranteed_profile_pic_url
+json.user_id post.user_id
 
 if current_user
   json.current_user_likes_this current_user.likes? post
+  json.current_user_is_interested_in_this current_user.is_interested_in_post? post
 end
 
 case post.post_type
@@ -20,17 +21,11 @@ when "reblog"
   json.body post.body
   json.title post.title
   json.parent_id post.parent_id
-  json.ancestors post.parent_chain do |ancestor|
-    json.partial! 'api/posts/post.json.jbuilder', post: ancestor  
-  end
+  json.ancestors post.parent_chain.map(&:id)
 end
 
 json.reblogs post.reblogs do |reblog|
-  json.body reblog.body
-  json.title reblog.title
   json.id reblog.id
-  json.user reblog.user
-  json.created_at reblog.created_at
 end
 
 json.tags post.tags.map(&:tag)

@@ -1,9 +1,22 @@
-var PostModifyPopoverButtons = React.createClass({
+var PostModifyButtons = React.createClass({
+  handleDeleteClick () {
+    this.props.deletePost(this.props.post.id);
+  },
+  handleToggleIsPrivateClick () {
+    var post = this.props.post;
+
+    this.props.updatePostStatus(post.id, "is_private", !post.is_private)
+  },
+  handleToggleIsRebloggableClick () {
+    var post = this.props.post;
+
+    this.props.updatePostStatus(post.id, "is_rebloggable", !post.is_rebloggable)
+  },
   render () {
     var props = this.props;
 
-    var popover = (
-      <ReactBootstrap.Popover>
+    return (
+      <div>
         <span
           onClick={props.handleDeleteClick}
           className="glyphicon glyphicon-trash icon-button"
@@ -25,18 +38,10 @@ var PostModifyPopoverButtons = React.createClass({
             checked={props.post.is_private}
             onChange={props.handleToggleIsPrivateClick}/>
         </span>
-      </ReactBootstrap.Popover>);
-
-    return (
-      <ReactBootstrap.OverlayTrigger
-        trigger='click'
-        placement='top'
-        overlay={popover}>
-        <span
-          className="glyphicon glyphicon-cog icon-button"
-          aria-hidden="true">
+        <span>
+          <a onClick={this.props.handleToggleEditFormClick}>Edit</a>
         </span>
-      </ReactBootstrap.OverlayTrigger>);
+      </div>);
   }
 });
   

@@ -1,4 +1,4 @@
-var UserThing = React.createClass({
+var BlogHeading = React.createClass({
   getInitialState () {
     return { current_user_is_following: this.props.user.current_user_is_following }
   },
@@ -22,32 +22,34 @@ var UserThing = React.createClass({
       }
     })
   },
+  numberOfFollowers () {
+    return this.props.user.number_of_followers + this.state.current_user_is_following - this.props.user.current_user_is_following;
+  },
   render () {
     var props = this.props;
 
-    var follow_button = (<button className="btn btn-md btn-default" onClick={this.toggleFollow}>
+    var follow_button = (<button className="btn btn-sm btn-default" onClick={this.toggleFollow}>
       { this.state.current_user_is_following ? "unfollow" : "follow"}
     </button>);
 
     return (
-      <div className="user-thing panel panel-primary">
-        <div className="panel-body">
-          <div className="user-thing-profile-pic">
+      <div className="blog-heading row">
+        <div className="big-profile-pic col-sm-4">
+          <img height="200" width="200" src={props.profile_pic_url}/>
+        </div>
+
+        <div className="col-sm-8">
+          <h1>
             <a href={"/blogs/"+props.user.username}>
-              <img src={props.profile_pic_url}/>
+              {props.user.username + "'s blog"}
             </a>
-          </div>
-          <div className="user-thing-info">
-            <strong>
-              <a href={"/blogs/"+props.user.username}>
-                {props.user.username}
-              </a>
-            </strong>
+          </h1>
 
-            <p>{ props.user.description }</p>
+          <p className="lead">{ props.user.description }</p>
 
-            { current_user && current_user.id != props.user.id && follow_button }
-          </div>
+          <p>{ this.numberOfFollowers() } followers</p>
+
+          { current_user && current_user.id != props.user.id && follow_button }
         </div>
       </div>);
   }

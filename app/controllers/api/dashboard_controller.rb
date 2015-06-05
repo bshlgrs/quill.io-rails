@@ -1,12 +1,9 @@
 class Api::DashboardController < ApplicationController
   def dashboard
     page = params[:page] || 0
-    if current_user
-      @posts = current_user.interesting_posts.drop(page * 30).take(30)
-    else
-      @posts = Post.order(created_at: :desc).limit(30).drop(page * 30).take(30)
-    end
+    @posts = current_user.interesting_posts.flat_map { |x| x.reblog_descendants(5, 5) }
 
+    @users = @posts.map(&:user)
     render "api/dashboard/dashboard.json.jbuilder"
   end
 

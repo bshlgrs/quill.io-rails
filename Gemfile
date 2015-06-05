@@ -17,6 +17,9 @@ gem 'friendly_id', '~> 5.1.0'
 gem 'faker'
 gem 'execjs'
 
+gem 'dalli'
+gem 'memcachier'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets

@@ -1,22 +1,12 @@
-/** @jsx React.DOM */
+var postsStore = {};
+ 
+postsStore.constants = {
+  UPDATE_POST: "UPDATE_POST",
+  ADD_POST: "ADD_POST",
+  DELETE_POST: "DELETE_POST"
+};
 
-var PostList = React.createClass({
-  getInitialState () {
-    var that = this;
-    
-    if (this.props.list_name) {
-      window[this.props.list_name + "SetState"] = function (newstate) {
-        that.setState(newstate);
-      };  
-    }
-    if (this.props.list_name) {
-      window[this.props.list_name + "GetState"] = function () {
-        return that.state;
-      };  
-    }
-
-    return this.props.initial_state;
-  },
+postsStore.actions = {
   toggleLike (post_id) {
     var postIndex = _.findIndex(this.state.posts, function (x) { return x.id == post_id; });
     var post = this.state.posts[postIndex];
@@ -83,27 +73,50 @@ var PostList = React.createClass({
     $.ajax("/api/posts/" + post_id, { method: "DELETE" });
     this.setState({posts: _.reject(this.state.posts, function (x) { return x.id == post_id; })});
   },
-  render () {
+    postForm (post_status) {
+    var data = {
+      "post[tags]": this.state.tags,
+      "post[is_private]": this.state.is_private,
+      "post[is_rebloggable]": this.state.is_rebloggable,
+      "post[post_status]": post_status,
+      "post[post_type]": this.props.post_type
+    };
+
+    _.defaults(data, this.refs.sub_form.bodyData());
+
     var that = this;
-    var props = this.props;
-    var state = this.state;
 
-    var all_posts = (
-      <div className="post-list">
-        {this.state.posts.map( function (post, n) {
-          return <Post 
-                    post={post}
-                    key={post.id}
-                    toggleLike={that.toggleLike}
-                    updatePostStatus={that.updatePostStatus}
-                    deletePost={that.deletePost}
-                    collapsible_reblogs={props.collapsible_reblogs}
-                    display_author={props.display_author}/>;
-        })}
-      </div>
-    );
+    var method = this.props.resource == "new" ? "post" : "put";
+    
+    var url = this.props.resource == "new" ? "/api/posts" : "/api/posts/" + this.props.post.id;
 
-    return this.state.posts.length > 0 ? all_posts : (
-      <div><p>{this.props.empty_message || "Nothing to show here"}</p></div>)
+    $.ajax(url, {
+      method: method,
+      data: data,
+      success: function (newPost) {
+        if (post_status == "active") {
+          var newPosts = DashboardPostListGetState().posts;
+          newPosts.unshift(newPost);
+          DashboardPostListSetState({posts: newPosts});          
+        } else {
+          $.notify({
+            message: "Successfully saved as draft"
+          },{
+            type: 'success'
+          });
+        }
+        that.setState(that.getInitialState())
+        $("#newTextPost").collapse("hide");
+      },
+      error: function (x) {
+        x.responseJSON.map(function(error) {
+          $.notify({
+            message: error
+          },{
+            type: 'danger'
+          });
+        });
+      }
+    });
   }
-});
+}

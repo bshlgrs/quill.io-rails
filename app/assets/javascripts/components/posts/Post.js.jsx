@@ -1,9 +1,15 @@
 var Post = React.createClass({
   getInitialState () {
-    return { showingForm: false, showingComments: false };
+    return { showingReblogForm: false,
+             showingComments: false,
+             showingEditForm: false,
+             showingModifyButtons: false };
   },
   toggleReblogForm () {
-    this.setState({showingForm: ! this.state.showingForm});
+    this.setState({showingReblogForm: ! this.state.showingReblogForm});
+  },
+  toggleEditForm () {
+    this.setState({showingEditForm: ! this.state.showingEditForm});
   },
   parent_id () {
     var post = this.props.post;
@@ -52,6 +58,30 @@ var Post = React.createClass({
 
     var date = <span className="pull-right"><small>{humaneDate(new Date(post.created_at))}</small></span>;
 
+    var showBody = (
+      <div className="panel-body">
+        { props.display_author && 
+          <a href={"/blogs/" + post.user.username + "/posts/" + post.id}>
+            <strong>{post.user.username}</strong>
+          </a>}
+
+          {date}
+
+        <a href={"/blogs/" + post.user.username + "/posts/" + post.id}>
+          { props.big_title 
+            ? <h2>{post.title} {private_tag}</h2>
+            : <h3>{post.title} {private_tag}</h3>
+          }
+        </a>
+
+        {body}
+      </div>);
+
+    var editBody = (
+      <div className="panel-body">
+        <PostForm post={post} post_type={post.post_type} resource="edit" />
+      </div>);
+
     return (
       <div>
         <div className="panel panel-default post">
@@ -61,46 +91,42 @@ var Post = React.createClass({
             </a>
           }
 
-          <div className="panel-body">
-            { props.display_author && 
-              <a href={"/blogs/" + post.user.username + "/posts/" + post.id}>
-                <strong>{post.user.username}</strong>
-              </a>}
+          { this.state.showingEditForm ? editBody : showBody }
 
-              {date}
-
-            <a href={"/blogs/" + post.user.username + "/posts/" + post.id}>
-              { props.big_title 
-                ? <h2>{post.title} {private_tag}</h2>
-                : <h3>{post.title} {private_tag}</h3>
-              }
-            </a>
-
-            {body}
-          </div>
           <div className="panel-footer">
-            <ReblogAndLikeCounters 
-              post={post}
-              toggleShowComments={this.toggleShowComments} 
-              collapsible_reblogs={props.collapsible_reblogs} />
-
-            { current_user &&
-              <PostButtons
+            <div>
+              <ReblogAndLikeCounters 
                 post={post}
-                user_id={post.user.id}
-                toggleLike={props.toggleLike}
-                deletePost={props.deletePost}
-                is_rebloggable={post.is_rebloggable}
-                updatePostStatus={props.updatePostStatus}
-                reblog_toggle_buttons={this.toggleReblogForm}/>
-            }
+                toggleShowComments={this.toggleShowComments} 
+                collapsible_reblogs={props.collapsible_reblogs} />
+
+              { current_user &&
+                <PostButtons
+                  post={post}
+                  user_id={post.user.id}
+                  toggleLike={props.toggleLike}
+                  deletePost={props.deletePost}
+                  is_rebloggable={post.is_rebloggable}
+                  updatePostStatus={props.updatePostStatus}
+                  toggleReblogForm={this.toggleReblogForm}
+                  handleToggleEditFormClick={this.toggleEditForm}/>
+              }
+            </div>
+
+            // This is broken!
+            <PostModifyButtons
+              post={post} 
+              deletePost={undefined}
+              handleToggleEditFormClick={this.toggleEditForm} 
+              handleToggleIsPrivateClick={this.toggle}/>
+            
 
             { tags }
           </div>
         </div>
 
         <ReactCSSTransitionGroup transitionName="example">
-          { this.state.showingForm &&            
+          { this.state.showingReblogForm &&            
             <NewReblogForm toggleReblogForm={this.toggleReblogForm} parent_id={this.parent_id()}/>
           }
         </ReactCSSTransitionGroup>

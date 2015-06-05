@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => { :registrations => "registrations" }
   
-  root to: 'dashboard#dashboard'
+  get "dashboard", to: 'dashboard#dashboard'
 
   resources :blogs, :only => [:show] do
     resources :posts, :only => [:show] do
@@ -37,7 +37,7 @@ Rails.application.routes.draw do
   get "followers", to: "followers#index", as: "followers"
 
   get "top_users", to: "top_users#top_users", as: "top_users"
-  get "top_posts", to: "top_posts#top_posts", as: "top_posts"
+  root to: "top_posts#top_posts", as: "top_posts"
 
   get "tags/:tag", to: "tags#show", as: "tag"
 

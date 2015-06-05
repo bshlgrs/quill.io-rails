@@ -49,7 +49,9 @@ class User < ActiveRecord::Base
   validate :name_is_acceptable
 
   def self.top_users
-    User.all.includes(:incoming_follows).sort_by { |x| - x.incoming_follows.count }
+    Rails.cache.fetch("top users 2", expires_in: 10.minutes) do
+      User.all.includes(:incoming_follows).sort_by { |x| - x.incoming_follows.count }.take(10)
+    end.sort_by { |x| - x.incoming_follows.count }
   end
 
   def name_is_acceptable
@@ -61,6 +63,10 @@ class User < ActiveRecord::Base
   def interesting_posts
     # todo: fix this monstrosity
     interesting = (posts_by_followed_users + self.active_posts).sort_by { |x| x.created_at.to_i * -1}
+  end
+
+  def is_interested_in_post?(post)
+    self.is_following?(post.user) || post.user == self
   end
 
   def block_regexes
