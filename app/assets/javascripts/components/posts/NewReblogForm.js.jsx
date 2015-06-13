@@ -1,3 +1,4 @@
+
 const NewReblogForm = React.createClass({
   getInitialState () {
     return {

@@ -1,15 +1,17 @@
+
 const PostList = React.createClass({
   render () {
     var that = this;
     var props = this.props;
     var state = this.state;
-
     var all_posts = (
       <div className="post-list">
-        {this.props.posts.map( function (post, n) {
+        {this.props.top_level_posts.map( function (post_id, n) {
           return <Post 
-                    post={post}
-                    key={post.id}
+                    users={props.users}
+                    posts={props.posts}
+                    post={props.posts[post_id]}
+                    key={post_id}
                     toggleLike={that.toggleLike}
                     updatePostStatus={that.updatePostStatus}
                     deletePost={that.deletePost}
@@ -19,7 +21,7 @@ const PostList = React.createClass({
       </div>
     );
 
-    return this.props.posts.length > 0 ? all_posts : (
-      <div><p>{this.props.empty_message || "Nothing to show here"}</p></div>)
+    return this.props.top_level_posts.length > 0 ? all_posts : (
+      <div><p>{this.props.empty_message || "Nothing to show here"}</p></div>);
   }
 });

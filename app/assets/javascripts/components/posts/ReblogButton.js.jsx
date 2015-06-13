@@ -1,3 +1,4 @@
+
 var ReblogButton = React.createClass({
   render () {
     var props = this.props;
@@ -11,4 +12,3 @@ var ReblogButton = React.createClass({
     );
   }
 });
-

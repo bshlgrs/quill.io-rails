@@ -1,3 +1,4 @@
+
 const CommentsSection = React.createClass({
   render () {
     var post = this.props.post;
@@ -14,5 +15,5 @@ const CommentsSection = React.createClass({
           </div>) : <p>no notes</p>}
       </div>);
   }
-})
+});
 

@@ -1,3 +1,4 @@
+
 const PostForm = React.createClass({
   getInitialState () {
     if (this.props.resource == "new") {

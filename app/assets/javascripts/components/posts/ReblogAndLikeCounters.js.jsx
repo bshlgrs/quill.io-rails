@@ -1,5 +1,6 @@
 /** @jsx React.DOM */
 
+
 var ReblogAndLikeCounters = React.createClass({
   render () {
     var props = this.props;
@@ -14,7 +15,7 @@ var ReblogAndLikeCounters = React.createClass({
       </span>;
   
     } else {
-      var reblog_stuff = <span>{post.number_of_reblog_descendants + " notes, "}</span>
+      var reblog_stuff = <span>{post.number_of_reblog_descendants + " notes, "}</span>;
     }
     
     return (
@@ -22,6 +23,6 @@ var ReblogAndLikeCounters = React.createClass({
         {post.is_rebloggable && reblog_stuff}
         {post.number_of_likes + " likes."}
       </span>
-    )
+    );
   }
 });

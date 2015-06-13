@@ -1,3 +1,4 @@
+
 const ReblogBodyForm = React.createClass({
   getInitialState () {
     return this.props.post || {

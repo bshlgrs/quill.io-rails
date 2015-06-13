@@ -1,3 +1,4 @@
+
 var PostButtons = React.createClass({
   handleLikeClick () {
     this.props.toggleLike(this.props.post.id);

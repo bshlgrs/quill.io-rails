@@ -1,3 +1,4 @@
+
 var SmallFloatingProfilePicture = React.createClass({
   render () {
     return (

@@ -1,3 +1,4 @@
+
 var PostModifyButtons = React.createClass({
   handleDeleteClick () {
     this.props.deletePost(this.props.post.id);

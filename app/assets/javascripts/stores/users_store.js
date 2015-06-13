@@ -1,12 +1,39 @@
-var postsStore = {};
+
+var fluxUsers = window.fluxUsers = {};
  
-postsStore.constants = {
+fluxUsers.constants = {
   UPDATE_POST: "UPDATE_POST",
   ADD_POST: "ADD_POST",
   DELETE_POST: "DELETE_POST"
 };
 
-postsStore.actions = {
+fluxUsers.store = Fluxxor.createStore({
+  initialize: function(users) {
+    this.users = users;
+    /* Those users can be updated and deleted */
+    // this.bindActions(fluxUsers.constants.UPDATE_INGREDIENT, this.onUpdateIngredient, fluxUsers.constants.DELETE_INGREDIENT, this.onDeleteIngredient);
+  },
+  getState: function() {
+    /* If someone asks the store what the users are, show them */
+    return {
+      users: this.users,
+    };
+  },
+  onUpdateIngredient: function(payload) {
+    /* Update the model if an ingredient is renamed */
+    payload.ingredient.item = payload.new_name;
+    this.emit("change")
+  },
+  onDeleteIngredient: function(payload) {
+    /* Update the model if an ingredient is deleted */
+    this.users = this.users.filter(function(ingredient) {
+      return ingredient.id != payload.ingredient.id
+    });
+    this.emit("change");
+  }
+});
+
+fluxUsers.actions = {
   toggleLike (post_id) {
     var postIndex = _.findIndex(this.state.posts, function (x) { return x.id == post_id; });
     var post = this.state.posts[postIndex];
@@ -119,4 +146,13 @@ postsStore.actions = {
       }
     });
   }
-}
+};
+
+fluxUsers.init = function(users) {
+  var tempStore = {
+    UsersStore: new fluxUsers.store({
+      users: users
+    })
+  };
+  fluxUsers.flux = new Fluxxor.Flux(tempStore, fluxUsers.actions);
+};

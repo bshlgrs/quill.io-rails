@@ -1,3 +1,4 @@
+
 var ProfilePicture = React.createClass({
   render () {
     return (

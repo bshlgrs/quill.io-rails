@@ -1,3 +1,4 @@
+
 const NewPostFormTabs = React.createClass({
   getInitialState() {
     return {

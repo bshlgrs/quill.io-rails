@@ -62,7 +62,7 @@ class User < ActiveRecord::Base
 
   def interesting_posts
     # todo: fix this monstrosity
-    interesting = (posts_by_followed_users + self.active_posts).sort_by { |x| x.created_at.to_i * -1}
+    @interesting ||= (posts_by_followed_users + self.active_posts).sort_by { |x| x.created_at.to_i * -1 }
   end
 
   def is_interested_in_post?(post)

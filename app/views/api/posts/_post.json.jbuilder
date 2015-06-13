@@ -24,8 +24,6 @@ when "reblog"
   json.ancestors post.parent_chain.map(&:id)
 end
 
-json.reblogs post.reblogs do |reblog|
-  json.id reblog.id
-end
+json.reblogs post.reblogs.map(&:id)
 
 json.tags post.tags.map(&:tag)

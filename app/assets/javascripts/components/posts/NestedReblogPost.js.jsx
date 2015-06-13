@@ -1,3 +1,4 @@
+
 var NestedReblogPost = React.createClass({
   getInitialState () {
     return { showingForm: false }

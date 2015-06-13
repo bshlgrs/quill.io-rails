@@ -1,5 +1,5 @@
 const DashboardPostList = React.createClass({
-  mixins: [FluxMixin, StoreWatchMixin("PostsStore")],
+  mixins: [FluxMixin(React), StoreWatchMixin("PostsStore")],
   getStateFromFlux () {
     var flux = this.getFlux();
     return {
@@ -13,6 +13,6 @@ const DashboardPostList = React.createClass({
     );
   },
   render () {
-    return <PostList posts={this.choosePosts()}>
+    return <PostList posts={this.choosePosts()} />;
   }
 });

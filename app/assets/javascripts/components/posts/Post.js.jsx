@@ -28,6 +28,8 @@ var Post = React.createClass({
     var post = props.post;
     var that = this;
 
+    var user = this.props.users[post.user_id];
+
     var private_tag = props.post.is_private && <span className="label label-default">Private</span>;
 
     var body;
@@ -42,7 +44,8 @@ var Post = React.createClass({
               post={post}
               key={post.id}
               toggleLike={that.toggleLike}
-              deletePost={that.deletePost} />;
+              deletePost={that.deletePost} 
+              {...props}/>;
           })}
         </div>
         <div dangerouslySetInnerHTML={{__html: customRenderMarkdown(post.body)}} />
@@ -61,13 +64,13 @@ var Post = React.createClass({
     var showBody = (
       <div className="panel-body">
         { props.display_author && 
-          <a href={"/blogs/" + post.user.username + "/posts/" + post.id}>
-            <strong>{post.user.username}</strong>
+          <a href={"/blogs/" + user.username + "/posts/" + post.id}>
+            <strong>{user.username}</strong>
           </a>}
 
           {date}
 
-        <a href={"/blogs/" + post.user.username + "/posts/" + post.id}>
+        <a href={"/blogs/" + user.username + "/posts/" + post.id}>
           { props.big_title 
             ? <h2>{post.title} {private_tag}</h2>
             : <h3>{post.title} {private_tag}</h3>
@@ -86,8 +89,8 @@ var Post = React.createClass({
       <div>
         <div className="panel panel-default post">
           { props.display_author && 
-            <a href={"/blogs/"+post.user.username}>
-              <ProfilePicture src={post.user.guaranteed_profile_pic_url}/>
+            <a href={"/blogs/"+user.username}>
+              <ProfilePicture src={user.guaranteed_profile_pic_url}/>
             </a>
           }
 
@@ -103,7 +106,7 @@ var Post = React.createClass({
               { current_user &&
                 <PostButtons
                   post={post}
-                  user_id={post.user.id}
+                  user_id={user_id}
                   toggleLike={props.toggleLike}
                   deletePost={props.deletePost}
                   is_rebloggable={post.is_rebloggable}

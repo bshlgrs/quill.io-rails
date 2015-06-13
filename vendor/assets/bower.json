@@ -5,8 +5,7 @@
     "react-bootstrap": "latest",
     "remarkable-bootstrap-notify": "latest",
     "marked": "latest",
-    "katex": "latest"
-  },
-  "resolutions": {
+    "katex": "latest",
+    "fluxxor": "latest"
   }
 }

@@ -1,5 +1,5 @@
 const BlogPostList = React.createClass({
-  mixins: [FluxMixin, StoreWatchMixin("PostsStore")], // or Fluxxor.FluxMixin(React) ?
+  mixins: [FluxMixin(React), StoreWatchMixin("PostsStore")], // or Fluxxor.FluxMixin(React) ?
   getStateFromFlux () {
     var flux = this.getFlux();
     return {
@@ -13,6 +13,6 @@ const BlogPostList = React.createClass({
     );
   },
   render () {
-    return <PostList posts={this.choosePosts()}>
+    return <PostList posts={this.choosePosts()} />;
   }
 });

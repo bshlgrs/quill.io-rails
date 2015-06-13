@@ -18,7 +18,9 @@
 //= require lib/marked.min.js
 //= require react-bootstrap/react-bootstrap
 //= require remarkable-bootstrap-notify/bootstrap-notify
+//= require fluxxor/fluxxor
 //= require lib/katex
 //= require imports
 //= require_tree ./lib
+//= require_tree ./stores
 //= require_tree .

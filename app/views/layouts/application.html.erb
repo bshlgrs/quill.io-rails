@@ -70,7 +70,7 @@
                 <%= current_user.followers.count %>
               </span>
             </p>
-            <p><%= link_to('dashboard', root_url) %></p>
+            <p><%= link_to('dashboard', "/dashboard") %></p>
             <p><%= link_to('preferences', preferences_url) %></p>
             <p><%= link_to('logout', destroy_user_session_path, :method => :delete) %></p>
           <% else %>

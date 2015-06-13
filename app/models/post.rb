@@ -89,4 +89,8 @@ class Post < ActiveRecord::Base
       chain.reverse
     end
   end
+
+  def relevant_posts
+    [self] + self.parent_chain + self.reblog_descendants(5, 5)
+  end
 end

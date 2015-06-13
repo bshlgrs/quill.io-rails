@@ -1,4 +1,6 @@
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+var FluxMixin = Fluxxor.FluxMixin;
+var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 marked.setOptions({
   renderer: new marked.Renderer(),
@@ -10,3 +12,5 @@ marked.setOptions({
   smartLists: true,
   smartypants: false
 });
+
+

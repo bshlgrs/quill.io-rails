@@ -1,3 +1,4 @@
+
 var UserThing = React.createClass({
   getInitialState () {
     return { current_user_is_following: this.props.user.current_user_is_following }
