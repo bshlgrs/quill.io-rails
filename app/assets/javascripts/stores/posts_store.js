@@ -3,59 +3,69 @@ var fluxPosts = {};
 fluxPosts.constants = {
   UPDATE_POST: "UPDATE_POST",
   ADD_POST: "ADD_POST",
-  DELETE_POST: "DELETE_POST"
+  DELETE_POST: "DELETE_POST",
+  TOGGLE_POST_LIKE: "TOGGLE_POST_LIKE"
 };
 
 fluxPosts.store = Fluxxor.createStore({
   initialize: function(posts) {
     this.posts = posts;
-    /* Those posts can be updated and deleted */
-    // this.bindActions(fluxPosts.constants.UPDATE_INGREDIENT, this.onUpdateIngredient, fluxPosts.constants.DELETE_INGREDIENT, this.onDeleteIngredient);
+    this.bindActions(fluxPosts.constants.UPDATE_POST, this.onUpdatePost, 
+                     fluxPosts.constants.ADD_POST, this.onAddPost,
+                     fluxPosts.constants.DELETE_POST, this.onDeletePost,
+                     fluxPosts.constants.TOGGLE_POST_LIKE, this.onTogglePostLike);
   },
   getState: function() {
-    /* If someone asks the store what the posts are, show them */
     return {
       posts: this.posts,
     };
   },
-  onUpdateIngredient: function(payload) {
-    /* Update the model if an ingredient is renamed */
-    payload.ingredient.item = payload.new_name;
-    this.emit("change")
+  onUpdatePost: function(postData) {
+    if (this.posts[postData.id]) {
+      $.ajax("/api/posts/" + postData.id, {
+        data: postData,
+        method: "PATCH",
+        success: function () {
+          this.posts[postData.id] = postData;
+          this.emit("change");
+        },
+        error: function () {
+          $.notify({ message: "that was unsuccessful." },{ type: 'danger' });
+        }
+      });
+    }
   },
-  onDeleteIngredient: function(payload) {
-    /* Update the model if an ingredient is deleted */
-    this.posts = this.posts.filter(function(ingredient) {
-      return ingredient.id != payload.ingredient.id
-    });
-    this.emit("change");
-  }
-});
-
-fluxPosts.actions = {
-  toggleLike (post_id) {
-    var postIndex = _.findIndex(this.state.posts, function (x) { return x.id == post_id; });
-    var post = this.state.posts[postIndex];
+  onAddPost: function(postData) {
+    $.ajax("/api/posts/", {
+        data: postData,
+        method: "Post",
+        success: function (result) {
+          debugger; // we need to get the id of the result.
+          this.posts[postData.parent_id] && this.posts[postData.parent_id].reblogs.push(result.id);
+          this.posts[result.id] = postData;
+          this.emit("change");
+        },
+        error: function () {
+          $.notify({ message: "that was unsuccessful." },{ type: 'danger' });
+        }
+      });
+  },
+  onTogglePostLike: function(postId) {
+    var post = this.posts[postId];
 
     if (post) {
-      var posts = this.state.posts;
-
-      if (post.current_user_likes_this) {
-        posts[postIndex].current_user_likes_this = false;
-        posts[postIndex].number_of_likes -= 1;
-        var action = "unlike";
-      } else {
-        posts[postIndex].current_user_likes_this = true;
-        posts[postIndex].number_of_likes += 1;
-        var action = "like";
-      }
-
-      var that = this;
+      var action = post.current_user_likes_this ? "unlike" : "like";
 
       $.ajax("/api/posts/" + post_id + "/" + action, {
         method: "POST",
         success: function () {
-          that.setState({posts: posts});
+          if (post.current_user_likes_this) {
+            this.posts[postId].current_user_likes_this = false;
+            this.posts[postId].number_of_likes -= 1;
+          } else {
+            this.posts[postId].current_user_likes_this = true;
+            this.posts[postId].number_of_likes += 1;
+          }
         },
         error: function () {
           $.notify({
@@ -67,6 +77,14 @@ fluxPosts.actions = {
       });
     }
   },
+  onDeletePost: function(post_id) {
+    $.ajax("/api/posts/" + post_id, { method: "DELETE" });
+    this.setState({posts: _.reject(this.state.posts, function (x) { return x.id == post_id; })});
+  }
+});
+
+fluxPosts.actions = {
+  
   updatePostStatus (post_id, field, newValue) {
     var postIndex = _.findIndex(this.state.posts, function (x) { return x.id == post_id; });
     var post = this.state.posts[postIndex];
@@ -95,11 +113,7 @@ fluxPosts.actions = {
       });
     }
   },
-  deletePost (post_id) {
-    $.ajax("/api/posts/" + post_id, { method: "DELETE" });
-    this.setState({posts: _.reject(this.state.posts, function (x) { return x.id == post_id; })});
-  },
-    postForm (post_status) {
+  postForm (post_status) {
     var data = {
       "post[tags]": this.state.tags,
       "post[is_private]": this.state.is_private,

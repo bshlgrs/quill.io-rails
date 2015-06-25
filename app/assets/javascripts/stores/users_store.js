@@ -2,9 +2,8 @@
 var fluxUsers = window.fluxUsers = {};
  
 fluxUsers.constants = {
-  UPDATE_POST: "UPDATE_POST",
-  ADD_POST: "ADD_POST",
-  DELETE_POST: "DELETE_POST"
+  TOGGLE_FOLLOW_USER: "TOGGLE_FOLLOW_USER",
+  BLOCK_USER: "BLOCK_USER"
 };
 
 fluxUsers.store = Fluxxor.createStore({
@@ -18,18 +17,6 @@ fluxUsers.store = Fluxxor.createStore({
     return {
       users: this.users,
     };
-  },
-  onUpdateIngredient: function(payload) {
-    /* Update the model if an ingredient is renamed */
-    payload.ingredient.item = payload.new_name;
-    this.emit("change")
-  },
-  onDeleteIngredient: function(payload) {
-    /* Update the model if an ingredient is deleted */
-    this.users = this.users.filter(function(ingredient) {
-      return ingredient.id != payload.ingredient.id
-    });
-    this.emit("change");
   }
 });
 

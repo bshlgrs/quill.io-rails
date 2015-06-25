@@ -1,7 +1,9 @@
 
 var AncestorPost = React.createClass({
   goToPost () {
-    location.pathname = "/blogs/"+this.props.post.user.username+"/posts/"+this.props.post.id;
+    var props = this.props;
+    var user = props.users[props.post.user_id];
+    location.pathname = "/blogs/"+user.username+"/posts/"+props.post.id;
   },
   render () {
     var props = this.props;

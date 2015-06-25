@@ -16,11 +16,11 @@
 
 body {
   font-family: Helvetica, Arial, sans-serif;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 blockquote {
-  font-size: 18px;
+  font-size: 14px;
 }
 
 .child-reblogs {
@@ -180,4 +180,10 @@ blockquote {
 
 .user-thing-info {
 
+}
+
+.nested-reblogs {
+  /*border-left: dashed thin;*/
+  margin-left: 0px;
+  padding-left: 20px;
 }

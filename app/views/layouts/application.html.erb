@@ -12,7 +12,7 @@
   
   <script>
     window.current_user = <%= current_user ? (render partial: "api/users/user.json.jbuilder", 
-      locals: { user: current_user }).html_safe : "undefined" %>;
+      locals: { user: current_user }).html_safe : "{}" %>;
   </script>
 
 </head>

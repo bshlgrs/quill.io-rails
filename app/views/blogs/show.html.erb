@@ -2,12 +2,33 @@
   Quill: <%= @user.username %>
 <% end %>
 
-<%= react_component('BlogHeading',
+<script id="data" type="application/json">
+  <%= render(partial: "api/dashboard/dashboard.json", 
+        locals: { posts: @posts, top_level_posts: @top_level_posts, users: @users }).html_safe %>
+</script>
+
+<% react_component('BlogHeading',
   user: JSON.parse(render template: "api/users/user.json", locals: { user: @user, posts: @posts })
 ) %>
 
-<%= react_component('PostList', 
-  initial_state: JSON.parse(render template: "api/blogs/show.json", locals: { posts: @posts }),
-  big_title: false,
-  collapsible_reblogs: true,
-  display_author: false) %>
+<div id="blog-posts"></div>
+
+<script>
+  window.loadData = function(data) {
+    window.flux = new Fluxxor.Flux({
+      "PostsStore": new fluxPosts.store(data.posts), "UsersStore": new fluxUsers.store(data.users)
+    }, {});
+
+    React.render(React.createElement(BlogPostList, 
+      { 
+        flux: window.flux,
+        user_id: <%= @user.id %>,
+        top_level_posts: data.top_level_posts
+      }), 
+      $('#blog-posts')[0]);
+  };
+
+  var data = JSON.parse($("#data").html());
+
+  loadData(data);
+</script>

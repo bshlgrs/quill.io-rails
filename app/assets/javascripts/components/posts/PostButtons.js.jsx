@@ -35,14 +35,14 @@ var PostButtons = React.createClass({
 
     return (
       <span className="pull-right">
-        { props.user_id != current_user.id && like_button }
+        { props.user.id != current_user.id && like_button }
         { props.is_rebloggable && reblog_button }
-        { props.user_id == current_user.id && 
+        { props.user.id == current_user.id && 
           <span
             className="glyphicon glyphicon-cog icon-button"
             aria-hidden="true">
           </span> }
-        { <a href={"/blogs/"+post.user.username+"/posts/"+post.id}>
+        { <a href={"/blogs/"+props.user.username+"/posts/"+post.id}>
             <span className="glyphicon glyphicon-link grow icon-button" />
           </a> }
       </span>

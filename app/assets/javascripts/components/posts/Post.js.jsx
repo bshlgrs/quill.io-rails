@@ -1,7 +1,7 @@
 var Post = React.createClass({
   getInitialState () {
     return { showingReblogForm: false,
-             showingComments: false,
+             showingComments: true,
              showingEditForm: false,
              showingModifyButtons: false };
   },
@@ -12,7 +12,7 @@ var Post = React.createClass({
     this.setState({showingEditForm: ! this.state.showingEditForm});
   },
   parent_id () {
-    var post = this.props.post;
+    var post = this.props.posts[this.props.post_id];
 
     if (post.post_type == "reblog" && post.body.trim() == "") {
       return post.parent_id;
@@ -25,12 +25,12 @@ var Post = React.createClass({
   },
   render () {
     var props = this.props;
-    var post = props.post;
+    var post = props.posts[props.post_id];
     var that = this;
 
     var user = this.props.users[post.user_id];
 
-    var private_tag = props.post.is_private && <span className="label label-default">Private</span>;
+    var private_tag = post.is_private && <span className="label label-default">Private</span>;
 
     var body;
 
@@ -39,10 +39,11 @@ var Post = React.createClass({
     } else if (post.post_type == "reblog") {
       body = <div>
         <div className="ancestor-posts-container">
-          {props.post.ancestors.map( function (post, n) {
+          {post.ancestors.map( function (ancestorPostId, n) {
+            var ancestorPost = props.posts[ancestorPostId];
             return <AncestorPost 
-              post={post}
-              key={post.id}
+              post={ancestorPost}
+              key={ancestorPostId}
               toggleLike={that.toggleLike}
               deletePost={that.deletePost} 
               {...props}/>;
@@ -106,7 +107,7 @@ var Post = React.createClass({
               { current_user &&
                 <PostButtons
                   post={post}
-                  user_id={user_id}
+                  user={user}
                   toggleLike={props.toggleLike}
                   deletePost={props.deletePost}
                   is_rebloggable={post.is_rebloggable}
@@ -116,14 +117,13 @@ var Post = React.createClass({
               }
             </div>
 
-            // This is broken!
-            <PostModifyButtons
-              post={post} 
-              deletePost={undefined}
-              handleToggleEditFormClick={this.toggleEditForm} 
-              handleToggleIsPrivateClick={this.toggle}/>
-            
-
+            { current_user.id == post.user_id && 
+              <PostModifyButtons
+                post={post} 
+                deletePost={undefined}
+                handleToggleEditFormClick={this.toggleEditForm} 
+                handleToggleIsPrivateClick={this.toggle}/>
+              }
             { tags }
           </div>
         </div>
@@ -134,7 +134,7 @@ var Post = React.createClass({
           }
         </ReactCSSTransitionGroup>
 
-        { this.state.showingComments && <CommentsSection post={post} />}
+        { this.state.showingComments && <CommentsSection post_id={post.id} posts={props.posts} users={props.users}/>}
       </div>
     );
   }

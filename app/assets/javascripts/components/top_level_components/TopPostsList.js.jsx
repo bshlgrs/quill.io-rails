@@ -7,14 +7,14 @@ const TopPostsList = React.createClass({
       users: flux.store("UsersStore").getState().users
     };
   },
-  // choosePosts () {
-  //   return _.sortBy(
-  //     _.filter(this.state.posts, function (post) { return post.user_id == this.props.user_id; }),
-  //     function (post) { return post.created_at; }
-  //   );
-  // },
   render () {
-    return <div><PostList posts={this.state.posts} top_level_posts={this.props.top_level_posts} users={this.state.users}/></div>;
+    return (<div>
+      <PostList
+         posts={this.state.posts}
+         post_list={this.props.top_level_posts}
+         users={this.state.users}
+         display_author={true}/>
+    </div>);
   }
 });
 
