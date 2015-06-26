@@ -1,7 +1,7 @@
 <h1>all your posts</h1>
 
 <%= react_component('PostList', 
-  initial_state: JSON.parse(render partial: "api/dashboard/dashboard.json", locals: { posts: @posts }),
+  initial_state: JSON.parse(render partial: "api/dashboard/dashboard.json", locals: { posts: @posts, users: @users, top_level_posts: @top_level_posts }),
   big_title: false,
   collapsible_reblogs: true,
   display_author: true) %>

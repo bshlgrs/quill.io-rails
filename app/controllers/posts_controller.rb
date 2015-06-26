@@ -30,7 +30,9 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = current_user.posts
+    @interesting_posts = current_user.posts
+    @posts = @interesting_posts.flat_map { |x| x.relevant_posts }
+    @users = @posts.map(&:user)
     render :index
   end
 
