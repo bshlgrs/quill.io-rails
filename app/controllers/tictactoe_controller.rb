@@ -21,7 +21,7 @@ class TictactoeController < ApplicationController
           render text: "error: it is not plausibly the turn of o.", status: 400
         end
       else
-        render text: "error: this board has an inbalanced number of heads and tails", status: 400
+        render text: "error: this board has an imbalanced number of heads and tails", status: 400
       end
     else
       render text: "error: this was not a valid board", status: 400
