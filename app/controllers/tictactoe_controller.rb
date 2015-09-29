@@ -90,6 +90,8 @@ class Board
   end
 
   def make_move_for_o
+    # all of the mutability in this code makes me sad :(
+
     # win if you can
     [0, 1, 2].each do |row|
       [0, 1, 2].each do |col|
