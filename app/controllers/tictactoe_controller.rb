@@ -47,7 +47,7 @@ class Board
         when "x"
           :cross
         when "o"
-          :naught
+          :nought
         when " "
           nil
         else
@@ -64,7 +64,7 @@ class Board
       case x
       when :cross
         "x"
-      when :naught
+      when :nought
         "o"
       when nil
         " "
@@ -81,19 +81,19 @@ class Board
   end
 
   def is_valid?
-    (count_mark(:naught) - count_mark(:cross)).abs < 2
+    (count_mark(:nought) - count_mark(:cross)).abs < 2
   end
 
   def plausibly_the_turn_of_o?
     # what do I do if the board is invalid?
-    count_mark(:naught) == count_mark(:cross) || count_mark(:naught) == count_mark(:cross) - 1
+    count_mark(:nought) == count_mark(:cross) || count_mark(:nought) == count_mark(:cross) - 1
   end
 
   def make_move_for_o
     [0, 1, 2].each do |row|
       [0, 1, 2].each do |col|
         if @grid[row][col].nil?
-          @grid[row][col] = :naught
+          @grid[row][col] = :nought
           return [row, col]
         end
       end
@@ -105,7 +105,7 @@ class Board
   def make_move(piece, x, y)
     if @grid[x][y] == nil
       string = grid.to_wave_string
-      string[x + y * 3] = piece == :naught ? "o" : x
+      string[x + y * 3] = piece == :nought ? "o" : x
       Board.from_string(string)
     else
       raise new RuntimeException
@@ -126,11 +126,12 @@ class Board
 
     lines = horizontals + verticals + [up_diagonal, down_diagonal]
     
+    p lines
     lines.each do |line|
-      p line
       return :nought if line.all? { |x| x == :nought }
       return :cross if line.all? { |x| x == :cross }
     end
+    nil
   end
 end
 
