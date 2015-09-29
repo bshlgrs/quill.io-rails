@@ -83,9 +83,16 @@ class Board
     ! flattened_grid.contains?(nil)
   end
 
-  # def winner
-  #   @grid.each do |row|
-  #     if row 
-  # end
+  def winner
+    @grid.each do |row|
+      return :nought if row.all? { |x| == :nought }
+      return :cross if row.all? { |x| == :cross }
+    end
+
+    @grid.transpose.each do |row|
+      return :nought if row.all? { |x| == :nought }
+      return :cross if row.all? { |x| == :cross }
+    end
+  end
 end
 
