@@ -1,5 +1,10 @@
 class TictactoeController < ApplicationController
   def move
+    if params["board"].nil?
+      render text: "please include a board parameter", status: 400
+      return
+    end
+
     sent_board = Board.from_string(params["board"])
 
     if sent_board
