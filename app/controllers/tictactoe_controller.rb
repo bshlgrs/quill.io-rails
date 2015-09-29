@@ -5,6 +5,8 @@ class TictactoeController < ApplicationController
     if sent_board
       if sent_board.is_valid?
         if sent_board.plausibly_the_turn_of_o?
+          p sent_board.winner 
+
           sent_board.make_move_for_o
 
           render text: sent_board.to_wave_string
@@ -113,9 +115,10 @@ class Board
     up_diagonal = [@grid[0][0], @grid[1][1], @grid[2][2]]
     down_diagonal = [@grid[2][0], @grid[1][1], @grid[0][2]]
 
-    lines = horizontals + verticals + up_diagonal + down_diagonal
+    lines = horizontals + verticals + [up_diagonal, down_diagonal]
     
     lines.each do |line|
+      p line
       return :nought if line.all? { |x| x == :nought }
       return :cross if line.all? { |x| x == :cross }
     end
