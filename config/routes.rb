@@ -52,4 +52,6 @@ Rails.application.routes.draw do
   resources :reblogs, :only => [:create]
 
   resource "preferences", :only => [:show, :update]
+
+  get "/tic-tac-toe", to: "tictactoe#move"
 end
