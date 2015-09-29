@@ -84,6 +84,7 @@ class Board
   end
 
   def winner
+    # If two players have won, the output of this function is undefined.
     @grid.each do |row|
       return :nought if row.all? { |x| x == :nought }
       return :cross if row.all? { |x| x == :cross }
@@ -93,6 +94,9 @@ class Board
       return :nought if row.all? { |x| x == :nought }
       return :cross if row.all? { |x| x == :cross }
     end
+
+    up_diagonal = [@grid[0][0], @grid[1][1], @grid[2][2]]
+    down_diagonal = [@grid[2][0], @grid[1][1], @grid[0][2]]
   end
 end
 
