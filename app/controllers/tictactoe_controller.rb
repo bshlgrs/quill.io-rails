@@ -119,6 +119,14 @@ class Board
       end
     end
 
+    # if you're playing second, go for the center with your first move
+    if count_mark(:cross) == 1
+      if @grid[1][1].nil?
+        @grid[1][1] = :nought
+        return [1, 1]
+      end
+    end
+
     # move wherever
     [0, 1, 2].each do |row|
       [0, 1, 2].each do |col|
