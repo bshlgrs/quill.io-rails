@@ -7,9 +7,11 @@ class TictactoeController < ApplicationController
         if sent_board.plausibly_the_turn_of_o?
           p sent_board.winner 
 
-          sent_board.make_move_for_o
-
-          render text: sent_board.to_wave_string
+          if sent_board.make_move_for_o
+            render text: sent_board.to_wave_string
+          else
+            render text: "error: there is nowhere o can move.", status: 400  
+          end
         else
           render text: "error: it is not plausibly the turn of o.", status: 400
         end
@@ -87,10 +89,12 @@ class Board
       [0, 1, 2].each do |col|
         if @grid[row][col].nil?
           @grid[row][col] = :naught
-          return
+          return [row, col]
         end
       end
     end
+
+    return nil
   end
 
   def make_move(piece, x, y)
