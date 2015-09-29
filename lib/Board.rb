@@ -85,18 +85,18 @@ class Board
 
   def winner
     # If two players have won, the output of this function is undefined.
-    @grid.each do |row|
-      return :nought if row.all? { |x| x == :nought }
-      return :cross if row.all? { |x| x == :cross }
-    end
-
-    @grid.transpose.each do |row|
-      return :nought if row.all? { |x| x == :nought }
-      return :cross if row.all? { |x| x == :cross }
-    end
+    horizontals = @grid
+    verticals = @grid.transpose
 
     up_diagonal = [@grid[0][0], @grid[1][1], @grid[2][2]]
     down_diagonal = [@grid[2][0], @grid[1][1], @grid[0][2]]
+
+    lines = horizontals + verticals + up_diagonal + down_diagonal
+    
+    lines.each do |line|
+      return :nought if line.all? { |x| x == :nought }
+      return :cross if line.all? { |x| x == :cross }
+    end
   end
 end
 
