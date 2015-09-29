@@ -10,12 +10,15 @@ class TictactoeController < ApplicationController
     if sent_board
       if sent_board.is_valid?
         if sent_board.plausibly_the_turn_of_o?
-          p sent_board.winner 
-
-          if sent_board.make_move_for_o
-            render text: sent_board.to_wave_string
+          # p sent_board.winner 
+          if sent_board.winner
+            render text: "error: someone has already won.", status: 400  
           else
-            render text: "error: there is nowhere o can move.", status: 400  
+            if sent_board.make_move_for_o
+              render text: sent_board.to_wave_string
+            else
+              render text: "error: there is nowhere o can move.", status: 400  
+            end
           end
         else
           render text: "error: it is not plausibly the turn of o.", status: 400
@@ -24,7 +27,7 @@ class TictactoeController < ApplicationController
         render text: "error: this board has an imbalanced number of heads and tails", status: 400
       end
     else
-      render text: "error: this was not a valid board", status: 400
+      render text: "error: this was not a syntactically valid board", status: 400
     end
   end
 end
@@ -96,6 +99,8 @@ class Board
     [0, 1, 2].each do |row|
       [0, 1, 2].each do |col|
         if @grid[row][col].nil?
+          # if make_move(row, col, :nought).winner == :nought
+
           @grid[row][col] = :nought
           if winner == :nought
             return [row, col]
