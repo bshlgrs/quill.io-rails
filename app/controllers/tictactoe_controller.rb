@@ -90,6 +90,36 @@ class Board
   end
 
   def make_move_for_o
+    # win if you can
+    [0, 1, 2].each do |row|
+      [0, 1, 2].each do |col|
+        if @grid[row][col].nil?
+          @grid[row][col] = :nought
+          if winner == :nought
+            return [row, col]
+          else
+            @grid[row][col] = nil
+          end
+        end
+      end
+    end
+
+    # block if you can
+    [0, 1, 2].each do |row|
+      [0, 1, 2].each do |col|
+        if @grid[row][col].nil?
+          @grid[row][col] = :cross
+          if winner == :cross
+            @grid[row][col] = :nought
+            return [row, col]
+          else
+            @grid[row][col] = nil
+          end
+        end
+      end
+    end
+
+    # move wherever
     [0, 1, 2].each do |row|
       [0, 1, 2].each do |col|
         if @grid[row][col].nil?
@@ -126,7 +156,6 @@ class Board
 
     lines = horizontals + verticals + [up_diagonal, down_diagonal]
     
-    p lines
     lines.each do |line|
       return :nought if line.all? { |x| x == :nought }
       return :cross if line.all? { |x| x == :cross }
